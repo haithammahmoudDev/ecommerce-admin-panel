@@ -1,0 +1,137 @@
+import 'package:data_table_2/data_table_2.dart';
+import 'package:ecommerce_admin_pannal/features/banner/domain/entities/banner_entity.dart';
+import 'package:ecommerce_admin_pannal/features/banner/presentation/controller/banner_cubit.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:iconsax/iconsax.dart';
+import '../../../../../../common/widgets/images/t_rounded_image.dart';
+import '../../../../../../utils/constants/colors.dart';
+import '../../../../../../utils/constants/enums.dart';
+import '../../../../../../utils/constants/sizes.dart';
+import '../../../../../categories/presentation/screens/all_categories/table/table_action_icon_button.dart';
+
+class BannersRows extends DataTableSource {
+  final BuildContext context;
+  BannersRows({required this.context});
+
+  late final BannerCubit controller = context.read<BannerCubit>();
+
+  @override
+  DataRow? getRow(int index) {
+    // نفس الـ bounds check اللي في CategoryRows — بيمنع RangeError لحظة
+    // ما filterdItems بتصغر أثناء البحث/الحذف، واللي كان بيبان كأن
+    // الفلتر "مش بيشتغل".
+    if (index < 0 || index >= controller.state.filterdItems.length) {
+      return null;
+    }
+
+    final BannerEntity banner = controller.state.filterdItems[index];
+
+    return DataRow2(
+      selected: index < controller.state.selectedRows.length
+          ? controller.state.selectedRows[index]
+          : false,
+      onTap: () => context.push(
+        'banners/edit-banner',
+        extra: banner,
+      ),
+      onSelectChanged: (value) => controller.toggleRowSelection(index, value),
+      cells: [
+        DataCell(
+          TRoundedImage(
+            width: 180,
+            height: 100,
+            padding: TSizes.sm,
+            image: banner.imageUrl,
+            imageType: ImageType.network,
+            borderRadius: TSizes.borderRadiusMd,
+            backgroundColor: TColors.primaryBackground,
+          ),
+        ),
+        DataCell(Text(controller.formatRoute(banner.targetScreen))),
+        DataCell(
+          banner.active
+              ? const Icon(Iconsax.eye, color: TColors.primary)
+              : const Icon(Iconsax.eye_slash),
+        ),
+        DataCell(
+          TTableActionButtons(
+            onEditPressed: () => context.push(
+              'banners/edit-banner',
+              extra: banner,
+            ),
+            onDeletePressed: () => confirmAndDeleteBrand(
+              context: context,
+              banner: banner,
+              controller: controller,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  @override
+  bool get isRowCountApproximate => false;
+
+  @override
+  int get rowCount => controller.state.filterdItems.length;
+
+  // FIX: استخدمت selectedCount من BaseDataTableState زي CategoryRows
+  // بالظبط بدل إعادة حساب selectedRows.where(...).length يدويًا.
+  @override
+  int get selectedRowCount => controller.state.selectedCount;
+}
+
+void confirmAndDeleteBrand({
+  required BuildContext context,
+  required BannerEntity banner,
+  required BannerCubit controller,
+}) {
+  showDialog(
+    context: context,
+    builder: (dialogContext) => AlertDialog(
+      title: const Text('Delete Brand'),
+      content: const Text('Are you sure you want to delete this brand?'),
+      actions: [
+        // === Confirm ===
+        SizedBox(
+          width: 60,
+          child: ElevatedButton(
+            onPressed: () {
+              dialogContext.pop();
+              controller.deleteOnConfirm(banner, context);
+            },
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.symmetric(
+                vertical: TSizes.buttonHeight / 2,
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(TSizes.buttonRadius * 5),
+              ),
+            ),
+            child: const Text('Ok'),
+          ),
+        ),
+
+        // === Cancel ===
+        SizedBox(
+          width: 60,
+          child: OutlinedButton(
+            onPressed: () => dialogContext.pop(),
+            style: OutlinedButton.styleFrom(
+              padding: const EdgeInsets.symmetric(
+                vertical: TSizes.buttonHeight / 2,
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(TSizes.buttonRadius * 5),
+              ),
+            ),
+            child: const Text('Cancel'),
+          ),
+        ),
+      ],
+    ),
+  );
+}
