@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "601648007192",
+    "project_id": "fit-store-b7042",
+    "storage_bucket": "fit-store-b7042.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:601648007192:android:950dbaeb6e6e505df7db6d",
+        "android_client_info": {
+          "package_name": "com.haitham.ecommerce_admin_pannal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "601648007192-kct8sttd56gea41ddplr6up6rvpnlf9u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrBAsz2WNZRNXTvRsBi3TorS2uGPpdF6Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "601648007192-kct8sttd56gea41ddplr6up6rvpnlf9u.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "601648007192-2i3b2r0d5m11mo8cl0f1fh2trv6hs261.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.haitham.fitStore"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:601648007192:android:f5210fd58ebbba40f7db6d",
+        "android_client_info": {
+          "package_name": "com.haitham.fitstore2026"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "601648007192-5op45capl3ef31k1sdjr6fltld7m9u8o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.haitham.fitstore2026",
+            "certificate_hash": "1d21d8b27cec5cb5243345e349763aaa3775141d"
+          }
+        },
+        {
+          "client_id": "601648007192-kct8sttd56gea41ddplr6up6rvpnlf9u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrBAsz2WNZRNXTvRsBi3TorS2uGPpdF6Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "601648007192-kct8sttd56gea41ddplr6up6rvpnlf9u.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "601648007192-2i3b2r0d5m11mo8cl0f1fh2trv6hs261.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.haitham.fitStore"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
