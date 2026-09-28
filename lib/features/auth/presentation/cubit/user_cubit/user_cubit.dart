@@ -68,7 +68,7 @@ class UserCubit extends Cubit<UserState> {
     );
   }
 
-  Future<void> updateUserData({required UserEntity user}) async {
+  Future<void> updateUserData(BuildContext context, {required UserEntity user}) async {
     if (!isClosed) {
       emit(state.copyWith(userDataStatus: UserDataStatus.loading));
     }
@@ -84,10 +84,14 @@ class UserCubit extends Cubit<UserState> {
             errorMessage: error.message,
             userDataStatus: UserDataStatus.error,
           ));
+          TLoaders.errorSnackBar(title: 'Updated Error', context: context,
+              message: 'Failed to update Your Profile');
         }
       },
           (_) async {
             await LocalStorageService.userRepo.saveData(UserModel.fromEntity(user));
+            TLoaders.successSnackBar(title: 'Updated', context: context,
+                message: 'Your Profile updated successfully!');
         if (!isClosed) {
           emit(state.copyWith(
             user: user,
@@ -111,11 +115,9 @@ class UserCubit extends Cubit<UserState> {
       emit(state.copyWith(userDataStatus: UserDataStatus.loading));
     }
 
-    // 2. أخذ رابط الصورة الأولى المختارة من الميديا
-    ImageModel selectedImage = selectedImages.first;
+     ImageModel selectedImage = selectedImages.first;
 
-    // 3. استدعاء دالة الـ Repository وإرسال رابط الصورة (URL)
-    final result = await _personalizationRepo.updateProfilePictureUrl(imageUrl: selectedImage.url);
+     final result = await _personalizationRepo.updateProfilePictureUrl(imageUrl: selectedImage.url);
 
     if (isClosed) return;
 

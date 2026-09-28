@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
-import '../../../../../routes/routes.dart';
 import '../../../../../utils/constants/sizes.dart';
 import '../../controller/media_cubit/media_cubit.dart';
- import '../../widgets/media_content.dart';
- import '../../widgets/media_uploader.dart';
+import '../../widgets/media_content.dart';
+import '../../widgets/media_uploader.dart';
 
 class MediaDesktopScreen extends StatelessWidget {
   const MediaDesktopScreen({super.key});
@@ -17,36 +16,40 @@ class MediaDesktopScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(TSizes.defaultSpace),
           child: Builder(
-              builder: (context) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Media',
-                          style: Theme.of(context).textTheme.headlineLarge,
+            builder: (context) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Media',
+                        style: Theme.of(context).textTheme.headlineLarge,
+                      ),
+                      SizedBox(
+                        width: TSizes.buttonWidth * 1.5,
+                        child: ElevatedButton.icon(
+                          onPressed: () => context
+                              .read<MediaCubit>()
+                              .toggleImagesUploaderSection(),
+                          icon: const Icon(Iconsax.cloud_add),
+                          label: const Text('Upload Images'),
                         ),
-                        SizedBox(
-                          width: TSizes.buttonWidth * 1.5,
-                          child: ElevatedButton.icon(
-                            onPressed: () => context.read<MediaCubit>().toggleImagesUploaderSection(),
-                            icon: const Icon(Iconsax.cloud_add),
-                            label: const Text('Upload Images'),
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
+                  ),
+                  MediaUploader(),
+                  const SizedBox(height: TSizes.spaceBtwSections),
 
-                     MediaUploader(),
-                    const SizedBox(height: TSizes.spaceBtwSections),
-
-                     MediaContent(allowSelection: false, allowMultipleSelection: false,),
-                  ],
-                );
-              }
+                  MediaContent(
+                    allowSelection: false,
+                    allowMultipleSelection: false,
+                  ),
+                ],
+              );
+            },
           ),
         ),
       ),

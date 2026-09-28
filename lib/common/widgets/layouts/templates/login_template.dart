@@ -19,7 +19,9 @@ class TLoginTemplate extends StatelessWidget {
             padding: TSpacingStyle.paddingWithAppBarHeight,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(TSizes.cardRadiusLg),
-              color: THelperFunctions.isDarkMode(context) ? TColors.black : TColors.white,
+              color: THelperFunctions.isDarkMode(context)
+                  ? TColors.black
+                  : TColors.white,
             ), // BoxDecoration
             child: child,
           ), // Container

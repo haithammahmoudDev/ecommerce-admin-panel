@@ -125,6 +125,7 @@ class _ProfileFormState extends State<ProfileForm> {
                     phoneController.text.trim() != currentUser?.phoneNumber) {
 
                   context.read<UserCubit>().updateUserData(
+                    context,
                     user: currentUser!.copyWith(
                       fullName: nameController.text.trim(),
                       phoneNumber: phoneController.text.trim(),

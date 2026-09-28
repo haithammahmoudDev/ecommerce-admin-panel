@@ -1,4 +1,5 @@
 import 'package:badges/badges.dart' as badges;
+import 'package:ecommerce_admin_pannal/app.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
@@ -10,15 +11,8 @@ import '../../../utils/device/device_utility.dart';
 import '../../../utils/helpers/helper_functions.dart';
 import '../styles/spacing_styles.dart';
 
-class TAppBar extends StatelessWidget implements PreferredSizeWidget {
-  /// Custom appbar for achieving a desired design goal.
-  /// - Set [title] for a custom title.
-  /// - [showBackArrow] to toggle the visibility of the back arrow.
-  /// - [leadingIcon] for a custom leading icon.
-  /// - [leadingOnPressed] callback for the leading icon press event.
-  /// - [actions] for adding a list of action widgets.
-  /// - Horizontal padding of the appbar can be customized inside this widget.
-  const TAppBar({
+class AppBarCustom extends StatelessWidget implements PreferredSizeWidget {
+  const AppBarCustom({
     super.key,
     this.title,
     this.actions,

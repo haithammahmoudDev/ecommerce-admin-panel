@@ -6,6 +6,7 @@ import '../../../../../../utils/constants/enums.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../../../../../../utils/validators/validation.dart';
 import '../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
+import '../../../../../utils/popups/loaders.dart';
 import '../../../../categories/presentation/screens/create_category/widgets/image_uploader.dart';
 import '../../controller/settings_cubit/settings_cubit.dart';
 
@@ -27,13 +28,12 @@ class _SettingsFormState extends State<SettingsForm> {
       child: BlocListener<SettingsCubit, SettingsState>(
         listener: (context, state) {
           if (state.status == SettingsStatus.success) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.successMessage ?? 'App settings updated successfully!')),
-            );
-          } else if (state.status == SettingsStatus.error) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.errorMessage ?? 'Failed to update settings')),
-            );
+            TLoaders.successSnackBar(title: 'Updated', context: context,
+                message: 'App Settings updated successfully!');
+          }
+          if (state.status == SettingsStatus.error) {
+            TLoaders.errorSnackBar(title: 'Updated Error', context: context,
+                message: 'Failed to update settings');
           }
         },
         child: Form(

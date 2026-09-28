@@ -35,7 +35,9 @@ class MenuItem extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 color: isHovering || isActive
-                    ? itemName != 'Logout' ? TColors.primary : Colors.red
+                    ? itemName != 'Logout'
+                          ? TColors.primary
+                          : Colors.red
                     : Colors.transparent,
                 borderRadius: BorderRadius.circular(TSizes.cardRadiusMd),
               ),
@@ -53,31 +55,30 @@ class MenuItem extends StatelessWidget {
                     child: isActive
                         ? Icon(icon, size: 22, color: TColors.white)
                         : Icon(
-                      icon,
-                      size: 22,
-                      color: isHovering ? TColors.white : TColors.darkGrey,
-                    ),
+                            icon,
+                            size: 22,
+                            color: isHovering
+                                ? TColors.white
+                                : TColors.darkGrey,
+                          ),
                   ), // Padding
-
                   // Text
                   if (isHovering || isActive)
                     Flexible(
                       child: Text(
                         itemName,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyMedium!
-                            .apply(color: TColors.white),
+                        style: Theme.of(
+                          context,
+                        ).textTheme.bodyMedium!.apply(color: TColors.white),
                       ),
                     )
                   else
                     Flexible(
                       child: Text(
                         itemName,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyMedium!
-                            .apply(color: TColors.darkGrey),
+                        style: Theme.of(
+                          context,
+                        ).textTheme.bodyMedium!.apply(color: TColors.darkGrey),
                       ),
                     ),
                 ],

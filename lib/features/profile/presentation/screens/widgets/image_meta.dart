@@ -39,9 +39,9 @@ class _ImageAndMetaState extends State<ImageAndMeta> {
         children: [
           Column(
             children: [
-               BlocBuilder<UserCubit, UserState>(
+              BlocBuilder<UserCubit, UserState>(
                 buildWhen: (previous, current) =>
-                    previous.user?.profilePicture !=
+                previous.user?.profilePicture !=
                     current.user?.profilePicture,
                 builder: (context, state) {
                   final profilePicture = state.user?.profilePicture ?? '';
@@ -68,44 +68,53 @@ class _ImageAndMetaState extends State<ImageAndMeta> {
 
               const SizedBox(height: TSizes.spaceBtwItems),
 
-              Column(
-                children: [
-                   BlocBuilder<UserCubit, UserState>(
-                    buildWhen: (previous, current) =>
-                        previous.userDataStatus != current.userDataStatus ||
-                        previous.user?.fullName != current.user?.fullName,
-                    builder: (context, state) {
-                      final fullName = state.user?.fullName ?? '';
-                      final bool isLoading =
-                          state.userDataStatus == UserDataStatus.loading;
+              // تم تغليف العمود النصي بـ SizedBox بعرض 200 (نفس عرض الصورة) لمنع الخروج والـ Overflow
+              SizedBox(
+                width: 200,
+                child: Column(
+                  children: [
+                    BlocBuilder<UserCubit, UserState>(
+                      buildWhen: (previous, current) =>
+                      previous.user?.fullName != current.user?.fullName,
+                      builder: (context, state) {
+                        final fullName = state.user?.fullName ?? '';
+                        final bool isLoading =
+                            state.userDataStatus == UserDataStatus.loading;
 
-                      return isLoading
-                          ? Shimmer.fromColors(
-                              baseColor: Colors.grey[300]!,
-                              highlightColor: Colors.grey[100]!,
-                              child: Container(
-                                width: 180,
-                                height: 28,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                              ),
-                            )
-                          : Text(
-                              fullName.isNotEmpty ? fullName : 'User Name',
-                              style: Theme.of(context).textTheme.headlineLarge,
-                            );
-                    },
-                  ),
+                        return isLoading
+                            ? Shimmer.fromColors(
+                          baseColor: Colors.grey[300]!,
+                          highlightColor: Colors.grey[100]!,
+                          child: Container(
+                            width: 180,
+                            height: 28,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                          ),
+                        )
+                            : Text(
+                          fullName.isNotEmpty ? fullName : 'User Name',
+                          style: Theme.of(context).textTheme.headlineLarge,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.center,
+                        );
+                      },
+                    ),
 
-                  const SizedBox(height: TSizes.spaceBtwItems / 2),
+                    const SizedBox(height: TSizes.spaceBtwItems / 2),
 
-                  Text(
-                    user.email,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                ],
+                    Text(
+                      user.email,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(height: TSizes.spaceBtwSections),
             ],

@@ -12,19 +12,17 @@ class SiteTemplate extends StatelessWidget {
     this.tablet,
     this.mobile,
     this.useLayout = true,
-    this.navigationShell, // 💡 إضافة معامل الـ Shell الاختياري هنا للربط مع الـ Router
+    this.navigationShell,
   });
 
   final Widget? desktop;
   final Widget? tablet;
   final Widget? mobile;
   final bool useLayout;
-  final StatefulNavigationShell? navigationShell; // 💡 تعريف متغير الـ Shell
+  final StatefulNavigationShell? navigationShell;
 
   @override
   Widget build(BuildContext context) {
-    // 💡 الفكرة الذكية: إذا كان التطبيق يستخدم الـ ShellRoute (لوحة التحكم)، سنعرض الـ navigationShell
-    // المحفوظة في الذاكرة تلقائياً لكل الشاشات، وإذا كان تنقلاً عادياً نستخدم الويدجتس الممررة قديماً.
     final Widget activeBody = navigationShell ?? desktop ?? const SizedBox.shrink();
 
     return Scaffold(

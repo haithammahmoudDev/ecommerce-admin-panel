@@ -1,4 +1,3 @@
-import 'package:ecommerce_admin_pannal/utils/constants/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
@@ -14,7 +13,6 @@ class Sidebar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // تم تنظيف الدالة بالكامل من الـ Callbacks لمنع تعليق اللون والضغط المزدوج
     return Drawer(
       shape: const BeveledRectangleBorder(),
       child: Container(
@@ -28,18 +26,17 @@ class Sidebar extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const SizedBox(width: 10,),
-                  // 1. قسم الشعار الدائري بحجم كبير وواضح (High Size)
-                  BlocSelector<SettingsCubit, SettingsState, ({String appLogo, bool isLoading})>(
-                    selector: (state) => (
-                    appLogo: state.settings.appLogo,
-                    isLoading: state.isLogoLoading,
-                    ),
-                    builder: (context, logoData) {
-                      // حجم كبير متناسق مع الشيمر
-                      if (logoData.isLoading || logoData.appLogo.isEmpty) {
+                  const SizedBox(width: 10),
+                  BlocBuilder<SettingsCubit, SettingsState>(
+                    buildWhen: (previous, current) =>
+                        previous.settings.appLogo != current.settings.appLogo,
+                    builder: (context, state) {
+                      final appLogo = state.settings.appLogo;
+                      final bool isLoading = state.isLogoLoading;
+
+                      if (isLoading || appLogo.isEmpty) {
                         return const TShimmerEffect(
-                          width: 60, // تم التكبير من 40 إلى 60 لبروز أعلى
+                          width: 60,
                           height: 60,
                           radius: 60,
                         );
@@ -50,11 +47,10 @@ class Sidebar extends StatelessWidget {
                         height: 60,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Theme.of(context).cardColor,
-                          // ظل ناعم وواضح ليعطي عمقاً فخماً للحجم الكبير
+                          color: Colors.lightBlue,
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.08),
+                              color: Colors.blue.withOpacity(0.08),
                               blurRadius: 6,
                               offset: const Offset(0, 3),
                             ),
@@ -63,30 +59,38 @@ class Sidebar extends StatelessWidget {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(60),
                           child: Image.network(
-                            logoData.appLogo,
-                            fit: BoxFit.cover, // يضمن عدم تمطط الشعار مع الحجم الكبير
-                            errorBuilder: (context, error, stackTrace) => const Icon(
-                              Icons.business,
-                              size: 30, // تكبير الأيقونة البديلة في حال الخطأ
-                              color: Colors.grey,
-                            ),
+                            appLogo,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) =>
+                                const Icon(
+                                  Icons.business,
+                                  size: 30,
+                                  color: Colors.grey,
+                                ),
                           ),
                         ),
                       );
                     },
                   ),
-                  const SizedBox(width: 16), // زيادة المسافة لتتناسب بامتياز مع الحجم الكبير الجديد
+                  const SizedBox(width: 16),
 
-                  // 2. قسم اسم التطبيق بخط عريض وبارز (Headline Style)
+                  // 2. قسم اسم التطبيق (تم استبدال BlocSelector بـ BlocBuilder وحل مشكلة الـ Shimmer)
                   Expanded(
-                    child: BlocSelector<SettingsCubit, SettingsState, String>(
-                      selector: (state) => state.settings.appName,
-                      builder: (context, appName) {
-                        if (appName.isEmpty) {
-                          return const TShimmerEffect(
-                            width: 110, // زيادة العرض ليتناسب مع الخط الكبير
-                            height: 20,
-                            radius: 4,
+                    child: BlocBuilder<SettingsCubit, SettingsState>(
+                      buildWhen: (previous, current) =>
+                          previous.settings.appName != current.settings.appName,
+                      builder: (context, state) {
+                        final appName = state.settings.appName;
+                        final bool isLoading = state.isLogoLoading;
+
+                        if (isLoading || appName.isEmpty) {
+                          return Align(
+                            alignment: Alignment.centerLeft,
+                            child: const TShimmerEffect(
+                              width: 110,
+                              height: 20,
+                              radius: 4,
+                            ),
                           );
                         }
 
@@ -94,11 +98,12 @@ class Sidebar extends StatelessWidget {
                           appName,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                            fontWeight: FontWeight.bold, // خط عريض وواضح جداً للـ Dashboard
-                            color: Colors.black87,
-                            letterSpacing: 0.8,
-                          ),
+                          style: Theme.of(context).textTheme.headlineSmall
+                              ?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black87,
+                                letterSpacing: 0.8,
+                              ),
                         );
                       },
                     ),
@@ -106,8 +111,7 @@ class Sidebar extends StatelessWidget {
                 ],
               ),
 
-
-              const SizedBox(height: TSizes.spaceBtwSections),
+              const SizedBox(height: TSizes.spaceBtwSections / 2),
 
               Padding(
                 padding: const EdgeInsets.all(TSizes.md / 2),
@@ -117,20 +121,71 @@ class Sidebar extends StatelessWidget {
                   children: [
                     Text(
                       'MENU',
-                      style: Theme.of(context).textTheme.bodySmall!.apply(letterSpacingDelta: 1.2),
+                      style: Theme.of(
+                        context,
+                      ).textTheme.bodySmall!.apply(letterSpacingDelta: 1.2),
                     ),
-                    const MenuItem(route: '/dashboard', icon: Iconsax.status, itemName: 'Dashboard'),
-                    const MenuItem(route: '/media', icon: Iconsax.image, itemName: 'Media'),
-                    const MenuItem(route: '/categories', icon: Iconsax.category_2, itemName: 'Categories'),
-                    const MenuItem(route: '/brands', icon: Iconsax.dcube, itemName: 'Brands'),
-                    const MenuItem(route: '/banners', icon: Iconsax.picture_frame, itemName: 'Banners'),
-                    const MenuItem(route: '/products', icon: Iconsax.shopping_bag, itemName: 'Products'),
-                    const MenuItem(route: '/customers', icon: Iconsax.profile_2user, itemName: 'Customers'),
-                    const MenuItem(route: '/orders', icon: Iconsax.box, itemName: 'Orders'),
-                    Text('OTHER', style: Theme.of(context).textTheme.bodySmall!.apply(letterSpacingDelta: 1.2)),
-                    const MenuItem(route: '/profile', icon: Iconsax.user, itemName: 'Profile'),
-                    const MenuItem(route: '/settings', icon: Iconsax.setting_2, itemName: 'Settings'),
-                    const MenuItem(route: '/logout', icon: Iconsax.logout, itemName: 'Logout'),
+                    const MenuItem(
+                      route: '/dashboard',
+                      icon: Iconsax.status,
+                      itemName: 'Dashboard',
+                    ),
+                    const MenuItem(
+                      route: '/media',
+                      icon: Iconsax.image,
+                      itemName: 'Media',
+                    ),
+                    const MenuItem(
+                      route: '/categories',
+                      icon: Iconsax.category_2,
+                      itemName: 'Categories',
+                    ),
+                    const MenuItem(
+                      route: '/brands',
+                      icon: Iconsax.dcube,
+                      itemName: 'Brands',
+                    ),
+                    const MenuItem(
+                      route: '/banners',
+                      icon: Iconsax.picture_frame,
+                      itemName: 'Banners',
+                    ),
+                    const MenuItem(
+                      route: '/products',
+                      icon: Iconsax.shopping_bag,
+                      itemName: 'Products',
+                    ),
+                    const MenuItem(
+                      route: '/customers',
+                      icon: Iconsax.profile_2user,
+                      itemName: 'Customers',
+                    ),
+                    const MenuItem(
+                      route: '/orders',
+                      icon: Iconsax.box,
+                      itemName: 'Orders',
+                    ),
+                    Text(
+                      'OTHER',
+                      style: Theme.of(
+                        context,
+                      ).textTheme.bodySmall!.apply(letterSpacingDelta: 1.2),
+                    ),
+                    const MenuItem(
+                      route: '/profile',
+                      icon: Iconsax.user,
+                      itemName: 'Profile',
+                    ),
+                    const MenuItem(
+                      route: '/settings',
+                      icon: Iconsax.setting_2,
+                      itemName: 'Settings',
+                    ),
+                    const MenuItem(
+                      route: '/logout',
+                      icon: Iconsax.logout,
+                      itemName: 'Logout',
+                    ),
                   ],
                 ),
               ),

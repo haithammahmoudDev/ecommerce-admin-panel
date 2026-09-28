@@ -78,7 +78,7 @@ class VerifyEmailScreen extends StatelessWidget {
         builder: (context) {
           final controller = context.read<VerifyEmailCubit>();
           return Scaffold(
-                  appBar: TAppBar(
+                  appBar: AppBarCustom(
                     actions: [
                       IconButton(onPressed: (){
                          context.read<SessionCubit>().SignOut();
