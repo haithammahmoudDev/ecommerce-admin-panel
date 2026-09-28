@@ -2,15 +2,8 @@ import 'package:ecommerce_admin_pannal/features/product/presentation/controller/
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:http/http.dart';
-
-import '../../../../../../common/widgets/breadcrumbs/breadcrumb.dart';
 import '../../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../../../../utils/constants/sizes.dart';
-
-import 'package:flutter/material.dart';
-
 import '../../../../../../utils/device/device_utility.dart';
 import '../../../controller/product_image/product_image_state.dart';
 import '../widgets/additional_images.dart';
@@ -38,15 +31,11 @@ class CreateProductDesktopScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Breadcrumbs
-              const TBreadcrumbsWithHeading(
-                returnToPreviousScreen: true,
-                heading: 'Create Product',
-                breadcrumbItems: ['/products', 'Create Product'],
-              ), // TBreadcrumbsWithHeading
-              const SizedBox(height: TSizes.spaceBtwSections),
-
-              // Create Product
+              Text(
+                'Create Product',
+                style: Theme.of(context).textTheme.headlineLarge,
+              ),
+              const SizedBox(height: TSizes.spaceBtwSections / 2),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

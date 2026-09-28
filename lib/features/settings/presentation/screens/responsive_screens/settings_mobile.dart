@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../../../../../utils/constants/sizes.dart';
-import '../../../../../common/widgets/breadcrumbs/breadcrumb.dart';
 import '../widgets/image_meta.dart';
 import '../widgets/setting_form.dart';
 
@@ -9,19 +8,20 @@ class SettingsMobileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(TSizes.defaultSpace),
+          padding: const EdgeInsets.all(TSizes.defaultSpace),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Breadcrumbs
-              TBreadcrumbsWithHeading(heading: 'Settings', breadcrumbItems: ['Settings']),
-              SizedBox(height: TSizes.spaceBtwSections),
+              Text(
+                'Settings',
+                style: Theme.of(context).textTheme.headlineLarge,
+              ),
+              const SizedBox(height: TSizes.spaceBtwSections / 2),
 
-              // Body arranged vertically for mobile
-              Column(
+              const Column(
                 children: [
                   ImageAndMeta(),
                   SizedBox(height: TSizes.spaceBtwSections),

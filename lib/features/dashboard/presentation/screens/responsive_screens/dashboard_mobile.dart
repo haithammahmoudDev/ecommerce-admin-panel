@@ -28,7 +28,7 @@ class DashboardMobileScreen extends StatelessWidget {
                 'Dashboard',
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
-              const SizedBox(height: TSizes.spaceBtwSections),
+              const SizedBox(height: TSizes.spaceBtwSections / 2),
 
               // KPI Cards (Stacked Vertically)
               TDashboardCard(

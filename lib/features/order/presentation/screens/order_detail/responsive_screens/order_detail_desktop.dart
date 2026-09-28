@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import '../../../../../../common/widgets/breadcrumbs/breadcrumb.dart';
-import '../../../../../customer/presentation/screens/customer_detail/widgets/customer_info.dart';
+ import '../../../../../customer/presentation/screens/customer_detail/widgets/customer_info.dart';
 import '../../../../domain/entities/order_entity.dart';
 import 'package:flutter/material.dart';
  import '../../../../../../routes/routes.dart';
@@ -24,15 +23,11 @@ class OrderDetailDesktopScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Breadcrumbs
-              TBreadcrumbsWithHeading(
-                returnToPreviousScreen: true,
-                heading: order.id,
-                breadcrumbItems: const ['/orders', 'Details'],
+              Text(
+                order.id,
+                style: Theme.of(context).textTheme.headlineLarge,
               ),
-              const SizedBox(height: TSizes.spaceBtwSections),
-
-              // Body
+              const SizedBox(height: TSizes.spaceBtwSections / 2),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

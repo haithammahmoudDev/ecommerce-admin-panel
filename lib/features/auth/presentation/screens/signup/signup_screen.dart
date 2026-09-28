@@ -1,19 +1,13 @@
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../../common/di/injection_container.dart';
 import '../../../../../common/widgets/buttons/clickable_richtext_widget.dart';
-import '../../../../../common/widgets/form/form_divider_widget.dart';
 import '../../../../../common/widgets/form/form_header_widget.dart';
-import '../../../../../common/widgets/form/social_footer.dart';
 import '../../../../../utils/constants/image_strings.dart';
 import '../../../../../utils/constants/sizes.dart';
 import '../../../../../utils/constants/text_strings.dart';
-import '../../../../../utils/popups/full_screen_loader.dart';
-import '../../../../../utils/popups/loaders.dart';
 import '../../bloc/email_auth_bloc/email_auth_bloc.dart';
-import '../login/login_screen.dart';
 import 'widgets/signup_form_widget.dart';
 
 class SignupScreen extends StatelessWidget {
@@ -42,7 +36,7 @@ class SignupScreen extends StatelessWidget {
                   ClickableRichTextWidget(
                     text1: TTexts.tAlreadyHaveAnAccount,
                     text2: TTexts.tLogin,
-                      onPressed: () => context.pushReplacementNamed('login'),
+                    onPressed: () => context.pushReplacementNamed('login'),
                   ),
                 ],
               ),

@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../../../common/widgets/breadcrumbs/breadcrumb.dart';
-import '../../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
+ import '../../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../widgets/additional_images.dart';
 import '../widgets/attributes_widget.dart';
 import '../widgets/bottom_navigation_widget.dart';
-import '../widgets/brand_widget.dart';
-import '../widgets/categories_widget.dart';
+ import '../widgets/categories_widget.dart';
 import '../widgets/product_type_widget.dart';
 import '../widgets/stock_pricing_widget.dart';
 import '../widgets/thumbnail_widget.dart';
 import '../widgets/title_description.dart';
 import '../widgets/variations_widget.dart';
 import '../widgets/visibility_widget.dart';
-// أضف هنا بقية الـ imports الخاصة بالـ Widgets لمشروعك
 
 class CreateProductTabletScreen extends StatelessWidget {
   const CreateProductTabletScreen({super.key});
@@ -30,13 +27,11 @@ class CreateProductTabletScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Breadcrumbs
-              const TBreadcrumbsWithHeading(
-                returnToPreviousScreen: true,
-                heading: 'Create Product',
-                breadcrumbItems: ['/products', 'Create Product'],
-              ), // TBreadcrumbsWithHeading
-              const SizedBox(height: TSizes.spaceBtwSections),
+              Text(
+                'Create Product',
+                style: Theme.of(context).textTheme.headlineLarge,
+              ),
+              const SizedBox(height: TSizes.spaceBtwSections / 2),
 
               // Create Product Layout for Tablet
               Row(

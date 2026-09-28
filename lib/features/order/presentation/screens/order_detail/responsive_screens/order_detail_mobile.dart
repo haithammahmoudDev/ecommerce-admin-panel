@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../../../common/widgets/breadcrumbs/breadcrumb.dart';
-import '../../../../../../utils/constants/sizes.dart';
+ import '../../../../../../utils/constants/sizes.dart';
 import '../../../../domain/entities/order_entity.dart';
 import '../widgets/customer_info.dart';
 import '../widgets/order_info.dart';
@@ -21,15 +20,12 @@ class OrderDetailMobileScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Breadcrumbs
-              TBreadcrumbsWithHeading(
-                returnToPreviousScreen: true,
-                heading: order.id,
-                breadcrumbItems: const ['/orders', 'Details'],
+              Text(
+                order.id,
+                style: Theme.of(context).textTheme.headlineLarge,
               ),
-              const SizedBox(height: TSizes.spaceBtwSections),
+              const SizedBox(height: TSizes.spaceBtwSections / 2),
 
-              // Body arranged vertically for mobile layouts
               Column(
                 children: [
                   // Order Info Card

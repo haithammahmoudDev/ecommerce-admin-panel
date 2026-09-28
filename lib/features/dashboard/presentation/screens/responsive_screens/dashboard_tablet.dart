@@ -23,12 +23,11 @@ class DashboardTabletScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Title
               Text(
                 'Dashboard',
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
-              const SizedBox(height: TSizes.spaceBtwSections),
+              const SizedBox(height: TSizes.spaceBtwSections / 2),
 
               // KPI Cards Grid (2x2)
               Row(

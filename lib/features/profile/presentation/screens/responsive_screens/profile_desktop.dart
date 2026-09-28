@@ -17,7 +17,11 @@ class ProfileDesktopScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               const SizedBox(height: TSizes.fontSizeSm,),
+              Text(
+                'Profile',
+                style: Theme.of(context).textTheme.headlineLarge,
+              ),
+              const SizedBox(height: TSizes.spaceBtwSections / 2),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

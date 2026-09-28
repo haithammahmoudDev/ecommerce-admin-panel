@@ -3,9 +3,7 @@ import 'package:ecommerce_admin_pannal/features/product/presentation/controller/
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../../../../../common/abstraction/base_data_table/base_data_table_state.dart';
-import '../../../../../../common/widgets/breadcrumbs/breadcrumb.dart';
 import '../../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../../../../../brand/domain/entities/brand_entity.dart';
@@ -41,14 +39,11 @@ class _ProductsDesktopScreenState extends State<ProductsDesktopScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Breadcrumbs
-              const TBreadcrumbsWithHeading(
-                heading: 'Products',
-                breadcrumbItems: ['Products'],
-              ), // TBreadcrumbsWithHeading
-              const SizedBox(height: TSizes.spaceBtwSections),
-
-              // Table Body
+            Text(
+            'Products',
+            style: Theme.of(context).textTheme.headlineLarge,
+          ),
+          const SizedBox(height: TSizes.spaceBtwSections / 2),
               RoundedContainer(
                 child: Column(
                   children: [

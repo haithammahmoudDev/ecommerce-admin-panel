@@ -2,14 +2,8 @@ import 'package:ecommerce_admin_pannal/features/order/presentation/controller/or
 import 'package:ecommerce_admin_pannal/features/order/presentation/controller/order_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../../../common/abstraction/base_data_table/base_data_table_state.dart';
-import '../../../../../../common/widgets/breadcrumbs/breadcrumb.dart';
 import '../../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../../../categories/presentation/screens/all_categories/widgets/table_header.dart';
-import '../../../../../product/domain/entities/product_entity.dart';
-import '../../../../domain/entities/order_entity.dart';
-
 import 'package:flutter/material.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../table/data_table.dart';
@@ -42,12 +36,11 @@ class _OrdersDesktopScreenState extends State<OrdersDesktopScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Breadcrumbs
-              const TBreadcrumbsWithHeading(
-                heading: 'Orders',
-                breadcrumbItems: ['Orders'],
+              Text(
+                'Orders',
+                style: Theme.of(context).textTheme.headlineLarge,
               ),
-              const SizedBox(height: TSizes.spaceBtwSections),
+              const SizedBox(height: TSizes.spaceBtwSections / 2),
 
               // Table Body
               RoundedContainer(

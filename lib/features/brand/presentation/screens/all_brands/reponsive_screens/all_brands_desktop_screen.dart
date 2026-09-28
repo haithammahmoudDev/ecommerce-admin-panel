@@ -4,13 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../../../../../common/abstraction/base_data_table/base_data_table_state.dart';
-import '../../../../../../common/widgets/breadcrumbs/breadcrumb.dart';
-import '../../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
+ import '../../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../../../../utils/constants/sizes.dart';
-import '../../../../../categories/domain/entities/category_entity.dart';
-import '../../../../../categories/presentation/screens/all_categories/widgets/table_header.dart';
+ import '../../../../../categories/presentation/screens/all_categories/widgets/table_header.dart';
 import '../table/data_table.dart';
 
 class AllBrandsDesktopScreen extends StatefulWidget {
@@ -43,9 +40,8 @@ class _AllBrandsDesktopScreenState extends State<AllBrandsDesktopScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Breadcrumbs
-              const TBreadcrumbsWithHeading(
-                  heading: 'Brands', breadcrumbItems: ['Brands']),
-              const SizedBox(height: TSizes.spaceBtwSections),
+              Text('Brands', style: Theme.of(context).textTheme.headlineLarge),
+              const SizedBox(height: TSizes.spaceBtwSections / 2),
 
               // Table Body
               RoundedContainer(

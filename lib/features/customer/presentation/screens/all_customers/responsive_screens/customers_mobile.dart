@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../../../../../common/widgets/breadcrumbs/breadcrumb.dart';
-import '../../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
+ import '../../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../../../../../categories/presentation/screens/all_categories/widgets/table_header.dart';
 import '../table/data_table.dart';
@@ -17,9 +16,11 @@ class CustomersMobileScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Breadcrumbs
-              const TBreadcrumbsWithHeading(heading: 'Customers', breadcrumbItems: ['Customers']),
-              const SizedBox(height: TSizes.spaceBtwSections),
+              Text(
+                'Customers',
+                style: Theme.of(context).textTheme.headlineLarge,
+              ),
+              const SizedBox(height: TSizes.spaceBtwSections / 2),
 
               RoundedContainer(
                 child: Column(

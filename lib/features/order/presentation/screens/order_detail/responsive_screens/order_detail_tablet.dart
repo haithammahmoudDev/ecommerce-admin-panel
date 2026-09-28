@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../../../common/widgets/breadcrumbs/breadcrumb.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../../../../../customer/presentation/screens/customer_detail/widgets/customer_info.dart';
 import '../../../../domain/entities/order_entity.dart';
@@ -23,19 +21,15 @@ class OrderDetailTabletScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Breadcrumbs
-              TBreadcrumbsWithHeading(
-                returnToPreviousScreen: true,
-                heading: order.id,
-                breadcrumbItems: const ['/orders', 'Details'],
+              Text(
+                order.id,
+                style: Theme.of(context).textTheme.headlineLarge,
               ),
-              const SizedBox(height: TSizes.spaceBtwSections),
+              const SizedBox(height: TSizes.spaceBtwSections / 2),
 
-              // Body
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Left Side Order Information
                   Expanded(
                     flex: 2,
                     child: Column(

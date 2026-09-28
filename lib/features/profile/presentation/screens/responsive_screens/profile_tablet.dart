@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../../common/widgets/breadcrumbs/breadcrumb.dart';
 import '../../../../../utils/constants/sizes.dart';
 import '../widgets/form.dart';
 import '../widgets/image_meta.dart';
@@ -19,12 +17,11 @@ class ProfileTabletScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Breadcrumbs
-              const TBreadcrumbsWithHeading(
-                heading: 'Profile',
-                breadcrumbItems: ['Profile'],
+              Text(
+                'Profile',
+                style: Theme.of(context).textTheme.headlineLarge,
               ),
-              const SizedBox(height: TSizes.spaceBtwSections),
+              const SizedBox(height: TSizes.spaceBtwSections / 2),
 
               Column(
                 children: [

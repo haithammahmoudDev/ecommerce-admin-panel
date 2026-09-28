@@ -1,13 +1,11 @@
 import 'package:ecommerce_admin_pannal/features/categories/domain/entities/category_entity.dart';
 import 'package:ecommerce_admin_pannal/features/categories/presentation/controller/category/category_cubit.dart';
-import 'package:ecommerce_admin_pannal/utils/loader.dart';
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../../common/abstraction/base_data_table/base_data_table_state.dart';
-import '../../../../../../common/widgets/breadcrumbs/breadcrumb.dart';
-import '../../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
+ import '../../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../table/table_source.dart';
 import '../widgets/table_header.dart';
@@ -16,7 +14,8 @@ class CategoriesDesktopScreen extends StatefulWidget {
   const CategoriesDesktopScreen({super.key});
 
   @override
-  State<CategoriesDesktopScreen> createState() => _CategoriesDesktopScreenState();
+  State<CategoriesDesktopScreen> createState() =>
+      _CategoriesDesktopScreenState();
 }
 
 class _CategoriesDesktopScreenState extends State<CategoriesDesktopScreen> {
@@ -26,11 +25,13 @@ class _CategoriesDesktopScreenState extends State<CategoriesDesktopScreen> {
     searchController = TextEditingController();
     super.initState();
   }
+
   @override
   void dispose() {
     searchController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     final controller = context.read<CategoryCubit>();
@@ -41,27 +42,29 @@ class _CategoriesDesktopScreenState extends State<CategoriesDesktopScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Breadcrumbs
-              const TBreadcrumbsWithHeading(
-                  heading: 'Categories', breadcrumbItems: ['Categories']),
-              const SizedBox(height: TSizes.spaceBtwSections),
+              Text(
+                'Categories',
+                style: Theme.of(context).textTheme.headlineLarge,
+              ),
+              const SizedBox(height: TSizes.spaceBtwSections / 2),
 
-              // Table Body
-              // Show Loader
               RoundedContainer(
                 child: Column(
                   children: [
-                    // Table Header
                     TableHeader(
                       buttonText: 'Create New Category',
-                      onPressed: () => context.push('/categories/create-category',),
+                      onPressed: () =>
+                          context.push('/categories/create-category'),
                       searchController: searchController,
-                      searchOnChanged: (query){
+                      searchOnChanged: (query) {
                         controller.searchQuery(query);
                       },
                     ),
                     const SizedBox(height: TSizes.spaceBtwItems),
-                    BlocBuilder<CategoryCubit, BaseDataTableState<CategoryEntity>>(
+                    BlocBuilder<
+                      CategoryCubit,
+                      BaseDataTableState<CategoryEntity>
+                    >(
                       builder: (context, state) {
                         if (state.status == DataTableStatus.loading) {
                           return const Center(
@@ -75,7 +78,7 @@ class _CategoriesDesktopScreenState extends State<CategoriesDesktopScreen> {
                     ),
                   ],
                 ), // Column
-              ) // TRoundedContainer
+              ), // TRoundedContainer
             ],
           ), // Column
         ), // Padding

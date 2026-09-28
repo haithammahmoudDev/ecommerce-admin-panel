@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../../../../common/widgets/breadcrumbs/breadcrumb.dart';
-import '../../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
+ import '../../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../widgets/additional_images.dart';
 import '../widgets/attributes_widget.dart';
@@ -29,13 +28,11 @@ class CreateProductMobileScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Breadcrumbs
-              const TBreadcrumbsWithHeading(
-                returnToPreviousScreen: true,
-                heading: 'Create Product',
-                breadcrumbItems: ['/products', 'Create Product'],
-              ), // TBreadcrumbsWithHeading
-              const SizedBox(height: TSizes.spaceBtwSections),
+              Text(
+                'Create Product',
+                style: Theme.of(context).textTheme.headlineLarge,
+              ),
+              const SizedBox(height: TSizes.spaceBtwSections / 2),
 
               // Create Product Form (Vertical Layout)
               Column(

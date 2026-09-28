@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import '../../../../../../common/widgets/breadcrumbs/breadcrumb.dart';
-import '../../../../data/models/banner_model.dart';
+ import '../../../../data/models/banner_model.dart';
 import 'package:flutter/material.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../../../../domain/entities/banner_entity.dart';
@@ -21,12 +20,11 @@ class EditBannerDesktopScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Breadcrumbs
-              TBreadcrumbsWithHeading(
-                returnToPreviousScreen: true,
-                heading: 'Update Banner',
-                breadcrumbItems: const ['/categories', 'Edit Banner'],
-              ), // TBreadcrumbsWithHeading
-              const SizedBox(height: TSizes.spaceBtwSections),
+              Text(
+                'Update Banner',
+                style: Theme.of(context).textTheme.headlineLarge,
+              ),
+              const SizedBox(height: TSizes.spaceBtwSections / 2),
 
               // Form
               EditBannerForm(banner: banner),

@@ -5,8 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../../common/abstraction/base_data_table/base_data_table_state.dart';
-import '../../../../../../common/widgets/breadcrumbs/breadcrumb.dart';
-import '../../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
+ import '../../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../../../../domain/entities/category_entity.dart';
 import '../../../controller/category/category_cubit.dart';
@@ -43,8 +42,11 @@ class _CategoriesMobileScreenState extends State<CategoriesMobileScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const TBreadcrumbsWithHeading(heading: 'Categories', breadcrumbItems: ['Categories']),
-              const SizedBox(height: TSizes.spaceBtwSections),
+              Text(
+                'Categories',
+                style: Theme.of(context).textTheme.headlineLarge,
+              ),
+              const SizedBox(height: TSizes.spaceBtwSections / 2),
 
               // Table Body
                   RoundedContainer(

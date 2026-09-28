@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../common/abstraction/base_data_table/base_data_table_state.dart';
-import '../../../../../../common/widgets/breadcrumbs/breadcrumb.dart';
-import '../../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
+ import '../../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../../../../../categories/presentation/screens/all_categories/widgets/table_header.dart';
 import '../../../../../auth/domain/entities/user_entity.dart';
@@ -40,14 +39,15 @@ class _CustomersDesktopScreenState extends State<CustomersDesktopScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Breadcrumbs
-              const TBreadcrumbsWithHeading(heading: 'Customers', breadcrumbItems: ['Customers']),
-              const SizedBox(height: TSizes.spaceBtwSections),
+              Text(
+                'Customers',
+                style: Theme.of(context).textTheme.headlineLarge,
+              ),
+              const SizedBox(height: TSizes.spaceBtwSections / 2),
 
               RoundedContainer(
                 child: Column(
                   children: [
-                    // Table Header
                     TableHeader(
                       showLeftWidget: false,
                       searchController: searchController,

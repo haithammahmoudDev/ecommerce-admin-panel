@@ -2,9 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../../../../../common/abstraction/base_data_table/base_data_table_state.dart';
-import '../../../../../../common/widgets/breadcrumbs/breadcrumb.dart';
 import '../../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../../../../../categories/presentation/screens/all_categories/widgets/table_header.dart';
@@ -40,15 +38,13 @@ class _AllBrandsTabletScreenState extends State<AllBrandsTabletScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Breadcrumbs
-              const TBreadcrumbsWithHeading(heading: 'Brands', breadcrumbItems: ['Brands']),
-              const SizedBox(height: TSizes.spaceBtwSections),
 
-              // Table Body
+              Text('Brands', style: Theme.of(context).textTheme.headlineLarge),
+              const SizedBox(height: TSizes.spaceBtwSections / 2),
+
               RoundedContainer(
                 child: Column(
                   children: [
-                    // Table Header
                     TableHeader(buttonText: 'Create New Brand',
                       onPressed: () => context.push('/brands/create-brand'),
                       searchController: searchController,
@@ -70,7 +66,8 @@ class _AllBrandsTabletScreenState extends State<AllBrandsTabletScreen> {
                         }
                         return BrandTable();
                       },
-                    ),                  ],
+                    ),
+                  ],
                 ), // Column
               ), // TRoundedContainer
             ],

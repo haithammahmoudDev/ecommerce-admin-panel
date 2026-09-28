@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-
 import '../../../../../utils/helpers/network_manager.dart';
 import '../../../../media/data/models/image_model.dart';
 import '../../../../media/presentation/controller/media_cubit/media_cubit.dart';

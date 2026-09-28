@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
-
-import '../../../../../common/widgets/breadcrumbs/breadcrumb.dart';
 import '../../../../../routes/routes.dart';
 import '../../../../../utils/constants/sizes.dart';
 import '../../controller/media_cubit/media_cubit.dart';
@@ -27,11 +25,10 @@ class MediaDesktopScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const TBreadcrumbsWithHeading(
-                          heading: 'Media',
-                          breadcrumbItems: ['Media Screen'],
+                        Text(
+                          'Media',
+                          style: Theme.of(context).textTheme.headlineLarge,
                         ),
-
                         SizedBox(
                           width: TSizes.buttonWidth * 1.5,
                           child: ElevatedButton.icon(
@@ -42,7 +39,6 @@ class MediaDesktopScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(height: TSizes.spaceBtwSections),
 
                      MediaUploader(),
                     const SizedBox(height: TSizes.spaceBtwSections),
