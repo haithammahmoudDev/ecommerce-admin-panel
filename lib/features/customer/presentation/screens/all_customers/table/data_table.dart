@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../../common/abstraction/base_data_table/base_data_table_state.dart';
 import '../../../../../../common/custom/custom_paginated_table.dart';
-import '../../../../../order/domain/entities/user_entity.dart';
+import '../../../../../auth/domain/entities/user_entity.dart';
 import '../../../controller/customer_controller.dart';
 import '../table/table_source.dart';
 

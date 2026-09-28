@@ -68,7 +68,7 @@ class ProductAttributes extends StatelessWidget {
         const SizedBox(height: TSizes.spaceBtwItems),
 
         // Display added attributes
-        TRoundedContainer(
+        RoundedContainer(
           backgroundColor: TColors.primaryBackground,
           child: BlocBuilder<ProductAttributesCubit, ProductAttributesState>(
             builder: (context, state) {

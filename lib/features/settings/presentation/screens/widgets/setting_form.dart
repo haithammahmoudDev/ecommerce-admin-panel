@@ -22,7 +22,7 @@ class _SettingsFormState extends State<SettingsForm> {
   Widget build(BuildContext context) {
     final cubit = context.read<SettingsCubit>();
 
-    return TRoundedContainer(
+    return RoundedContainer(
       padding: const EdgeInsets.symmetric(vertical: TSizes.lg, horizontal: TSizes.md),
       child: BlocListener<SettingsCubit, SettingsState>(
         listener: (context, state) {

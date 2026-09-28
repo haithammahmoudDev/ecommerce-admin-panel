@@ -32,7 +32,7 @@ class ImagePopup extends StatelessWidget {
             TSizes.borderRadiusSm,
           ),
         ),
-        child: TRoundedContainer(
+        child: RoundedContainer(
           width: TDeviceUtils.isDesktopScreen(context)
               ? MediaQuery.of(context).size.width * 0.4
               : MediaQuery.of(context).size.width,
@@ -45,7 +45,7 @@ class ImagePopup extends StatelessWidget {
                 children: [
                   // داخل ملف image_popup.dart عند بناء المعاينة:
 
-                  TRoundedContainer(
+                  RoundedContainer(
                     backgroundColor: TColors.primaryBackground,
                     child: TRoundedImage(
                       // 🟢 دقة متوسطة ومناسبة للعرض في النافذة المنبثقة بدون تحميل الحجم الأصلي الكامل

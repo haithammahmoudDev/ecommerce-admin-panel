@@ -98,7 +98,7 @@ class DashboardTabletScreen extends StatelessWidget {
               const SizedBox(height: TSizes.spaceBtwSections),
 
               // Recent Orders Table
-              TRoundedContainer(
+              RoundedContainer(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

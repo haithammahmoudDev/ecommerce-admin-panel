@@ -46,7 +46,7 @@ class _BannersMobileScreenState extends State<BannersMobileScreen> {
               ),
               const SizedBox(height: TSizes.spaceBtwSections),
 
-              TRoundedContainer(
+              RoundedContainer(
                 child: Column(
                   children: [
                     // Table Header

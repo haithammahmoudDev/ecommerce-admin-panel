@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../../../common/errors/exceptions.dart';
 import '../../../../common/network/firebase/auth_client.dart';
-import '../../../order/data/models/user_model.dart';
+import '../models/user_model.dart';
 import 'email_auth_datasource.dart';
 
 class EmailAuthdatasourceImple implements EmailAuthDatasource{

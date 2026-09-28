@@ -32,7 +32,7 @@ class TDashboardCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final isSmallDesktop = MediaQuery.of(context).size.width < 1300;
 
-    return TRoundedContainer(
+    return RoundedContainer(
       onTap: onTap ?? () {},
       padding: EdgeInsets.all(isSmallDesktop ? TSizes.md : TSizes.lg),
       child: Column(
@@ -42,7 +42,7 @@ class TDashboardCard extends StatelessWidget {
           Row(
             children: [
               if (headingIcon != null) ...[
-                TRoundedContainer(
+                RoundedContainer(
                   padding: const EdgeInsets.all(TSizes.xs),
                   backgroundColor: headingIconBgColor ?? TColors.primary.withOpacity(0.1),
                   child: Icon(

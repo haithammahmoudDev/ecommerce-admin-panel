@@ -32,7 +32,7 @@ class ProductAdditionalImages extends StatelessWidget {
             flex: 2,
             child: GestureDetector(
               onTap: onTapToAddImages,
-              child: TRoundedContainer(
+              child: RoundedContainer(
                 child: Center(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -61,7 +61,7 @@ class ProductAdditionalImages extends StatelessWidget {
                 const SizedBox(width: TSizes.spaceBtwItems / 2),
 
                 // Add More Images Button
-                TRoundedContainer(
+                RoundedContainer(
                   width: 80,
                   height: 80,
                   showBorder: true,
@@ -89,7 +89,7 @@ class ProductAdditionalImages extends StatelessWidget {
       itemCount: 6,
       scrollDirection: Axis.horizontal,
       separatorBuilder: (context, index) => const SizedBox(width: TSizes.spaceBtwItems / 2),
-      itemBuilder: (context, index) => const TRoundedContainer(backgroundColor: TColors.primaryBackground, width: 80, height: 80),
+      itemBuilder: (context, index) => const RoundedContainer(backgroundColor: TColors.primaryBackground, width: 80, height: 80),
     ); // ListView.separated
   }
 

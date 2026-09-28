@@ -7,7 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
 
 import '../../../../order/domain/entities/order_entity.dart';
-import '../../../../order/domain/entities/user_entity.dart';
+import '../../../../auth/domain/entities/user_entity.dart';
 import '../../../../order/domain/repos/user_repo.dart';
 
 part 'customer_detail_state.dart';

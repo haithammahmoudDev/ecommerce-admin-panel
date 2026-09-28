@@ -106,7 +106,7 @@ class DashboardDesktopScreen extends StatelessWidget {
                       children: [
                         const TWeeklySalesGraph(),
                         const SizedBox(height: TSizes.spaceBtwSections),
-                        TRoundedContainer(
+                        RoundedContainer(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [

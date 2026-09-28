@@ -12,7 +12,7 @@ class ProductBottomNavigationButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TRoundedContainer(
+    return RoundedContainer(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../../../../common/widgets/breadcrumbs/breadcrumb.dart';
 import '../../../../../../routes/routes.dart';
 import '../../../../../../utils/constants/sizes.dart';
-import '../../../../../order/domain/entities/user_entity.dart';
+import '../../../../../auth/domain/entities/user_entity.dart';
 import '../widgets/customer_info.dart';
 import '../widgets/customer_orders.dart';
 import '../widgets/shipping_address.dart';

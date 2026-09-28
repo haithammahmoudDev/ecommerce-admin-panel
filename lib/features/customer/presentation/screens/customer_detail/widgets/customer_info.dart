@@ -5,7 +5,7 @@ import '../../../../../../utils/constants/colors.dart';
 import '../../../../../../utils/constants/enums.dart';
 import '../../../../../../utils/constants/image_strings.dart';
 import '../../../../../../utils/constants/sizes.dart';
-import '../../../../../order/domain/entities/user_entity.dart';
+import '../../../../../auth/domain/entities/user_entity.dart';
 // قم باستيراد كلاس الـ UserEntity الخاص بك هنا، مثال:
 // import 'path_to_your_entity/user_entity.dart';
 
@@ -19,7 +19,7 @@ class CustomerInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TRoundedContainer(
+    return RoundedContainer(
       padding: const EdgeInsets.all(TSizes.defaultSpace),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

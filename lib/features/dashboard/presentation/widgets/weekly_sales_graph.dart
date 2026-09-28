@@ -22,7 +22,7 @@ class TWeeklySalesGraph extends StatelessWidget {
             ? 0
             : state.weeklySales.reduce((a, b) => a > b ? a : b);
 
-        return TRoundedContainer(
+        return RoundedContainer(
           padding: const EdgeInsets.all(TSizes.md),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

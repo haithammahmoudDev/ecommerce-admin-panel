@@ -24,7 +24,7 @@ class OrderCustomerInfo extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // 1. Personal Info
-            TRoundedContainer(
+            RoundedContainer(
               padding: const EdgeInsets.all(TSizes.defaultSpace),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,7 +80,7 @@ class OrderCustomerInfo extends StatelessWidget {
   builder: (context, state) {
     return SizedBox(
               width: double.infinity,
-              child: TRoundedContainer(
+              child: RoundedContainer(
                 padding: const EdgeInsets.all(TSizes.defaultSpace),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -114,7 +114,7 @@ class OrderCustomerInfo extends StatelessWidget {
             // 3. Shipping Address Section
             SizedBox(
               width: double.infinity,
-              child: TRoundedContainer(
+              child: RoundedContainer(
                 padding: const EdgeInsets.all(TSizes.defaultSpace),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -139,7 +139,7 @@ class OrderCustomerInfo extends StatelessWidget {
             // 4. Billing Address Section
             SizedBox(
               width: double.infinity,
-              child: TRoundedContainer(
+              child: RoundedContainer(
                 padding: const EdgeInsets.all(TSizes.defaultSpace),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

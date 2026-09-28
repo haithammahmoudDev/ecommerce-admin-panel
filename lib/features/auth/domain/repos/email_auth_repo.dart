@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import '../../../../common/errors/failure.dart';
-import '../../../order/domain/entities/user_entity.dart';
+import '../entities/user_entity.dart';
 
 abstract interface class EmailAuthRepo {
   Future<Either<Failure, UserEntity>>

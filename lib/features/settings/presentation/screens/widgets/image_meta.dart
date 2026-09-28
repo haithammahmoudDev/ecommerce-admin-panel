@@ -13,7 +13,7 @@ class ImageAndMeta extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TRoundedContainer(
+    return RoundedContainer(
       padding: const EdgeInsets.symmetric(vertical: TSizes.lg, horizontal: TSizes.md),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -36,7 +36,8 @@ class ImageAndMeta extends StatelessWidget {
                     circular: true,
                     icon: Iconsax.camera,
                     loading: logoData.isLogoLoading,
-                    onIconButtonPressed: () => context.read<SettingsCubit>().updateAppLogo(context),
+                    onIconButtonPressed: () =>
+                        context.read<SettingsCubit>().updateAppLogo(context),
                     imageType: ImageType.network,
                     image: logoData.appLogo,
                   );

@@ -25,7 +25,7 @@ class _ShippingAddressState extends State<ShippingAddress> {
     return BlocBuilder<CustomerDetailCubit, CustomerDetailState>(
       builder: (context, state) {
         if (state.addressesLoading) {
-          return const TRoundedContainer(
+          return const RoundedContainer(
             padding: EdgeInsets.all(TSizes.defaultSpace),
             child: Center(child: CircularProgressIndicator(color: Colors.blue,)),
           );
@@ -37,7 +37,7 @@ class _ShippingAddressState extends State<ShippingAddress> {
           orElse: () => addresses.isNotEmpty ? addresses.first : AddressEntity.empty(),
         );
 
-        return TRoundedContainer(
+        return RoundedContainer(
           padding: const EdgeInsets.all(TSizes.defaultSpace),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

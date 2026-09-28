@@ -4,7 +4,7 @@ import '../../../../common/abstraction/base_data_table/base_data_table_cubit.dar
 import '../../../../common/abstraction/base_data_table/base_data_table_state.dart';
 import '../../../../common/errors/failure.dart';
 import '../../../../utils/popups/loaders.dart';
-import '../../../order/domain/entities/user_entity.dart';
+import '../../../auth/domain/entities/user_entity.dart';
 import '../../../order/domain/repos/user_repo.dart';
 
 

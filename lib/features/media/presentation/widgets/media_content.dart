@@ -37,7 +37,7 @@ class MediaContent extends StatelessWidget {
       print(state.errorMessage ?? '');
     }
   },
-  child: TRoundedContainer(
+  child: RoundedContainer(
       padding: const EdgeInsets.all(TSizes.defaultSpace),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

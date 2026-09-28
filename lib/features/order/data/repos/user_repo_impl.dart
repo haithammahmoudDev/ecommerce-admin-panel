@@ -6,10 +6,10 @@ import 'package:flutter/services.dart';
 import '../../../../common/errors/failure.dart';
 import '../../../../common/network/firebase/database_services.dart';
 import '../../domain/entities/order_entity.dart';
-import '../../domain/entities/user_entity.dart';
+import '../../../auth/domain/entities/user_entity.dart';
 import '../../domain/repos/user_repo.dart';
 import '../models/order_model.dart';
-import '../models/user_model.dart';
+import '../../../auth/data/models/user_model.dart';
 
 class UserRepoImpl implements UserRepo {
   final FirebaseFirestore _db;

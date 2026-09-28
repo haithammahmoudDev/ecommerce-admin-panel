@@ -201,7 +201,7 @@ class _MediaUploaderState extends State<MediaUploader> {
             // -----------------------------------------------------------------
 
             if (state.selectedImagesToUpload.isNotEmpty)
-              TRoundedContainer(
+              RoundedContainer(
                 width: double.infinity,
                 showBorder: true,
                 borderColor: TColors.borderPrimary,

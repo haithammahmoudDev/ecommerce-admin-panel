@@ -14,7 +14,7 @@ class OrderStatusPieChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TRoundedContainer(
+    return RoundedContainer(
       padding: const EdgeInsets.all(TSizes.md),
       child: BlocBuilder<DashboardCubit, DashboardState>(
         buildWhen: (previous, current) =>

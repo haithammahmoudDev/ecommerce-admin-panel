@@ -46,7 +46,7 @@ class CreateProductMobileScreen extends StatelessWidget {
                   const SizedBox(height: TSizes.spaceBtwSections),
 
                   // 2. Stock & Pricing
-                  TRoundedContainer(
+                  RoundedContainer(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -79,7 +79,7 @@ class CreateProductMobileScreen extends StatelessWidget {
                   const SizedBox(height: TSizes.spaceBtwSections),
 
                   // 5. Product Images
-                  TRoundedContainer(
+                  RoundedContainer(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

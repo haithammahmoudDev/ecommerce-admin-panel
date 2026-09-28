@@ -1,11 +1,12 @@
+import 'package:ecommerce_admin_pannal/common/local_storage/local_storage_service.dart';
+import 'package:ecommerce_admin_pannal/features/auth/presentation/cubit/user_cubit/user_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
-
 import '../../../../../../utils/constants/sizes.dart';
 import '../../../../../../utils/validators/validation.dart';
-import '../../../../../common/preferences/save_user_by_hive.dart';
 import '../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
-import '../../../../order/domain/entities/user_entity.dart';
+import '../../../../auth/domain/entities/user_entity.dart';
 
 class ProfileForm extends StatefulWidget {
   const ProfileForm({super.key});
@@ -19,15 +20,15 @@ class _ProfileFormState extends State<ProfileForm> {
   late final TextEditingController nameController;
   late final TextEditingController emailController;
   late final TextEditingController phoneController;
-  UserEntity? user;
+ late final UserEntity user;
 
   @override
   void initState() {
     super.initState();
-    user = UserRepository().getUser();
-    nameController = TextEditingController(text: user?.fullName ?? '');
-    emailController = TextEditingController(text: user?.email ?? '');
-    phoneController = TextEditingController(text: user?.phoneNumber ?? '');
+    user = LocalStorageService.userRepo.getData()!.toEntity();
+    nameController = TextEditingController(text: user.fullName ?? '');
+    emailController = TextEditingController(text: user.email ?? '');
+    phoneController = TextEditingController(text: user.phoneNumber ?? '');
   }
 
   @override
@@ -42,7 +43,7 @@ class _ProfileFormState extends State<ProfileForm> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        TRoundedContainer(
+        RoundedContainer(
           padding: const EdgeInsets.symmetric(
             vertical: TSizes.lg,
             horizontal: TSizes.md,
@@ -60,7 +61,6 @@ class _ProfileFormState extends State<ProfileForm> {
                 key: _formKey,
                 child: Column(
                   children: [
-                    // Full Name (TextFormField fills available width automatically in Column)
                     TextFormField(
                       controller: nameController,
                       decoration: const InputDecoration(
@@ -117,10 +117,20 @@ class _ProfileFormState extends State<ProfileForm> {
         SizedBox(
           width: double.infinity,
           child: ElevatedButton(
-            onPressed: () {
-              print(UserRepository().getUser() ?? 'Hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii');
+            onPressed: () async {
               if (_formKey.currentState!.validate()) {
-                // TODO: Perform profile update
+                final currentUser = context.read<UserCubit>().state.user;
+
+                if (nameController.text.trim() != currentUser?.fullName ||
+                    phoneController.text.trim() != currentUser?.phoneNumber) {
+
+                  context.read<UserCubit>().updateUserData(
+                    user: currentUser!.copyWith(
+                      fullName: nameController.text.trim(),
+                      phoneNumber: phoneController.text.trim(),
+                    ),
+                  );
+                }
               }
             },
             child: const Text('Update Profile'),

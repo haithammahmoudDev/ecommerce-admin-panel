@@ -17,7 +17,7 @@ class ProductBrand extends StatelessWidget {
   Widget build(BuildContext context) {
     final createProductCubit = context.read<CreateProductCubit>();
 
-    return TRoundedContainer(
+    return RoundedContainer(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

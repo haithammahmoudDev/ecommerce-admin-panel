@@ -47,7 +47,7 @@ class _CategoriesMobileScreenState extends State<CategoriesMobileScreen> {
               const SizedBox(height: TSizes.spaceBtwSections),
 
               // Table Body
-                  TRoundedContainer(
+                  RoundedContainer(
                   child: Column(
                     children: [
                       // Table Header

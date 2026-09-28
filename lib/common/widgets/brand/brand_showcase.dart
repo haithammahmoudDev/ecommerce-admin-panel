@@ -19,7 +19,7 @@ class TBrandShowcase extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TRoundedContainer(
+    return RoundedContainer(
       showBorder: true,
       borderColor: TColors.darkGrey,
       backgroundColor: Colors.transparent,
@@ -43,7 +43,7 @@ class TBrandShowcase extends StatelessWidget {
 
   Widget brandTopProductImageWidget(String image, context) {
     return Expanded(
-      child: TRoundedContainer(
+      child: RoundedContainer(
         height: 100,
         padding: const EdgeInsets.all(TSizes.md),
         margin: const EdgeInsets.only(right: TSizes.sm),

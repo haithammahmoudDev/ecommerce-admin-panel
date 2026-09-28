@@ -19,7 +19,7 @@ class ProductVariations extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = context.read<ProductVariationsCubit>();
 
-    return TRoundedContainer(
+    return RoundedContainer(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

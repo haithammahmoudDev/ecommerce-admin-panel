@@ -4,7 +4,7 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../../../../../common/errors/exceptions.dart';
 import '../../../../../common/network/firebase/auth_client.dart';
-import '../../../order/data/models/user_model.dart';
+import '../models/user_model.dart';
 
 class SocialAuthDataSourceImpl implements SocialAuthDatasource {
   final AuthClient _authClient;

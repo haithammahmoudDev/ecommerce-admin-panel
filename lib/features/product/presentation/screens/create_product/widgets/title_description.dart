@@ -14,7 +14,7 @@ class ProductTitleAndDescription extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = context.read<CreateProductCubit>();
 
-    return TRoundedContainer(
+    return RoundedContainer(
       child: Form(
         key: cubit.titleDescriptionFormKey,
         child: Column(

@@ -20,7 +20,7 @@ class OrderInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = context.read<OrderCubit>();
     cubit.selectOrderStatus(order.status);
-    return TRoundedContainer(
+    return RoundedContainer(
       padding: const EdgeInsets.all(TSizes.defaultSpace),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,7 +68,7 @@ class OrderInfo extends StatelessWidget {
                          ),
                        );
                      }
-                  return TRoundedContainer(
+                  return RoundedContainer(
                       radius: TSizes.cardRadiusSm,
                       padding: const EdgeInsets.symmetric(horizontal: TSizes.sm, vertical: 0),
                       backgroundColor: THelperFunctions.

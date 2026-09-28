@@ -21,7 +21,7 @@ class CustomersTabletScreen extends StatelessWidget {
               const TBreadcrumbsWithHeading(heading: 'Customers', breadcrumbItems: ['Customers']),
               const SizedBox(height: TSizes.spaceBtwSections),
 
-              TRoundedContainer(
+              RoundedContainer(
                 child: Column(
                   children: [
                     // Table Header

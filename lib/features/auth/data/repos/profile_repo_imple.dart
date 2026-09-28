@@ -1,14 +1,12 @@
 import 'dart:io';
-
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import '../../../../common/errors/exceptions.dart';
 import '../../../../common/errors/failure.dart';
+import '../../../../common/local_storage/local_storage_service.dart';
 import '../../../../common/network/firebase/database_services.dart';
-import '../../../../common/preferences/save_user_by_hive.dart';
-import '../../../order/data/models/user_model.dart';
-import '../../../order/domain/entities/user_entity.dart';
+import '../models/user_model.dart';
+import '../../domain/entities/user_entity.dart';
 import '../../domain/repos/profile_repo.dart';
 import '../data_source/profile_datasource.dart';
 
@@ -20,8 +18,7 @@ class ProfileRepoImple implements ProfileRepo{
   Future<Either<Failure, UserEntity>> getUserData() async{
     try{
       final userData = await profileDatasource.getUserData();
-      await UserRepository().saveUser(
-          userData.toEntity());
+      LocalStorageService.userRepo.saveData(userData);
       return right(userData.toEntity());
     }on ServerException catch (e){
       return left((ServerFailure(e.toString())));
@@ -31,13 +28,21 @@ class ProfileRepoImple implements ProfileRepo{
   }
   Future<Either<Failure, void>> updateUserData({required UserEntity user}) async{
     try{
-      await profileDatasource.updateUser(UserModel.fromEntity(user));
-      await UserRepository().updateUser(
-        email: user.email,
-        image: user.profilePicture,
-        fullName: user.fullName,
-        phoneNumber: user.phoneNumber,
+      await profileDatasource.updateUser(
+        UserModel.fromEntity(user).copyWith(
+          fullName: user.fullName,
+          phoneNumber: user.phoneNumber,
+         ),
       );
+      await LocalStorageService.userRepo.updateData((currentUser) {
+        return currentUser.copyWith(
+          fullName: user.fullName,
+          phoneNumber: user.phoneNumber,
+          profilePicture: user.profilePicture,
+          email: user.email,
+          updatedAt: DateTime.now(),
+        );
+      });
       return const Right(null);
     }on ServerException catch (e){
       return left((ServerFailure(e.toString())));
@@ -46,25 +51,29 @@ class ProfileRepoImple implements ProfileRepo{
     }
   }
 
-  Future<Either<Failure, String>> uploadImagePic({required File file}) async{
-    try{
-      final ImagePic =  await profileDatasource.uploadImageProfile(file: file);
-      await _databaseServices.updateData(path: 'users',
-          docId: FirebaseAuth.instance.currentUser!.uid, data: {
-            'profilePicture' : ImagePic,
-          });
-      final user = await profileDatasource.getUserData();
-      await UserRepository().updateUser(
-        email: user.email,
-        image: ImagePic,
-        fullName: user.fullName,
-        phoneNumber: user.phoneNumber,
+  Future<Either<Failure, String>> updateProfilePictureUrl({required String imageUrl}) async {
+    try {
+       await _databaseServices.updateData(
+        path: 'users',
+        docId: FirebaseAuth.instance.currentUser!.uid,
+        data: {
+          'profilePicture': imageUrl,
+          'updatedAt': DateTime.now().toIso8601String(),
+        },
       );
-      return right(ImagePic);
-    }on ServerException catch (e){
-      return left((ServerFailure(e.toString())));
-    }catch (e){
-      return left((ServerFailure(e.toString())));
+
+       await LocalStorageService.userRepo.updateData((currentUser) {
+        return currentUser.copyWith(
+          profilePicture: imageUrl,
+          updatedAt: DateTime.now(),
+        );
+      });
+
+      return right(imageUrl);
+    } on ServerException catch (e) {
+      return left(ServerFailure(e.toString()));
+    } catch (e) {
+      return left(ServerFailure(e.toString()));
     }
   }
 

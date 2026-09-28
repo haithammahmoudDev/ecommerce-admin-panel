@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:ecommerce_admin_pannal/common/errors/failure.dart';
 
-import '../../data/models/user_model.dart';
+import '../../../auth/data/models/user_model.dart';
 import '../entities/order_entity.dart';
-import '../entities/user_entity.dart';
+import '../../../auth/domain/entities/user_entity.dart';
 
 abstract class UserRepo {
   Future<Either<Failure, List<UserEntity>>> getAllUsers();

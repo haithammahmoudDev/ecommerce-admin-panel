@@ -23,7 +23,7 @@ class OrderItems extends StatelessWidget {
     final subTotal = order.items.fold(0.0,
             (previousValue, element) => previousValue + (element.price * element.quantity));
 
-    return TRoundedContainer(
+    return RoundedContainer(
       padding: const EdgeInsets.all(TSizes.defaultSpace),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -88,7 +88,7 @@ class OrderItems extends StatelessWidget {
           const SizedBox(height: TSizes.spaceBtwSections),
 
           // 2. حاوية ملخص الأسعار والفواتير (Subtotal, Discount, Shipping, Tax, Total)
-          TRoundedContainer(
+          RoundedContainer(
             padding: const EdgeInsets.all(TSizes.defaultSpace),
             backgroundColor: TColors.primaryBackground,
             child: Column(

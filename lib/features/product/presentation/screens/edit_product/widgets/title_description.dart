@@ -13,7 +13,7 @@ class ProductTitleAndDescription extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = context.read<EditProductCubit>();
 
-    return TRoundedContainer(
+    return RoundedContainer(
       padding: const EdgeInsets.all(TSizes.defaultSpace),
       child: Form(
         key: cubit.titleDescriptionFormKey,

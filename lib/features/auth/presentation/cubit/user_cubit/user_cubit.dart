@@ -1,6 +1,6 @@
 import 'dart:io';
-
 import 'package:bloc/bloc.dart';
+import 'package:ecommerce_admin_pannal/common/local_storage/local_storage_service.dart';
 import 'package:ecommerce_admin_pannal/features/auth/domain/repos/profile_repo.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,30 +8,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
-import '../../../../../common/preferences/save_user_by_hive.dart';
 import '../../../../../utils/constants/image_strings.dart';
 import '../../../../../utils/popups/full_screen_loader.dart';
 import '../../../../../utils/popups/loaders.dart';
-import '../../../../order/domain/entities/user_entity.dart';
-import '../../screens/login/login_screen.dart';
-
-
+import '../../../../media/data/models/image_model.dart';
+import '../../../../media/presentation/controller/media_cubit/media_cubit.dart';
+import '../../../data/models/user_model.dart';
+import '../../../domain/entities/user_entity.dart';
 part 'user_state.dart';
 
 class UserCubit extends Cubit<UserState> {
   UserCubit({required ProfileRepo personalizationRepo})
       : _personalizationRepo = personalizationRepo,
-        super(UserState());
+        super(UserState()){
+    getUserData();
+  }
 
   final ProfileRepo _personalizationRepo;
 
   Future<void> getUserData() async {
-    final cachedUser = UserRepository().getUser();
+    final UserModel? cachedUser = LocalStorageService.userRepo.getData();
 
     if (cachedUser != null) {
       if (!isClosed) {
         emit(state.copyWith(
-          user: cachedUser,
+          user: cachedUser.toEntity(),
           userDataStatus: UserDataStatus.loaded,
         ));
       }
@@ -42,9 +43,6 @@ class UserCubit extends Cubit<UserState> {
     }
 
     final result = await _personalizationRepo.getUserData();
-
-    // ✅ فحص إضافي بعد الـ await، لأن الوقت اللي استغرقه الطلب
-    // ممكن يكون كافي إن الـ Cubit يتقفل في الأثناء
     if (isClosed) return;
 
     result.fold(
@@ -59,7 +57,7 @@ class UserCubit extends Cubit<UserState> {
         }
       },
           (freshUser) async {
-        await UserRepository().saveUser(freshUser);
+            await LocalStorageService.userRepo.saveData(UserModel.fromEntity(freshUser));
         if (!isClosed) {
           emit(state.copyWith(
             user: freshUser,
@@ -89,7 +87,7 @@ class UserCubit extends Cubit<UserState> {
         }
       },
           (_) async {
-        await UserRepository().saveUser(user);
+            await LocalStorageService.userRepo.saveData(UserModel.fromEntity(user));
         if (!isClosed) {
           emit(state.copyWith(
             user: user,
@@ -101,37 +99,48 @@ class UserCubit extends Cubit<UserState> {
   }
 
 
-  Future<void> pickImage(ImageSource source) async {
-    final image = await ImagePicker().pickImage(
-      source: source,
-      imageQuality: 85,
-    );
-    if (image == null) return;
+  Future<void> pickImage(BuildContext context) async {
+    // 1. فتح نظام الميديا الخاص بالتطبيق لاختيار الصورة
+    final MediaCubit mediaCubit = context.read<MediaCubit>();
+    List<ImageModel>? selectedImages = await mediaCubit.selectImagesFromMedia(context: context);
+
+    if (isClosed) return;
+    if (selectedImages == null || selectedImages.isEmpty) return;
 
     if (!isClosed) {
       emit(state.copyWith(userDataStatus: UserDataStatus.loading));
     }
 
-    final result = await _personalizationRepo.uploadImagePic(file: File(image.path));
+    // 2. أخذ رابط الصورة الأولى المختارة من الميديا
+    ImageModel selectedImage = selectedImages.first;
+
+    // 3. استدعاء دالة الـ Repository وإرسال رابط الصورة (URL)
+    final result = await _personalizationRepo.updateProfilePictureUrl(imageUrl: selectedImage.url);
 
     if (isClosed) return;
 
-    result.fold((error) {
-      if (!isClosed) {
-        emit(state.copyWith(userDataStatus: UserDataStatus.error, errorMessage: error.message));
-      }
-    }, (success) {
-      if (!isClosed) {
-        emit(state.copyWith(
-          user: UserRepository().getUser()!.copyWith(
-            profilePicture: success,
-          ),
-          userDataStatus: UserDataStatus.loaded,
-        ));
-      }
-    });
+    result.fold(
+          (error) {
+        if (!isClosed) {
+          emit(state.copyWith(
+            userDataStatus: UserDataStatus.error,
+            errorMessage: error.message,
+          ));
+        }
+      },
+          (successUrl) {
+        if (!isClosed) {
+          emit(state.copyWith(
+            user: LocalStorageService.userRepo.getData()!.copyWith(
+              profilePicture: successUrl,
+              updatedAt: DateTime.now(),
+            ).toEntity(),
+            userDataStatus: UserDataStatus.loaded,
+          ));
+        }
+      },
+    );
   }
-
 
   Future<void> deleteAccount(BuildContext context) async {
     try {

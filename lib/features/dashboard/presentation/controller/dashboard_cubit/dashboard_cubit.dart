@@ -6,7 +6,7 @@ import '../../../../../common/errors/failure.dart';
 import '../../../../../utils/constants/enums.dart';
 import '../../../../../utils/helpers/helper_functions.dart';
 import '../../../../order/domain/entities/order_entity.dart';
-import '../../../../order/domain/entities/user_entity.dart';
+import '../../../../auth/domain/entities/user_entity.dart';
 import '../../../../order/domain/repos/order_repo.dart';
 import '../../../../order/domain/repos/user_repo.dart';
 

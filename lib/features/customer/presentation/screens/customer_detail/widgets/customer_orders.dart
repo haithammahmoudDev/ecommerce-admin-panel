@@ -22,7 +22,7 @@ class _CustomerOrdersState extends State<CustomerOrders> {
 
   @override
   Widget build(BuildContext context) {
-    return TRoundedContainer(
+    return RoundedContainer(
       padding: const EdgeInsets.all(TSizes.defaultSpace),
       child: BlocBuilder<CustomerDetailCubit, CustomerDetailState>(
         builder: (context, state) {

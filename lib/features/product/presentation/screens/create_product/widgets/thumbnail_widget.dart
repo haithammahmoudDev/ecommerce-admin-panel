@@ -16,7 +16,7 @@ class ProductThumbnailImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TRoundedContainer(
+    return RoundedContainer(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -25,7 +25,7 @@ class ProductThumbnailImage extends StatelessWidget {
           const SizedBox(height: TSizes.spaceBtwItems),
 
           // Container for Product Thumbnail
-          TRoundedContainer(
+          RoundedContainer(
             height: 300,
             backgroundColor: TColors.primaryBackground,
             child: Center(

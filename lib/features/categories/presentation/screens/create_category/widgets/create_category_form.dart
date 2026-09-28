@@ -34,7 +34,7 @@ class _CreateCategoryFormState extends State<CreateCategoryForm> {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<CreateCategoryCubit>();
-    return TRoundedContainer(
+    return RoundedContainer(
       width: 500,
       padding: const EdgeInsets.all(TSizes.defaultSpace),
       child: Form(

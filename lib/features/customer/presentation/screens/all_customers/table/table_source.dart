@@ -8,7 +8,7 @@ import '../../../../../../utils/constants/colors.dart';
 import '../../../../../../utils/constants/enums.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../../../../../categories/presentation/screens/all_categories/table/table_action_icon_button.dart';
-import '../../../../../order/domain/entities/user_entity.dart';
+import '../../../../../auth/domain/entities/user_entity.dart';
 
 class CustomerRows extends DataTableSource {
   final BuildContext context;

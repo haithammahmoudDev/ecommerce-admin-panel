@@ -67,7 +67,7 @@ class EditProductDesktopScreen extends StatelessWidget {
                         const SizedBox(height: TSizes.spaceBtwSections),
 
                         // Stock & Pricing Container
-                        TRoundedContainer(
+                        RoundedContainer(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -108,7 +108,7 @@ class EditProductDesktopScreen extends StatelessWidget {
                         const SizedBox(height: TSizes.spaceBtwSections),
 
                         // Product Images
-                        TRoundedContainer(
+                        RoundedContainer(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [

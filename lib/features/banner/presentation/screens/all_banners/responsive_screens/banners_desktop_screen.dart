@@ -44,7 +44,7 @@ class _BannersDesktopScreenState extends State<BannersDesktopScreen> {
               const TBreadcrumbsWithHeading(heading: 'Banners', breadcrumbItems: ['Banners']),
               const SizedBox(height: TSizes.spaceBtwSections),
 
-              TRoundedContainer(
+              RoundedContainer(
                 child: Column(
                   children: [
                     // Table Header

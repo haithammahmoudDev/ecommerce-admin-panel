@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
-import '../../../../order/domain/entities/user_entity.dart';
+import '../../../domain/entities/user_entity.dart';
 import '../../../domain/repos/session_repo.dart';
 
 part 'session_state.dart';

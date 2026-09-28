@@ -8,7 +8,7 @@ import '../../../../../../common/widgets/breadcrumbs/breadcrumb.dart';
 import '../../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../../../../../categories/presentation/screens/all_categories/widgets/table_header.dart';
-import '../../../../../order/domain/entities/user_entity.dart';
+import '../../../../../auth/domain/entities/user_entity.dart';
 import '../../../controller/customer_controller.dart';
 import '../table/data_table.dart';
 
@@ -44,7 +44,7 @@ class _CustomersDesktopScreenState extends State<CustomersDesktopScreen> {
               const TBreadcrumbsWithHeading(heading: 'Customers', breadcrumbItems: ['Customers']),
               const SizedBox(height: TSizes.spaceBtwSections),
 
-              TRoundedContainer(
+              RoundedContainer(
                 child: Column(
                   children: [
                     // Table Header

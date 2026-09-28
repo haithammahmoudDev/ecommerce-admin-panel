@@ -17,7 +17,7 @@ class Brandcard extends StatelessWidget {
   Widget build(BuildContext context) {
     return  GestureDetector(
       onTap: onTap,
-      child: TRoundedContainer(
+      child: RoundedContainer(
         padding:const EdgeInsets.all(TSizes.sm),
         showBorder: showBorder,
         backgroundColor: Colors.transparent,

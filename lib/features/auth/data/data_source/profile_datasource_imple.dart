@@ -5,7 +5,7 @@ import '../../../../common/errors/exceptions.dart';
 import '../../../../common/network/firebase/auth_client.dart';
 import '../../../../common/network/firebase/database_services.dart';
 import '../../../../common/network/firebase/storage_service.dart';
-import '../../../order/data/models/user_model.dart';
+import '../models/user_model.dart';
 
 
 class ProfileDatasourceImple implements ProfileDatasource{
