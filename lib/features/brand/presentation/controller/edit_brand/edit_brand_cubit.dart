@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:ecommerce_admin_pannal/features/brand/domain/entities/brand_entity.dart';
 import 'package:ecommerce_admin_pannal/features/brand/domain/repos/brand_repo.dart';
+import 'package:ecommerce_admin_pannal/features/media/domain/entities/image_entity.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -65,10 +66,6 @@ class EditBrandCubit extends Cubit<EditBrandState> {
       return;
     }
 
-    // productsCount is intentionally left untouched here — editing a brand's
-    // name/image/featured flag/categories should never reset its product
-    // count. That field is only ever changed by product create/delete flows
-    // (see BrandRepo.incrementProductsCount in brand_repo_additions.dart).
     final BrandModel newRecord = BrandModel(
       name: nameController.text.trim(),
       image: state.imageUrl,
@@ -159,7 +156,7 @@ class EditBrandCubit extends Cubit<EditBrandState> {
                 (brandCategoryId) => brandCategory.id = brandCategoryId,
           );
 
-          if (!success) break; // stop the loop as soon as an error occurs
+          if (!success) break;
         }
 
         brand.brandCategories = List.from(state.selectedCategories);
@@ -176,7 +173,7 @@ class EditBrandCubit extends Cubit<EditBrandState> {
     final selectedImages = await controller.selectImagesFromMedia(context: context);
 
     if (selectedImages != null && selectedImages.isNotEmpty) {
-      final ImageModel selectedImage = selectedImages.first;
+      final ImageEntity selectedImage = selectedImages.first;
       emit(state.copyWith(imageUrl: selectedImage.url));
     }
   }

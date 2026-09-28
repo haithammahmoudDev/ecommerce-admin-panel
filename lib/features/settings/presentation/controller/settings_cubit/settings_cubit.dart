@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:ecommerce_admin_pannal/features/media/domain/entities/image_entity.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import '../../../../../utils/helpers/network_manager.dart';
@@ -56,13 +57,13 @@ class SettingsCubit extends Cubit<SettingsState> {
 
   /// Pick & Update App Logo (Triggers Logo Selector Only)
   Future<void> updateAppLogo(BuildContext context) async {
-    List<ImageModel>? selectedImages =
+    List<ImageEntity>? selectedImages =
     await _mediaCubit.selectImagesFromMedia(context: context);
 
     if (selectedImages != null && selectedImages.isNotEmpty) {
       emit(state.copyWith(isLogoLoading: true));
 
-      ImageModel selectedImage = selectedImages.first;
+     final ImageEntity selectedImage = selectedImages.first;
 
       final result = await settingsRepository.updateSingleField({
         'appLogo': selectedImage.url,

@@ -2,7 +2,8 @@ import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
-/// Model class representing image data.
+import '../../domain/entities/image_entity.dart';
+
 class ImageModel {
   String id;
   final String url;
@@ -15,12 +16,10 @@ class ImageModel {
   final DateTime? updatedAt;
   final String? contentType;
 
-  // Not Mapped Fields
   final dynamic file;
   bool isSelected;
   final Uint8List? localImageToDisplay;
 
-  /// Constructor for ImageModel
   ImageModel({
     this.id = '',
     required this.url,
@@ -37,7 +36,6 @@ class ImageModel {
     this.localImageToDisplay,
   });
 
-  /// Factory constructor for creating an empty ImageModel.
   factory ImageModel.empty() {
     return ImageModel(
       url: '',
@@ -46,7 +44,6 @@ class ImageModel {
     );
   }
 
-  /// Convert to JSON structure for storing in Firestore database
   Map<String, dynamic> toJson() {
     return {
       'url': url,
@@ -61,7 +58,6 @@ class ImageModel {
     };
   }
 
-  /// Convert Firestore Json and Map on Model
   factory ImageModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> document) {
     if (document.data() != null) {
       final data = document.data()!;
@@ -83,9 +79,7 @@ class ImageModel {
     }
   }
 
-  /// Map Firebase Storage Data
-  factory ImageModel.fromFirebaseMetadata(FullMetadata metadata
-      , String folder, String filename, String downloadUrl) {
+  factory ImageModel.fromFirebaseMetadata(FullMetadata metadata, String folder, String filename, String downloadUrl) {
     return ImageModel(
       url: downloadUrl,
       folder: folder,
@@ -148,8 +142,41 @@ class ImageModel {
       mediaCategory: data['mediaCategory'] ?? '',
     );
   }
+
   String getOptimizedUrl({int width = 300, int quality = 75}) {
     if (url.isEmpty) return url;
     return '$url?width=$width&quality=$quality&format=webp';
+  }
+
+  /// دالة لتحويل الـ Model إلى Domain Entity
+  ImageEntity toEntity() {
+    return ImageEntity(
+      id: id,
+      url: url,
+      folder: folder,
+      sizeBytes: sizeBytes,
+      mediaCategory: mediaCategory,
+      filename: filename,
+      fullPath: fullPath,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
+      contentType: contentType,
+    );
+  }
+
+  /// فاكتوري لتحويل الـ Domain Entity إلى Model
+  factory ImageModel.fromEntity(ImageEntity entity) {
+    return ImageModel(
+      id: entity.id,
+      url: entity.url,
+      folder: entity.folder,
+      sizeBytes: entity.sizeBytes,
+      mediaCategory: entity.mediaCategory,
+      filename: entity.filename,
+      fullPath: entity.fullPath,
+      createdAt: entity.createdAt,
+      updatedAt: entity.updatedAt,
+      contentType: entity.contentType,
+    );
   }
 }

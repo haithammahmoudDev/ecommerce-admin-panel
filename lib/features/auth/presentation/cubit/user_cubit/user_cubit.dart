@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:ecommerce_admin_pannal/common/local_storage/local_storage_service.dart';
 import 'package:ecommerce_admin_pannal/features/auth/domain/repos/profile_repo.dart';
+import 'package:ecommerce_admin_pannal/features/media/domain/entities/image_entity.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -106,7 +107,7 @@ class UserCubit extends Cubit<UserState> {
   Future<void> pickImage(BuildContext context) async {
     // 1. فتح نظام الميديا الخاص بالتطبيق لاختيار الصورة
     final MediaCubit mediaCubit = context.read<MediaCubit>();
-    List<ImageModel>? selectedImages = await mediaCubit.selectImagesFromMedia(context: context);
+    List<ImageEntity>? selectedImages = await mediaCubit.selectImagesFromMedia(context: context);
 
     if (isClosed) return;
     if (selectedImages == null || selectedImages.isEmpty) return;
@@ -115,7 +116,7 @@ class UserCubit extends Cubit<UserState> {
       emit(state.copyWith(userDataStatus: UserDataStatus.loading));
     }
 
-     ImageModel selectedImage = selectedImages.first;
+     ImageEntity selectedImage = selectedImages.first;
 
      final result = await _personalizationRepo.updateProfilePictureUrl(imageUrl: selectedImage.url);
 

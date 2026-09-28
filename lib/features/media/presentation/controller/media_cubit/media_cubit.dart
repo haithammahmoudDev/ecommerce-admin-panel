@@ -1,6 +1,5 @@
 import 'dart:typed_data';
 
-import 'package:ecommerce_admin_pannal/features/media/data/repo/media_repo_imple.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,16 +14,18 @@ import '../../../../../utils/constants/sizes.dart';
 import '../../../../../utils/popups/dialog.dart';
 import '../../../../../utils/popups/loaders.dart';
 import '../../../data/models/image_model.dart';
+import '../../../domain/entities/image_entity.dart';
+import '../../../domain/repo/media_repo.dart';
 import '../../widgets/media_content.dart';
 import '../../widgets/media_uploader.dart';
 import '../../widgets/web_image_resizer.dart';
 import 'media_state.dart';
 
 class MediaCubit extends Cubit<MediaState> {
-  final MediaRepository _mediaRepository;
+  final MediaRepo _mediaRepository;
 
   MediaCubit({
-    required MediaRepository mediaRepository,
+    required MediaRepo mediaRepository,
   })  : _mediaRepository = mediaRepository,
         super(const MediaState());
 
@@ -38,31 +39,23 @@ class MediaCubit extends Cubit<MediaState> {
     );
   }
 
-  /// toggle selected image (Single or Multiple Selection)
-  void toggleImageSelection(ImageModel targetImage, {bool allowMultipleSelection = false}) {
-    // 1. أخذ نسخة من قائمة الصور المحددة حالياً
-    final List<ImageModel> currentSelected = List<ImageModel>.from(state.selectedImagesToUpload);
+  void toggleImageSelection(ImageEntity targetImage, {bool allowMultipleSelection = false}) {
+    final List<ImageEntity> currentSelected = List<ImageEntity>.from(state.selectedImagesToUpload);
 
-    // 2. التحقق مما إذا كانت الصورة محددة مسبقاً
     final bool isAlreadySelected = currentSelected.any((img) => img.id == targetImage.id || img.url == targetImage.url);
 
-    List<ImageModel> updatedList = [];
+    List<ImageEntity> updatedList = [];
 
     if (isAlreadySelected) {
-      // إلغاء تحديد الصورة
       updatedList = currentSelected.where((img) => img.id != targetImage.id && img.url != targetImage.url).toList();
     } else {
-      // تحديد الصورة
       if (!allowMultipleSelection) {
-        // إذا كان التحديد لصورة واحدة فقط، امسح القائمة القديمة وأضف الجديدة فقط
         updatedList = [targetImage];
       } else {
-        // إذا كان التحديد متعدد، أضف الصورة للقائمة
         updatedList = [...currentSelected, targetImage];
       }
     }
 
-    // 3. تحديث الـ State
     emit(
       state.copyWith(
         selectedImagesToUpload: updatedList,
@@ -82,10 +75,6 @@ class MediaCubit extends Cubit<MediaState> {
     dropzoneController = controller;
   }
 
-  // ============================================================
-  // PICK LOCAL IMAGES (معالجة وضغط متوازي للصور عند الاختيار)
-  // ============================================================
-
   Future<void> selectLocalImages() async {
     if (dropzoneController == null) return;
 
@@ -96,14 +85,12 @@ class MediaCubit extends Cubit<MediaState> {
       );
 
       if (files != null && files.isNotEmpty) {
-        // 🟢 قراءة وضغط جميع الملفات المختارة بالتوازي لسرعة فائقة
-        final imageModels = await Future.wait(
+        final imageEntities = await Future.wait(
           files.map((file) async {
             final bytes = await dropzoneController!.getFileData(file);
             final filename = await dropzoneController!.getFilename(file);
             final rawBytes = Uint8List.fromList(bytes);
 
-            // ضغط فوري للصورة
             final compressedBytes = await WebImageResizer.resizeImage(rawBytes);
 
             return ImageModel(
@@ -112,13 +99,12 @@ class MediaCubit extends Cubit<MediaState> {
               folder: state.selectedPath.name,
               filename: filename,
               localImageToDisplay: compressedBytes,
-            );
+            ).toEntity();
           }),
         );
 
-        // إضافة جميع الصور دفعة واحدة إلى الـ State
-        final updatedList = List<ImageModel>.from(state.selectedImagesToUpload)
-          ..addAll(imageModels);
+        final updatedList = List<ImageEntity>.from(state.selectedImagesToUpload)
+          ..addAll(imageEntities);
 
         emit(
           state.copyWith(
@@ -131,8 +117,8 @@ class MediaCubit extends Cubit<MediaState> {
     }
   }
 
-  void addSelectedImageModel(ImageModel image) {
-    final updatedList = List<ImageModel>.from(state.selectedImagesToUpload)
+  void addSelectedImageModel(ImageEntity image) {
+    final updatedList = List<ImageEntity>.from(state.selectedImagesToUpload)
       ..add(image);
 
     emit(
@@ -149,10 +135,6 @@ class MediaCubit extends Cubit<MediaState> {
       ),
     );
   }
-
-  // ============================================================
-  // UPLOAD CONFIRMATION
-  // ============================================================
 
   void uploadImagesConfirmation(BuildContext context) {
     if (state.selectedPath == MediaCategory.folders) {
@@ -174,50 +156,45 @@ class MediaCubit extends Cubit<MediaState> {
     );
   }
 
-  // ============================================================
-  // UPLOAD IMAGES (رفع بالتوازي مع دمج التخزين والداتا بيز)
-  // ============================================================
-
   Future<void> uploadImages(BuildContext context) async {
     final stopwatch = Stopwatch()..start();
 
-    context.pop(); // إغلاق Confirm Dialog
-    uploadImagesLoader(context); // فتح الـ Loader
+    context.pop();
+    uploadImagesLoader(context);
 
     final MediaCategory selectedCategory = state.selectedPath;
-    List<ImageModel> targetList;
+    List<ImageEntity> targetList;
 
     switch (selectedCategory) {
       case MediaCategory.banners:
-        targetList = List<ImageModel>.from(state.allBannerImages);
+        targetList = List<ImageEntity>.from(state.allBannerImages);
         break;
       case MediaCategory.brands:
-        targetList = List<ImageModel>.from(state.allBrandImages);
+        targetList = List<ImageEntity>.from(state.allBrandImages);
         break;
       case MediaCategory.categories:
-        targetList = List<ImageModel>.from(state.allCategoryImages);
+        targetList = List<ImageEntity>.from(state.allCategoryImages);
         break;
       case MediaCategory.products:
-        targetList = List<ImageModel>.from(state.allProductImages);
+        targetList = List<ImageEntity>.from(state.allProductImages);
         break;
       case MediaCategory.users:
-        targetList = List<ImageModel>.from(state.allUserImages);
+        targetList = List<ImageEntity>.from(state.allUserImages);
         break;
       default:
         if (context.mounted) context.pop();
         return;
     }
 
-    final List<ImageModel> selectedImagesToUpload =
-    List<ImageModel>.from(state.selectedImagesToUpload);
+    final List<ImageEntity> selectedImagesToUpload =
+    List<ImageEntity>.from(state.selectedImagesToUpload);
 
-    // 🟢 رفع وحفظ كل صورة بالتوازي فور جهوزيتها
-    final List<ImageModel?> uploadResults = await Future.wait(
+    final List<ImageEntity?> uploadResults = await Future.wait(
       selectedImagesToUpload.map((selectedImage) async {
         final bytes = selectedImage.localImageToDisplay;
         if (bytes == null) return null;
 
-        // 1. رفع الصورة لـ Storage
+        // تحويل الـ Entity إلى Model عند التعامل مع مستودع البيانات إذا لزم الأمر
         final storageResult = await _mediaRepository.uploadImage(
           bytes: bytes,
           path: selectedCategory.name,
@@ -231,7 +208,6 @@ class MediaCubit extends Cubit<MediaState> {
               mediaCategory: selectedCategory.name,
             );
 
-            // 2. حفظ سجل الصورة في Database فور انتهاء الرفع مباشرة
             final dbResult = await _mediaRepository.saveImageRecord(imageWithCategory);
             return dbResult.fold(
                   (failure) => imageWithCategory,
@@ -242,11 +218,10 @@ class MediaCubit extends Cubit<MediaState> {
       }),
     );
 
-    final validUploadedImages = uploadResults.whereType<ImageModel>().toList();
+    final validUploadedImages = uploadResults.whereType<ImageEntity>().toList();
 
     targetList.addAll(validUploadedImages);
 
-    // تحديث الـ State والتفريغ
     emit(
       state.copyWith(
         allBannerImages: selectedCategory == MediaCategory.banners ? targetList : null,
@@ -265,10 +240,6 @@ class MediaCubit extends Cubit<MediaState> {
 
     debugPrint('⏱️ TOTAL TIME: ${stopwatch.elapsedMilliseconds}ms');
   }
-
-  // ============================================================
-  // UPLOAD LOADER
-  // ============================================================
 
   void uploadImagesLoader(BuildContext context) {
     showDialog(
@@ -299,10 +270,6 @@ class MediaCubit extends Cubit<MediaState> {
       },
     );
   }
-
-  // ============================================================
-  // GET MEDIA IMAGES & OTHER METHODS
-  // ============================================================
 
   Future<void> getMediaImages() async {
     bool shouldFetch = false;
@@ -408,7 +375,7 @@ class MediaCubit extends Cubit<MediaState> {
   }
 
   Future<void> loadMoreMediaImages() async {
-    List<ImageModel> targetList = [];
+    List<ImageEntity> targetList = [];
 
     switch (state.selectedPath) {
       case MediaCategory.banners:
@@ -452,8 +419,8 @@ class MediaCubit extends Cubit<MediaState> {
         );
       },
           (newImages) {
-        final updatedList = List<ImageModel>.from(targetList)..addAll(newImages);
-        final updatedAllImages = List<ImageModel>.from(state.allImages)..addAll(newImages);
+        final updatedList = List<ImageEntity>.from(targetList)..addAll(newImages);
+        final updatedAllImages = List<ImageEntity>.from(state.allImages)..addAll(newImages);
 
         switch (state.selectedPath) {
           case MediaCategory.banners:
@@ -478,7 +445,7 @@ class MediaCubit extends Cubit<MediaState> {
     );
   }
 
-  void removeCloudImageConfirmation(BuildContext context, ImageModel image) {
+  void removeCloudImageConfirmation(BuildContext context, ImageEntity image) {
     TDialogs.defaultDialog(
       context: context,
       content: 'Are you sure you want to delete this image?',
@@ -489,7 +456,7 @@ class MediaCubit extends Cubit<MediaState> {
     );
   }
 
-  Future<void> removeCloudImage(BuildContext context, ImageModel image) async {
+  Future<void> removeCloudImage(BuildContext context, ImageEntity image) async {
     final navigator = Navigator.of(context, rootNavigator: true);
     final messenger = ScaffoldMessenger.of(context);
 
@@ -519,23 +486,23 @@ class MediaCubit extends Cubit<MediaState> {
         messenger.showSnackBar(SnackBar(content: Text(failure.message)));
       },
           (_) {
-        List<ImageModel> targetList;
+        List<ImageEntity> targetList;
 
         switch (state.selectedPath) {
           case MediaCategory.banners:
-            targetList = List<ImageModel>.from(state.allBannerImages);
+            targetList = List<ImageEntity>.from(state.allBannerImages);
             break;
           case MediaCategory.brands:
-            targetList = List<ImageModel>.from(state.allBrandImages);
+            targetList = List<ImageEntity>.from(state.allBrandImages);
             break;
           case MediaCategory.categories:
-            targetList = List<ImageModel>.from(state.allCategoryImages);
+            targetList = List<ImageEntity>.from(state.allCategoryImages);
             break;
           case MediaCategory.products:
-            targetList = List<ImageModel>.from(state.allProductImages);
+            targetList = List<ImageEntity>.from(state.allProductImages);
             break;
           case MediaCategory.users:
-            targetList = List<ImageModel>.from(state.allUserImages);
+            targetList = List<ImageEntity>.from(state.allUserImages);
             break;
           default:
             if (navigator.mounted) navigator.pop();
@@ -572,11 +539,12 @@ class MediaCubit extends Cubit<MediaState> {
       },
     );
   }
+
   void setShowImagesUploaderSection(bool show) {
     emit(state.copyWith(showImagesUploaderSection: show));
   }
 
-  Future<List<ImageModel>?> selectImagesFromMedia({
+  Future<List<ImageEntity>?> selectImagesFromMedia({
     required BuildContext context,
     List<String>? selectedUrls,
     bool allowSelection = true,
@@ -586,8 +554,8 @@ class MediaCubit extends Cubit<MediaState> {
 
     setShowImagesUploaderSection(true);
 
-    final List<ImageModel>? selectedImages =
-    await showModalBottomSheet<List<ImageModel>>(
+    final List<ImageEntity>? selectedImages =
+    await showModalBottomSheet<List<ImageEntity>>(
       context: context,
       isScrollControlled: true,
       backgroundColor: TColors.primaryBackground,
@@ -622,5 +590,4 @@ class MediaCubit extends Cubit<MediaState> {
 
     return selectedImages;
   }
-
 }

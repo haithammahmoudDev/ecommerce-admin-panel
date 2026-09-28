@@ -1,3 +1,4 @@
+import 'package:ecommerce_admin_pannal/features/media/domain/entities/image_entity.dart';
 import 'package:ecommerce_admin_pannal/features/product/presentation/controller/product_image/product_image_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,10 +17,10 @@ class ProductImagesCubit extends Cubit<ProductImagesState> {
     emit(state.copyWith(isLoading: true));
 
     try {
-      List<ImageModel>? selectedImages = await mediaCubit.selectImagesFromMedia(context: context);
+      List<ImageEntity>? selectedImages = await mediaCubit.selectImagesFromMedia(context: context);
 
       if (selectedImages != null && selectedImages.isNotEmpty) {
-        ImageModel selectedImage = selectedImages.first;
+        ImageEntity selectedImage = selectedImages.first;
         emit(state.copyWith(
           selectedThumbnailImageUrl: selectedImage.url,
           isLoading: false,

@@ -15,6 +15,7 @@ import 'package:ecommerce_admin_pannal/features/customer/presentation/controller
 import 'package:ecommerce_admin_pannal/features/customer/presentation/controller/customer_detail_controller/customer_detail_cubit.dart';
 import 'package:ecommerce_admin_pannal/features/dashboard/presentation/controller/dashboard_cubit/dashboard_cubit.dart';
 import 'package:ecommerce_admin_pannal/features/media/data/repo/media_repo_imple.dart';
+import 'package:ecommerce_admin_pannal/features/media/domain/repo/media_repo.dart';
 import 'package:ecommerce_admin_pannal/features/media/presentation/controller/media_cubit/media_cubit.dart';
 import 'package:ecommerce_admin_pannal/features/order/data/repos/order_repo_impl.dart';
 import 'package:ecommerce_admin_pannal/features/order/domain/repos/order_repo.dart';
@@ -66,7 +67,7 @@ import '../../features/brand/presentation/controller/create_brand/create_brand_c
 import '../../features/brand/presentation/controller/edit_brand/edit_brand_cubit.dart';
 import '../../features/categories/presentation/controller/create_category/create_category_cubit.dart';
 import '../../features/categories/presentation/controller/edit_category/edit_category_cubit.dart';
- import '../../features/order/data/repos/user_repo_impl.dart';
+import '../../features/order/data/repos/user_repo_impl.dart';
 import '../../features/order/domain/repos/user_repo.dart';
 import '../../features/product/data/repos/product_repo_impl.dart';
 import '../../features/product/presentation/controller/create_product/create_product_cubit.dart';
@@ -83,130 +84,162 @@ import '../network/firebase/supabase_storage.dart';
 final sl = GetIt.instance;
 
 Future<void> initDependencies() async {
-   sl.registerLazySingleton<FirebaseFirestore>(() => FirebaseFirestore.instance);
-  sl.registerLazySingleton<AuthClient>(() =>
-      AuthClientImpl(FirebaseAuth.instance));
-
+  sl.registerLazySingleton<FirebaseFirestore>(() => FirebaseFirestore.instance);
+  sl.registerLazySingleton<AuthClient>(
+    () => AuthClientImpl(FirebaseAuth.instance),
+  );
 
   sl.registerLazySingleton<SupabaseClient>(() => Supabase.instance.client);
 
-  sl.registerLazySingleton<SupabaseStorageClient>(() =>
-  Supabase.instance.client.storage);
+  sl.registerLazySingleton<SupabaseStorageClient>(
+    () => Supabase.instance.client.storage,
+  );
   sl.registerLazySingleton<GoogleSignIn>(() => GoogleSignIn.instance);
   sl.registerLazySingleton<FacebookAuth>(() => FacebookAuth.instance);
   sl.registerLazySingleton<DatabaseServices>(
-          () => CloudFirestore(sl<FirebaseFirestore>()));
-  sl.registerLazySingleton<StorageService>(
-          () => SupabaseStorageService(sl()));
+    () => CloudFirestore(sl<FirebaseFirestore>()),
+  );
+  sl.registerLazySingleton<StorageService>(() => SupabaseStorageService(sl()));
   sl.registerLazySingleton<EmailAuthDatasource>(
-        () =>  EmailAuthdatasourceImple(authClient: sl()),
+    () => EmailAuthdatasourceImple(authClient: sl()),
   );
   sl.registerLazySingleton<VerifyEmailDatasource>(
-        () =>  VerifyEmailDatasourceImple(authClient: sl()),
+    () => VerifyEmailDatasourceImple(authClient: sl()),
   );
   sl.registerLazySingleton<SessionDataSource>(
-        () =>  SessionDatasourceImple(authClient: sl()),
+    () => SessionDatasourceImple(authClient: sl()),
   );
-   sl.registerLazySingleton<ProfileDatasource>(
-         () =>  ProfileDatasourceImple(sl(), storageService: sl(), authClient: sl()),
-   );
+  sl.registerLazySingleton<ProfileDatasource>(
+    () => ProfileDatasourceImple(sl(), storageService: sl(), authClient: sl()),
+  );
   sl.registerLazySingleton<SocialAuthDatasource>(
-        () =>  SocialAuthDataSourceImpl(
-        authClient: sl(),
-        googleSignIn: sl(),
-        facebookAuth: sl()),
+    () => SocialAuthDataSourceImpl(
+      authClient: sl(),
+      googleSignIn: sl(),
+      facebookAuth: sl(),
+    ),
   );
   // sl.registerLazySingleton<ProfileDatasource>(
   //       () =>  ProfileDatasource(sl(), authClient: sl(), storageService: sl()),
   // );
   sl.registerLazySingleton<ResetPasswordDatasource>(
-        () =>  ResetPasswordDatasourceImple(
-        authClient: sl() ),
+    () => ResetPasswordDatasourceImple(authClient: sl()),
   );
   sl.registerLazySingleton<EmailAuthRepo>(
-        () =>  EmailAuthRepoImple(emailAuthDatasource: sl(),
-        databaseServices: sl()),
+    () => EmailAuthRepoImple(emailAuthDatasource: sl(), databaseServices: sl()),
   );
 
   sl.registerLazySingleton<VerifyEmailRepo>(
-        () =>  VerifyEmailRepoImple(verifyEmailDatasource: sl()),
+    () => VerifyEmailRepoImple(verifyEmailDatasource: sl()),
   );
 
   sl.registerLazySingleton<SessionRepo>(
-        () =>  SessionRepositoryImpl(sessionDataSource: sl()),
+    () => SessionRepositoryImpl(sessionDataSource: sl()),
   );
   sl.registerLazySingleton<SocialAuthRepo>(
-        () =>  SocialAuthRepoImple(
-        databaseServices: sl(), socialAuthDatasource: sl()),
+    () =>
+        SocialAuthRepoImple(databaseServices: sl(), socialAuthDatasource: sl()),
   );
   sl.registerLazySingleton<ResetPasswordRepo>(
-        () =>  ResetPasswordRepoImple(resetPasswordDatasource: sl()),
+    () => ResetPasswordRepoImple(resetPasswordDatasource: sl()),
   );
 
-   sl.registerLazySingleton<ProfileRepo>(
-         () =>  ProfileRepoImple(profileDatasource: sl(), databaseServices: sl()),
-   );
-   sl.registerLazySingleton<CategoryRepo>(
-         () =>  CategoryRepoImpl(
-         databaseServices: sl(),
-         ),
-   );
-   sl.registerLazySingleton<BrandRepo>(
-         () =>  BrandRepoImpl(databaseServices: sl()),
-   );
-   sl.registerLazySingleton<BannerRepo>(
-         () =>  BannerRepoImpl(databaseServices: sl()),
-   );
-   sl.registerLazySingleton<ProductRepo>(
-         () =>  ProductRepoImpl(databaseServices: sl()),
-   );
-   sl.registerLazySingleton<UserRepo>(
-         () =>  UserRepoImpl(databaseServices: sl()),
-   );
-   sl.registerLazySingleton<AddressRepo>(
-         () =>  AddressRepositoryImpl(),
-   );
-   sl.registerLazySingleton<OrderRepo>(
-         () =>  OrderRepoImpl(databaseServices: sl()),
-   );
-   sl.registerLazySingleton<SettingsRepo>(
-         () =>  SettingsRepoImpl(),
-   );
+  sl.registerLazySingleton<ProfileRepo>(
+    () => ProfileRepoImple(profileDatasource: sl(), databaseServices: sl()),
+  );
+  sl.registerLazySingleton<CategoryRepo>(
+    () => CategoryRepoImpl(databaseServices: sl()),
+  );
+  sl.registerLazySingleton<BrandRepo>(
+    () => BrandRepoImpl(databaseServices: sl()),
+  );
+  sl.registerLazySingleton<BannerRepo>(
+    () => BannerRepoImpl(databaseServices: sl()),
+  );
+  sl.registerLazySingleton<ProductRepo>(
+    () => ProductRepoImpl(databaseServices: sl()),
+  );
+  sl.registerLazySingleton<UserRepo>(
+    () => UserRepoImpl(databaseServices: sl()),
+  );
+  sl.registerLazySingleton<AddressRepo>(() => AddressRepositoryImpl());
+  sl.registerLazySingleton<OrderRepo>(
+    () => OrderRepoImpl(databaseServices: sl()),
+  );
+  sl.registerLazySingleton<SettingsRepo>(() => SettingsRepoImpl());
+  sl.registerLazySingleton<MediaRepo>(
+    () => MediaRepositoryImple(storageService: sl(), databaseServices: sl()),
+  );
 
-
-  sl.registerFactory<EmailAuthBloc>(() => EmailAuthBloc(emailAuthRepo: sl<EmailAuthRepo>(), settingsRepo: sl()));
-  sl.registerFactory<VerifyEmailCubit>(() => VerifyEmailCubit(verifyEmailRepo: sl()));
+  sl.registerFactory<EmailAuthBloc>(
+    () => EmailAuthBloc(emailAuthRepo: sl<EmailAuthRepo>(), settingsRepo: sl()),
+  );
+  sl.registerFactory<VerifyEmailCubit>(
+    () => VerifyEmailCubit(verifyEmailRepo: sl()),
+  );
   sl.registerFactory<SessionCubit>(() => SessionCubit(sessionRepository: sl()));
-  sl.registerFactory<SocialAuthCubit>(() => SocialAuthCubit(socialAuthRepo: sl() ));
-  sl.registerFactory<ResetPasswordCubit>(() => ResetPasswordCubit(resetPasswordRepo: sl()));
-  sl.registerFactory<UserCubit>(() => UserCubit(personalizationRepo: sl() ));
-   sl.registerFactory<MediaCubit>(() => MediaCubit(mediaRepository:
-   MediaRepository(SupabaseStorageService(sl()), sl())));
+  sl.registerFactory<SocialAuthCubit>(
+    () => SocialAuthCubit(socialAuthRepo: sl()),
+  );
+  sl.registerFactory<ResetPasswordCubit>(
+    () => ResetPasswordCubit(resetPasswordRepo: sl()),
+  );
+  sl.registerFactory<UserCubit>(() => UserCubit(personalizationRepo: sl()));
+  sl.registerFactory<MediaCubit>(() => MediaCubit(mediaRepository: sl()));
 
-
-   sl.registerFactory<ProductImagesCubit>(() => ProductImagesCubit());
-   sl.registerFactory<CategoryCubit>(() =>CategoryCubit(categoryRepo: sl()));
-   sl.registerFactory<CreateCategoryCubit>(() =>CreateCategoryCubit(categoryRepo: sl()));
-   sl.registerFactory<EditCategoryCubit>(() =>EditCategoryCubit(categoryRepo: sl()));
-   sl.registerFactory<BrandCubit>(() =>BrandCubit(brandRepo: sl(), categoryCubit: sl()));
-   sl.registerFactory<CreateBrandCubit>(() =>CreateBrandCubit(brandRepo: sl()));
-   sl.registerFactory<EditBrandCubit>(() =>EditBrandCubit(brandRepo: sl()));
-   sl.registerFactory<BannerCubit>(() =>BannerCubit(bannerRepo: sl(),));
-   sl.registerFactory<CreateBannerCubit>(() =>CreateBannerCubit(bannerRepo: sl(),));
-   sl.registerFactory<EditBannerCubit>(() =>EditBannerCubit(bannerRepo: sl(),));
-   sl.registerFactory<ProductCubit>(() =>ProductCubit(productRepo: sl(),));
-   sl.registerFactory<CreateProductCubit>(() =>CreateProductCubit(productRepo: sl(), productVariationsCubit: sl(), productImagesCubit: sl(), productAttributesCubit: sl(), productCubit: sl(),));
-   sl.registerFactory<EditProductCubit>(() =>EditProductCubit(productRepo: sl(), productVariationsCubit: sl(), productImagesCubit: sl(), productAttributesCubit: sl(), productCubit: sl(), categoryCubit: sl(), brandCubit: sl(),));
-   sl.registerFactory<ProductVariationsCubit>(() =>ProductVariationsCubit());
-   sl.registerFactory<ProductAttributesCubit>(() =>ProductAttributesCubit());
-   sl.registerFactory<OrderCubit>(() =>OrderCubit(sl()));
-   sl.registerFactory<CustomerCubit>(() =>CustomerCubit(userRepo: sl()));
-   sl.registerFactory<CustomerDetailCubit>(() =>CustomerDetailCubit(userRepo: sl(), addressRepo: sl()));
-   sl.registerFactory<OrderDetailCubit>(() =>OrderDetailCubit(userRepository: sl()));
-   sl.registerFactory<SettingsCubit>(() =>SettingsCubit(sl(), mediaCubit: sl()));
-   sl.registerFactory<DashboardCubit>(() =>DashboardCubit(orderRepo: sl(), userRepo: sl()));
-
-
-
-
+  sl.registerFactory<ProductImagesCubit>(() => ProductImagesCubit());
+  sl.registerFactory<CategoryCubit>(() => CategoryCubit(categoryRepo: sl()));
+  sl.registerFactory<CreateCategoryCubit>(
+    () => CreateCategoryCubit(categoryRepo: sl()),
+  );
+  sl.registerFactory<EditCategoryCubit>(
+    () => EditCategoryCubit(categoryRepo: sl()),
+  );
+  sl.registerFactory<BrandCubit>(
+    () => BrandCubit(brandRepo: sl(), categoryCubit: sl()),
+  );
+  sl.registerFactory<CreateBrandCubit>(() => CreateBrandCubit(brandRepo: sl()));
+  sl.registerFactory<EditBrandCubit>(() => EditBrandCubit(brandRepo: sl()));
+  sl.registerFactory<BannerCubit>(() => BannerCubit(bannerRepo: sl()));
+  sl.registerFactory<CreateBannerCubit>(
+    () => CreateBannerCubit(bannerRepo: sl()),
+  );
+  sl.registerFactory<EditBannerCubit>(() => EditBannerCubit(bannerRepo: sl()));
+  sl.registerFactory<ProductCubit>(() => ProductCubit(productRepo: sl()));
+  sl.registerFactory<CreateProductCubit>(
+    () => CreateProductCubit(
+      productRepo: sl(),
+      productVariationsCubit: sl(),
+      productImagesCubit: sl(),
+      productAttributesCubit: sl(),
+      productCubit: sl(),
+    ),
+  );
+  sl.registerFactory<EditProductCubit>(
+    () => EditProductCubit(
+      productRepo: sl(),
+      productVariationsCubit: sl(),
+      productImagesCubit: sl(),
+      productAttributesCubit: sl(),
+      productCubit: sl(),
+      categoryCubit: sl(),
+      brandCubit: sl(),
+    ),
+  );
+  sl.registerFactory<ProductVariationsCubit>(() => ProductVariationsCubit());
+  sl.registerFactory<ProductAttributesCubit>(() => ProductAttributesCubit());
+  sl.registerFactory<OrderCubit>(() => OrderCubit(sl()));
+  sl.registerFactory<CustomerCubit>(() => CustomerCubit(userRepo: sl()));
+  sl.registerFactory<CustomerDetailCubit>(
+    () => CustomerDetailCubit(userRepo: sl(), addressRepo: sl()),
+  );
+  sl.registerFactory<OrderDetailCubit>(
+    () => OrderDetailCubit(userRepository: sl()),
+  );
+  sl.registerFactory<SettingsCubit>(
+    () => SettingsCubit(sl(), mediaCubit: sl()),
+  );
+  sl.registerFactory<DashboardCubit>(
+    () => DashboardCubit(orderRepo: sl(), userRepo: sl()),
+  );
 }

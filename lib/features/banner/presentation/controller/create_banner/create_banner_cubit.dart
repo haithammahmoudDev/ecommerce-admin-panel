@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:ecommerce_admin_pannal/features/banner/domain/repos/banner_repo.dart';
 import 'package:ecommerce_admin_pannal/features/banner/presentation/controller/banner_cubit.dart';
+import 'package:ecommerce_admin_pannal/features/media/domain/entities/image_entity.dart';
 import 'package:ecommerce_admin_pannal/features/media/presentation/controller/media_cubit/media_cubit.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
@@ -31,10 +32,10 @@ class CreateBannerCubit extends Cubit<CreateBannerState> {
 
   void pickImage(BuildContext context) async {
     final controller = context.read<MediaCubit>();
-    List<ImageModel>? selectedImages = await controller.selectImagesFromMedia(context: context);
+    List<ImageEntity>? selectedImages = await controller.selectImagesFromMedia(context: context);
 
     if (selectedImages != null && selectedImages.isNotEmpty) {
-      ImageModel selectedImage = selectedImages.first;
+      ImageEntity selectedImage = selectedImages.first;
       emit(state.copyWith(imageUrl: selectedImage.url));
      }
   }

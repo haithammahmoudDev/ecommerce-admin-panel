@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:ecommerce_admin_pannal/features/brand/domain/repos/brand_repo.dart';
 import 'package:ecommerce_admin_pannal/features/brand/presentation/controller/brand_cubit.dart';
+import 'package:ecommerce_admin_pannal/features/media/domain/entities/image_entity.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -43,7 +44,7 @@ class CreateBrandCubit extends Cubit<CreateBrandState> {
     final selectedImages = await controller.selectImagesFromMedia(context: context);
 
     if (selectedImages != null && selectedImages.isNotEmpty) {
-      final ImageModel selectedImage = selectedImages.first;
+      final ImageEntity selectedImage = selectedImages.first;
       emit(state.copyWith(imageUrl: selectedImage.url));
     }
   }

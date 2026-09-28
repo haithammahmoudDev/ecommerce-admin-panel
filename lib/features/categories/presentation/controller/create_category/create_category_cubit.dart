@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:ecommerce_admin_pannal/features/categories/domain/entities/category_entity.dart';
 import 'package:ecommerce_admin_pannal/features/categories/domain/repos/category_repo.dart';
 import 'package:ecommerce_admin_pannal/features/categories/presentation/controller/category/category_cubit.dart';
+import 'package:ecommerce_admin_pannal/features/media/domain/entities/image_entity.dart';
 import 'package:ecommerce_admin_pannal/features/media/presentation/controller/media_cubit/media_cubit.dart';
 import 'package:ecommerce_admin_pannal/utils/popups/exports.dart';
 import 'package:flutter/cupertino.dart';
@@ -21,9 +22,7 @@ class CreateCategoryCubit extends Cubit<CreateCategoryState> {
     emit(state.copyWith(selectedParent: category));
   }
 
-  /// FIX: خيار صريح بدل الاعتماد الضمني على selectedParent.id فاضي —
-  /// يمنع الالتباس بين "المستخدم نسي يختار Parent" و"المستخدم يقصد إنها
-  /// فئة رئيسية عمداً".
+
   void clearParentCategory() {
     emit(state.copyWith(selectedParent: null));
   }
@@ -86,7 +85,7 @@ class CreateCategoryCubit extends Cubit<CreateCategoryState> {
     final selectedImages = await controller.selectImagesFromMedia(context: context);
 
     if (selectedImages != null && selectedImages.isNotEmpty) {
-      final ImageModel selectedImage = selectedImages.first;
+      final ImageEntity selectedImage = selectedImages.first;
       emit(state.copyWith(imageUrl: selectedImage.url));
     }
   }

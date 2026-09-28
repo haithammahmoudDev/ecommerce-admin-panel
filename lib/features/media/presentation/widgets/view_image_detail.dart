@@ -12,9 +12,10 @@ import '../../../../utils/constants/enums.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/device/device_utility.dart';
 import '../../../../utils/popups/loaders.dart';
+import '../../domain/entities/image_entity.dart';
 
 class ImagePopup extends StatelessWidget {
-  final ImageModel image;
+  final ImageEntity image;
   final MediaCubit cubit;
 
   const ImagePopup({

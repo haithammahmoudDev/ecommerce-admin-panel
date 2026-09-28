@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce_admin_pannal/features/categories/domain/repos/category_repo.dart';
+import 'package:ecommerce_admin_pannal/features/media/domain/entities/image_entity.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,12 +25,6 @@ class EditCategoryCubit extends Cubit<EditCategoryState> {
   final CategoryRepo _categoryRepo;
   EditCategoryCubit({required this._categoryRepo}) : super(EditCategoryState());
 
-  /// FIX: init() كان بيتجاهل parentId بتاع الفئة الأصلية تماماً، فأي حفظ
-  /// (حتى لو المستخدم غيّر الصورة بس) كان بيمسح الـ parentId ويحوّل أي
-  /// Subcategory لفئة رئيسية بالغلط.
-  ///
-  /// هنا بنجيب الفئة الأم (Parent) مباشرة من Firestore باستخدام
-  /// category.parentId، بدل الاعتماد على أي Cubit تاني يكون لسه مش محمّل.
   Future<void> init(CategoryEntity category) async {
     emit(state.copyWith(
       imageUrl: category.image,
@@ -37,8 +32,7 @@ class EditCategoryCubit extends Cubit<EditCategoryState> {
     ));
 
     if (category.parentId == null || category.parentId!.isEmpty) {
-      // الفئة دي أصلاً فئة رئيسية (Top-Level)، مفيش Parent نجيبه
-      return;
+       return;
     }
 
     try {
@@ -48,7 +42,7 @@ class EditCategoryCubit extends Cubit<EditCategoryState> {
           .get();
 
       final data = doc.data();
-      if (data == null) return; // الـ Parent اتمسح أو مش موجود، سيبها null
+      if (data == null) return;
 
       final parentEntity = CategoryEntity(
         id: doc.id,
@@ -60,9 +54,7 @@ class EditCategoryCubit extends Cubit<EditCategoryState> {
 
       emit(state.copyWith(selectedParent: parentEntity));
     } catch (_) {
-      // فشل جلب الـ Parent (مشكلة شبكة مثلاً) — نسيب selectedParent فاضية
-      // بدل ما نوقف الشاشة بالكامل؛ لو المستخدم حفظ من غير ما يختاره يدوي
-      // هيترفض الحفظ أو يتحفظ بدون Parent حسب منطق editCategory أدناه.
+
     }
   }
 
@@ -106,11 +98,9 @@ class EditCategoryCubit extends Cubit<EditCategoryState> {
           (_) {
         final categoryController = context.read<CategoryCubit>();
 
-        // 1. تحديث العنصر محلياً في الـ Cubit
-        categoryController.updateItemInLists(newRecord.toEntity());
+         categoryController.updateItemInLists(newRecord.toEntity());
 
-        // 2. إيقاف دائرة التحميل وإظهار الرسالة
-        TFullScreenLoader.stopLoading(context);
+         TFullScreenLoader.stopLoading(context);
         TLoaders.successSnackBar(title: 'Congratulations', message: 'Record updated successfully.', context: context);
         context.pop();
       },
@@ -123,7 +113,7 @@ class EditCategoryCubit extends Cubit<EditCategoryState> {
     final selectedImages = await controller.selectImagesFromMedia(context: context);
 
     if (selectedImages != null && selectedImages.isNotEmpty) {
-      final ImageModel selectedImage = selectedImages.first;
+      final ImageEntity selectedImage = selectedImages.first;
       emit(state.copyWith(imageUrl: selectedImage.url));
     }
   }
