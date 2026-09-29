@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:iconsax/iconsax.dart';
-
 import '../../../../../../common/abstraction/base_data_table/base_data_table_state.dart';
 import '../../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../../../../utils/constants/sizes.dart';
@@ -22,7 +21,7 @@ class ProductBrand extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text('Brand', style: Theme.of(context).textTheme.headlineSmall),
-          const SizedBox(height: TSizes.spaceBtwItems),
+          const SizedBox(height: Sizes.spaceBtwItems),
 
           BlocBuilder<BrandCubit, BaseDataTableState<BrandEntity>>(
             builder: (context, brandState) {
@@ -64,7 +63,7 @@ class ProductBrand extends StatelessWidget {
 
               if (typed.isNotEmpty && !matchesSelection) {
                 return const Padding(
-                  padding: EdgeInsets.only(top: TSizes.xs),
+                  padding: EdgeInsets.only(top: Sizes.xs),
                   child: Text(
                     'Please pick a brand from the suggestions list',
                     style: TextStyle(color: Colors.red, fontSize: 12),

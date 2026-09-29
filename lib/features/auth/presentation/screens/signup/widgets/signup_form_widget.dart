@@ -62,8 +62,8 @@ class SignUpFormWidget extends StatelessWidget {
           },
          child: Container(
           padding: const EdgeInsets.only(
-            top: TSizes.xl - 15,
-            bottom: TSizes.xl,
+            top: Sizes.xl - 15,
+            bottom: Sizes.xl,
           ),
           child: Form(
             key: _signupFormKey,
@@ -88,7 +88,7 @@ class SignUpFormWidget extends StatelessWidget {
                     return null;
                   },
                 ),
-                const SizedBox(height: TSizes.xl - 20),
+                const SizedBox(height: Sizes.xl - 20),
                 CustomFormfieldWidget.withdownEar(
                   label: TTexts.tEmail,
                   controller: email,
@@ -106,7 +106,7 @@ class SignUpFormWidget extends StatelessWidget {
                     return null;
                   },
                 ),
-                const SizedBox(height: TSizes.xl - 20),
+                const SizedBox(height: Sizes.xl - 20),
                 CustomFormfieldWidget.withdownEar(
                   label: TTexts.tPhoneNo,
                   controller: phoneNumber,
@@ -126,7 +126,7 @@ class SignUpFormWidget extends StatelessWidget {
                     return null;
                   },
                 ),
-                const SizedBox(height: TSizes.xl - 20),
+                const SizedBox(height: Sizes.xl - 20),
                 CustomFormfieldWidget(
                   label: TTexts.tPassword,
                   controller: password,
@@ -154,11 +154,11 @@ class SignUpFormWidget extends StatelessWidget {
                   },
                   withdownEar: false,
                 ),
-                const SizedBox(height: TSizes.xl - 10),
+                const SizedBox(height: Sizes.xl - 10),
                 TermsAndConditionOncheckbox(
                   valueChanged: (bool value) => privacyPolicy = value,
                 ),
-                const SizedBox(height: TSizes.xl - 10),
+                const SizedBox(height: Sizes.xl - 10),
                 BlocBuilder<EmailAuthBloc, EmailAuthState>(
                   builder: (context, state) {
                     return TPrimaryButton(

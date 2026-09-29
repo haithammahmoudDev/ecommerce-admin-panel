@@ -7,25 +7,19 @@ import '../../../../utils/popups/loaders.dart';
 import '../../../auth/domain/entities/user_entity.dart';
 import '../../../order/domain/repos/user_repo.dart';
 
-
 class CustomerCubit extends BaseDataTableCubit<UserEntity> {
   final UserRepo _userRepo;
 
-  CustomerCubit({required UserRepo userRepo})
-      : _userRepo = userRepo,
-        super();
+  CustomerCubit({required this._userRepo}) : super();
 
-  /// جلب كافة المستخدمين
   @override
   Future<Either<Failure, List<UserEntity>>> fetchItems() async {
     return await _userRepo.getAllUsers();
   }
 
-  /// تحديد المعرف الفريد للمستخدم
   @override
   String getItemId(UserEntity item) => item.id;
 
-  /// شرط تصفية البحث حسب الاسم والبريد الإلكتروني
   @override
   bool filterCondition(UserEntity item, String query) {
     final lowerQuery = query.toLowerCase();
@@ -33,12 +27,11 @@ class CustomerCubit extends BaseDataTableCubit<UserEntity> {
         item.email.toLowerCase().contains(lowerQuery);
   }
 
-  /// فرز القائمة حسب الاسم الكامل
   void sortByName(int sortColumnIndex, bool ascending) {
     sortByProperty(
       sortColumnIndex,
       ascending,
-          (user) => user.fullName.toLowerCase(),
+      (user) => user.fullName.toLowerCase(),
     );
   }
 
@@ -48,11 +41,15 @@ class CustomerCubit extends BaseDataTableCubit<UserEntity> {
     final result = await _userRepo.deleteUser(id: user.id);
 
     result.fold(
-          (error) {
+      (error) {
         emit(state.copyWith(status: DataTableStatus.error));
-        TLoaders.errorSnackBar(title: 'Oh Snap!', message: error.message, context: context);
+        TLoaders.errorSnackBar(
+          title: 'Oh Snap!',
+          message: error.message,
+          context: context,
+        );
       },
-          (_) {
+      (_) {
         removeItemFromLists(user);
         TLoaders.successSnackBar(
           title: 'Item Deleted',

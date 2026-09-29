@@ -12,8 +12,7 @@ class ProductRepoImpl implements ProductRepo {
   final DatabaseServices _databaseServices;
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
-  ProductRepoImpl({required DatabaseServices databaseServices})
-      : _databaseServices = databaseServices;
+  ProductRepoImpl({required this._databaseServices});
 
   @override
   Future<Either<Failure, String>> createProduct(ProductModel product) async {
@@ -43,8 +42,7 @@ class ProductRepoImpl implements ProductRepo {
   }
 
 
-  /// Delete product using Firestore runTransaction as shown in the system screenshot
-  @override
+   @override
   Future<Either<Failure, void>> deleteProduct(ProductModel product) async {
     try {
       await _db.runTransaction((transaction) async {
@@ -55,8 +53,7 @@ class ProductRepoImpl implements ProductRepo {
           throw Exception("Product not found");
         }
 
-        // Fetch ProductCategories linked to this product
-        final productCategoriesSnapshot = await _db
+         final productCategoriesSnapshot = await _db
             .collection('ProductCategory')
             .where('productId', isEqualTo: product.id)
             .get();
@@ -71,8 +68,7 @@ class ProductRepoImpl implements ProductRepo {
           }
         }
 
-        // Delete main product document
-        transaction.delete(productRef);
+         transaction.delete(productRef);
       });
 
       return const Right(null);
@@ -133,8 +129,7 @@ class ProductRepoImpl implements ProductRepo {
     }
   }
 
-    /// Update Product Specific Fields
-    @override
+     @override
     Future<Either<Failure, void>> updateProductSpecificValue(
         String id, Map<String, dynamic> data) async {
       try {

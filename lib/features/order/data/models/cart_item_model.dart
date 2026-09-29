@@ -10,7 +10,6 @@ class CartItemModel {
   final String? brandName;
   final Map<String, String>? selectedVariation;
 
-  /// Constructor
   CartItemModel({
     required this.productId,
     required this.quantity,
@@ -22,13 +21,10 @@ class CartItemModel {
     this.selectedVariation,
   });
 
-  /// Calculate Total Amount
   String get totalAmount => (price * quantity).toStringAsFixed(1);
 
-  /// Empty Cart
   static CartItemModel empty() => CartItemModel(productId: '', quantity: 0);
 
-  /// Convert Domain Entity to Data Model
   factory CartItemModel.fromEntity(CartItemEntity entity) {
     return CartItemModel(
       productId: entity.productId,
@@ -42,7 +38,6 @@ class CartItemModel {
     );
   }
 
-  /// Factory to create CartItemModel from JSON Map
   factory CartItemModel.fromJson(Map<String, dynamic> json) {
     return CartItemModel(
       productId: json['productId'] ?? '',
@@ -58,7 +53,6 @@ class CartItemModel {
     );
   }
 
-  /// Convert a CartItem to a JSON Map
   Map<String, dynamic> toJson() {
     return {
       'productId': productId,
@@ -72,7 +66,6 @@ class CartItemModel {
     };
   }
 
-  /// Convert CartItemModel directly into an independent CartItemEntity
   CartItemEntity toEntity() {
     return CartItemEntity(
       productId: productId,

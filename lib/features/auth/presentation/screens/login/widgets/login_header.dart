@@ -14,9 +14,9 @@ class LoginHeader extends StatelessWidget {
       child: Column(
         children: [
           const Image(width: 100, height: 100, image: AssetImage('assets/logos/t-store-splash-logo-black.png')),
-          const SizedBox(height: TSizes.spaceBtwSections),
+          const SizedBox(height: Sizes.spaceBtwSections),
           Text(TTexts.tLoginTitle, style: Theme.of(context).textTheme.headlineMedium),
-          const SizedBox(height: TSizes.sm),
+          const SizedBox(height: Sizes.sm),
           Text(TTexts.tLoginSubTitle, style: Theme.of(context).textTheme.bodyMedium),
         ],
       ),

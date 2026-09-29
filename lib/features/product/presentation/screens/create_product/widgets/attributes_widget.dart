@@ -23,15 +23,14 @@ class ProductAttributes extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Divider(color: TColors.primaryBackground),
-        const SizedBox(height: TSizes.spaceBtwSections),
+        const SizedBox(height: Sizes.spaceBtwSections),
 
         Text(
           'Add Product Attributes',
           style: Theme.of(context).textTheme.headlineSmall,
         ),
-        const SizedBox(height: TSizes.spaceBtwItems),
+        const SizedBox(height: Sizes.spaceBtwItems),
 
-        // Form to add new attribute
         Form(
           key: attributesCubit.attributesFormKey,
           child: TDeviceUtils.isDesktopScreen(context)
@@ -39,35 +38,33 @@ class ProductAttributes extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(child: _buildAttributeName(context, attributesCubit)),
-              const SizedBox(width: TSizes.spaceBtwItems),
+              const SizedBox(width: Sizes.spaceBtwItems),
               Expanded(
                 flex: 2,
                 child: _buildAttributeTextField(context, attributesCubit),
               ),
-              const SizedBox(width: TSizes.spaceBtwItems),
+              const SizedBox(width: Sizes.spaceBtwItems),
               _buildAddAttributeButton(context, attributesCubit),
             ],
           )
               : Column(
             children: [
               _buildAttributeName(context, attributesCubit),
-              const SizedBox(height: TSizes.spaceBtwItems),
+              const SizedBox(height: Sizes.spaceBtwItems),
               _buildAttributeTextField(context, attributesCubit),
-              const SizedBox(height: TSizes.spaceBtwItems),
+              const SizedBox(height: Sizes.spaceBtwItems),
               _buildAddAttributeButton(context, attributesCubit),
             ],
           ),
         ),
-        const SizedBox(height: TSizes.spaceBtwSections),
+        const SizedBox(height: Sizes.spaceBtwSections),
 
-        // List of added attributes
         Text(
           'All Attributes',
           style: Theme.of(context).textTheme.headlineSmall,
         ),
-        const SizedBox(height: TSizes.spaceBtwItems),
+        const SizedBox(height: Sizes.spaceBtwItems),
 
-        // Display added attributes
         RoundedContainer(
           backgroundColor: TColors.primaryBackground,
           child: BlocBuilder<ProductAttributesCubit, ProductAttributesState>(
@@ -79,9 +76,8 @@ class ProductAttributes extends StatelessWidget {
             },
           ),
         ),
-        const SizedBox(height: TSizes.spaceBtwSections),
+        const SizedBox(height: Sizes.spaceBtwSections),
 
-        // Generate Variations Button
         Center(
           child: SizedBox(
             width: 200,
@@ -121,7 +117,7 @@ class ProductAttributes extends StatelessWidget {
   TextFormField _buildAttributeName(BuildContext context, ProductAttributesCubit cubit) {
     return TextFormField(
       controller: cubit.attributeName,
-      validator: (value) => TValidator.validateEmptyText('Attribute Name', value),
+      validator: (value) => Validator.validateEmptyText('Attribute Name', value),
       decoration: const InputDecoration(
         labelText: 'Attribute Name',
         hintText: 'Colors, Sizes, Material',
@@ -139,7 +135,7 @@ class ProductAttributes extends StatelessWidget {
         textAlign: TextAlign.start,
         keyboardType: TextInputType.multiline,
         textAlignVertical: TextAlignVertical.top,
-        validator: (value) => TValidator.validateEmptyText('Attributes Field', value),
+        validator: (value) => Validator.validateEmptyText('Attributes Field', value),
         decoration: const InputDecoration(
           labelText: 'Attributes',
           hintText: 'Add attributes separated by | Example: Green | Blue | Yellow',
@@ -162,7 +158,7 @@ class ProductAttributes extends StatelessWidget {
             _buildColorSwatch(Colors.deepOrange),
           ],
         ),
-        const SizedBox(height: TSizes.spaceBtwItems),
+        const SizedBox(height: Sizes.spaceBtwItems),
         const Text('There are no attributes added for this product'),
       ],
     );
@@ -175,7 +171,7 @@ class ProductAttributes extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 4),
       decoration: BoxDecoration(
         color: color,
-        borderRadius: BorderRadius.circular(TSizes.borderRadiusSm),
+        borderRadius: BorderRadius.circular(Sizes.borderRadiusSm),
       ),
     );
   }
@@ -185,13 +181,13 @@ class ProductAttributes extends StatelessWidget {
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemCount: attributes.length,
-      separatorBuilder: (_, __) => const SizedBox(height: TSizes.spaceBtwItems),
+      separatorBuilder: (_, __) => const SizedBox(height: Sizes.spaceBtwItems),
       itemBuilder: (_, index) {
         final attribute = attributes[index];
         return Container(
           decoration: BoxDecoration(
             color: TColors.white,
-            borderRadius: BorderRadius.circular(TSizes.borderRadiusLg),
+            borderRadius: BorderRadius.circular(Sizes.borderRadiusLg),
           ),
           child: ListTile(
             title: Text(attribute.name ?? ''),

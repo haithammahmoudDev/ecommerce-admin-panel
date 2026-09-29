@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../../../utils/constants/enums.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../../../../../../utils/validators/validation.dart';
@@ -16,7 +15,6 @@ class ProductStockAndPricing extends StatelessWidget {
       buildWhen: (previous, current) =>
       previous.productType != current.productType,
       builder: (context, state) {
-        // Hide stock and pricing form when product type is set to variable
         if (state.productType == ProductType.variable) {
           return const SizedBox.shrink();
         }
@@ -38,19 +36,17 @@ class ProductStockAndPricing extends StatelessWidget {
                     hintText: 'Add Stock, only numbers are allowed',
                   ),
                   validator: (value) =>
-                      TValidator.validateEmptyText('Stock', value),
+                      Validator.validateEmptyText('Stock', value),
                   keyboardType: TextInputType.number,
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.digitsOnly,
                   ],
                 ),
               ),
-              const SizedBox(height: TSizes.spaceBtwInputFields),
+              const SizedBox(height: Sizes.spaceBtwInputFields),
 
-              // Pricing
               Row(
                 children: [
-                  // Price
                   Expanded(
                     child: TextFormField(
                       controller: cubit.price,
@@ -59,7 +55,7 @@ class ProductStockAndPricing extends StatelessWidget {
                         hintText: 'Price with up to 2 decimals',
                       ),
                       validator: (value) =>
-                          TValidator.validateEmptyText('Price', value),
+                          Validator.validateEmptyText('Price', value),
                       keyboardType: const TextInputType.numberWithOptions(
                         decimal: true,
                       ),
@@ -70,9 +66,8 @@ class ProductStockAndPricing extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const SizedBox(width: TSizes.spaceBtwItems),
+                  const SizedBox(width: Sizes.spaceBtwItems),
 
-                  // Sale Price
                   Expanded(
                     child: TextFormField(
                       controller: cubit.salePrice,

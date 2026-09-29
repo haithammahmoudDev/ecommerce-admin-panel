@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-
 import '../../../../common/errors/failure.dart';
 import '../entities/settings_entity.dart';
 

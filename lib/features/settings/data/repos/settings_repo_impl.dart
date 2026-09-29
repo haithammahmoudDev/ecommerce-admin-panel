@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce_admin_pannal/features/settings/domain/repos/settings_repo.dart';
-import 'package:dartz/dartz.dart'; // أو fpdart حسب المكتبة المستعملة عندك
+import 'package:dartz/dartz.dart';
 import '../../../../common/errors/failure.dart';
 import '../../domain/entities/settings_entity.dart';
 import '../model/settings_model.dart';
@@ -9,7 +9,8 @@ import '../model/settings_model.dart';
  class SettingsRepoImpl implements SettingsRepo {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
-   Future<Either<Failure, void>> registerSettings(SettingsEntity setting) async {
+   @override
+  Future<Either<Failure, void>> registerSettings(SettingsEntity setting) async {
     try {
       final model = SettingsModel.fromEntity(setting);
       await _db.collection("Settings").doc('GLOBAL_SETTINGS').set(
@@ -20,7 +21,8 @@ import '../model/settings_model.dart';
     }
   }
 
-   Future<Either<Failure, SettingsEntity>> getSettings() async {
+   @override
+  Future<Either<Failure, SettingsEntity>> getSettings() async {
     try {
       final docSnapshot = await _db.collection("Settings").doc(
           'GLOBAL_SETTINGS').get();
@@ -40,7 +42,8 @@ import '../model/settings_model.dart';
     }
   }
 
-   Future<Either<Failure, void>> updateSettingDetails(SettingsEntity updatedSetting) async {
+   @override
+  Future<Either<Failure, void>> updateSettingDetails(SettingsEntity updatedSetting) async {
     try {
        final model = SettingsModel.fromEntity(updatedSetting);
 

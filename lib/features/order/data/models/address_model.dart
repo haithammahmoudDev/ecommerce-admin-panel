@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import '../../../../utils/formatters/formatter.dart';
 import '../../domain/entities/address_entity.dart';
 
@@ -49,8 +48,7 @@ class AddressModel {
     return null;
   }
 
-  // Factory to create AddressModel from JSON
-  factory AddressModel.fromJson(Map<String, dynamic> json) {
+   factory AddressModel.fromJson(Map<String, dynamic> json) {
     return AddressModel(
       id: json['id'] ?? '',
       name: json['name'] ?? '',
@@ -65,8 +63,7 @@ class AddressModel {
     );
   }
 
-  // Factory to create AddressModel directly from Firebase Map data
-  factory AddressModel.fromFirebaseData(
+   factory AddressModel.fromFirebaseData(
       Map<String, dynamic>? json, {
         String? docId,
       }) {
@@ -85,8 +82,7 @@ class AddressModel {
     );
   }
 
-  // Convert Domain Entity to Data Model
-  factory AddressModel.fromEntity(AddressEntity entity) {
+   factory AddressModel.fromEntity(AddressEntity entity) {
     return AddressModel(
       id: entity.id,
       name: entity.name,
@@ -101,8 +97,7 @@ class AddressModel {
     );
   }
 
-  // Convert AddressModel to JSON Map for saving to Firebase
-  Map<String, dynamic> toJson() {
+   Map<String, dynamic> toJson() {
     return {
       'id': id,
       'name': name,
@@ -117,8 +112,7 @@ class AddressModel {
     };
   }
 
-  // Convert AddressModel directly into an independent AddressEntity
-  AddressEntity toEntity() {
+   AddressEntity toEntity() {
     return AddressEntity(
       id: id,
       name: name,

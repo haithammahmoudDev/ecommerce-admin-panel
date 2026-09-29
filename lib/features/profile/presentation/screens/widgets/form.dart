@@ -26,9 +26,9 @@ class _ProfileFormState extends State<ProfileForm> {
   void initState() {
     super.initState();
     user = LocalStorageService.userRepo.getData()!.toEntity();
-    nameController = TextEditingController(text: user.fullName ?? '');
-    emailController = TextEditingController(text: user.email ?? '');
-    phoneController = TextEditingController(text: user.phoneNumber ?? '');
+    nameController = TextEditingController(text: user.fullName);
+    emailController = TextEditingController(text: user.email);
+    phoneController = TextEditingController(text: user.phoneNumber);
   }
 
   @override
@@ -45,8 +45,8 @@ class _ProfileFormState extends State<ProfileForm> {
       children: [
         RoundedContainer(
           padding: const EdgeInsets.symmetric(
-            vertical: TSizes.lg,
-            horizontal: TSizes.md,
+            vertical: Sizes.lg,
+            horizontal: Sizes.md,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,7 +55,7 @@ class _ProfileFormState extends State<ProfileForm> {
                 'Profile Details',
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
-              const SizedBox(height: TSizes.spaceBtwSections),
+              const SizedBox(height: Sizes.spaceBtwSections),
 
               Form(
                 key: _formKey,
@@ -69,15 +69,13 @@ class _ProfileFormState extends State<ProfileForm> {
                         prefixIcon: Icon(Iconsax.user),
                       ),
                       validator: (value) =>
-                          TValidator.validateEmptyText('Full Name', value),
+                          Validator.validateEmptyText('Full Name', value),
                     ),
-                    const SizedBox(height: TSizes.spaceBtwInputFields),
+                    const SizedBox(height: Sizes.spaceBtwInputFields),
 
-                    // Email and Phone Row
-                    Row(
+                     Row(
                       children: [
-                        // Email
-                        Expanded(
+                         Expanded(
                           child: TextFormField(
                             controller: emailController,
                             decoration: const InputDecoration(
@@ -88,10 +86,9 @@ class _ProfileFormState extends State<ProfileForm> {
                             ),
                           ),
                         ),
-                        const SizedBox(width: TSizes.spaceBtwItems),
+                        const SizedBox(width: Sizes.spaceBtwItems),
 
-                        // Phone Number
-                        Expanded(
+                         Expanded(
                           child: TextFormField(
                             controller: phoneController,
                             decoration: const InputDecoration(
@@ -100,7 +97,7 @@ class _ProfileFormState extends State<ProfileForm> {
                               prefixIcon: Icon(Iconsax.mobile),
                             ),
                             validator: (value) =>
-                                TValidator.validateEmptyText('Phone Number', value),
+                                Validator.validateEmptyText('Phone Number', value),
                           ),
                         ),
                       ],
@@ -111,10 +108,9 @@ class _ProfileFormState extends State<ProfileForm> {
             ],
           ),
         ),
-        const SizedBox(height: TSizes.spaceBtwSections),
+        const SizedBox(height: Sizes.spaceBtwSections),
 
-        // Update Button
-        SizedBox(
+         SizedBox(
           width: double.infinity,
           child: ElevatedButton(
             onPressed: () async {

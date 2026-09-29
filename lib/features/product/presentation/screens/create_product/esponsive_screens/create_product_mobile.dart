@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
- import '../../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
+import '../../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../widgets/additional_images.dart';
 import '../widgets/attributes_widget.dart';
 import '../widgets/bottom_navigation_widget.dart';
-import '../widgets/brand_widget.dart';
 import '../widgets/categories_widget.dart';
 import '../widgets/product_type_widget.dart';
 import '../widgets/stock_pricing_widget.dart';
@@ -19,12 +18,11 @@ class CreateProductMobileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       bottomNavigationBar: const ProductBottomNavigationButtons(),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(TSizes.defaultSpace),
+          padding: const EdgeInsets.all(Sizes.defaultSpace),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -32,56 +30,52 @@ class CreateProductMobileScreen extends StatelessWidget {
                 'Create Product',
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
-              const SizedBox(height: TSizes.spaceBtwSections / 2),
+              const SizedBox(height: Sizes.spaceBtwSections / 2),
 
-              // Create Product Form (Vertical Layout)
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // 1. Basic Information
                   const ProductTitleAndDescription(),
-                  const SizedBox(height: TSizes.spaceBtwSections),
+                  const SizedBox(height: Sizes.spaceBtwSections),
 
-                  // 2. Stock & Pricing
                   RoundedContainer(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Heading
-                        Text('Stock & Pricing', style: Theme.of(context).textTheme.headlineSmall),
-                        const SizedBox(height: TSizes.spaceBtwItems),
+                        Text(
+                          'Stock & Pricing',
+                          style: Theme.of(context).textTheme.headlineSmall,
+                        ),
+                        const SizedBox(height: Sizes.spaceBtwItems),
 
-                        // Product Type
                         const ProductTypeWidget(),
-                        const SizedBox(height: TSizes.spaceBtwInputFields),
+                        const SizedBox(height: Sizes.spaceBtwInputFields),
 
-                        // Stock
                         const ProductStockAndPricing(),
-                        const SizedBox(height: TSizes.spaceBtwSections),
+                        const SizedBox(height: Sizes.spaceBtwSections),
 
-                        // Attributes
                         const ProductAttributes(),
-                        const SizedBox(height: TSizes.spaceBtwSections),
+                        const SizedBox(height: Sizes.spaceBtwSections),
                       ],
                     ), // Column
-                  ), // TRoundedContainer
-                  const SizedBox(height: TSizes.spaceBtwSections),
+                  ), // RoundedContainer
+                  const SizedBox(height: Sizes.spaceBtwSections),
 
-                  // 3. Variations
                   const ProductVariations(),
-                  const SizedBox(height: TSizes.spaceBtwSections),
+                  const SizedBox(height: Sizes.spaceBtwSections),
 
-                  // 4. Product Thumbnail (Sidebar element placed vertically)
                   const ProductThumbnailImage(),
-                  const SizedBox(height: TSizes.spaceBtwSections),
+                  const SizedBox(height: Sizes.spaceBtwSections),
 
-                  // 5. Product Images
                   RoundedContainer(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('All Product Images', style: Theme.of(context).textTheme.headlineSmall),
-                        const SizedBox(height: TSizes.spaceBtwItems),
+                        Text(
+                          'All Product Images',
+                          style: Theme.of(context).textTheme.headlineSmall,
+                        ),
+                        const SizedBox(height: Sizes.spaceBtwItems),
                         ProductAdditionalImages(
                           additionalProductImagesURLs: RxList<String>.empty(),
                           onTapToAddImages: () {},
@@ -89,17 +83,14 @@ class CreateProductMobileScreen extends StatelessWidget {
                         ), // ProductAdditionalImages
                       ],
                     ), // Column
-                  ), // TRoundedContainer
-                  const SizedBox(height: TSizes.spaceBtwSections),
+                  ), // RoundedContainer
+                  const SizedBox(height: Sizes.spaceBtwSections),
 
-
-                  // 7. Product Categories
                   const ProductCategories(),
-                  const SizedBox(height: TSizes.spaceBtwSections),
+                  const SizedBox(height: Sizes.spaceBtwSections),
 
-                  // 8. Product Visibility
                   const ProductVisibilityWidget(),
-                  const SizedBox(height: TSizes.spaceBtwSections),
+                  const SizedBox(height: Sizes.spaceBtwSections),
                 ],
               ), // Column
             ],

@@ -50,7 +50,7 @@ class _MediaUploaderState extends State<MediaUploader> {
                 border: Border.all(color: TColors.borderPrimary),
                 color: TColors.primaryBackground,
               ),
-              padding: const EdgeInsets.all(TSizes.defaultSpace),
+              padding: const EdgeInsets.all(Sizes.defaultSpace),
               child: LayoutBuilder(
                 builder: (context, constraints) {
                   final dynamicKey = ValueKey(
@@ -121,11 +121,11 @@ class _MediaUploaderState extends State<MediaUploader> {
                             color: TColors.darkGrey,
                           ),
 
-                          const SizedBox(height: TSizes.spaceBtwItems),
+                          const SizedBox(height: Sizes.spaceBtwItems),
 
                           const Text('Drag and Drop Images here'),
 
-                          const SizedBox(height: TSizes.spaceBtwItems),
+                          const SizedBox(height: Sizes.spaceBtwItems),
 
                           OutlinedButton(
                             onPressed: () =>
@@ -140,7 +140,7 @@ class _MediaUploaderState extends State<MediaUploader> {
               ),
             ),
 
-            const SizedBox(height: TSizes.spaceBtwItems),
+            const SizedBox(height: Sizes.spaceBtwItems),
 
             if (state.selectedImagesToUpload.isNotEmpty)
               RoundedContainer(
@@ -148,7 +148,7 @@ class _MediaUploaderState extends State<MediaUploader> {
                 showBorder: true,
                 borderColor: TColors.borderPrimary,
                 backgroundColor: TColors.white,
-                padding: const EdgeInsets.all(TSizes.defaultSpace),
+                padding: const EdgeInsets.all(Sizes.defaultSpace),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -163,7 +163,7 @@ class _MediaUploaderState extends State<MediaUploader> {
                               style: Theme.of(context).textTheme.headlineSmall,
                             ),
 
-                            const SizedBox(width: TSizes.spaceBtwItems),
+                            const SizedBox(width: Sizes.spaceBtwItems),
 
                             MediaFolderDropdown(
                               onChanged: (MediaCategory? newValue) {
@@ -183,11 +183,11 @@ class _MediaUploaderState extends State<MediaUploader> {
                               child: const Text('Remove All'),
                             ),
 
-                            const SizedBox(width: TSizes.spaceBtwItems),
+                            const SizedBox(width: Sizes.spaceBtwItems),
 
                             if (!TDeviceUtils.isMobileScreen(context))
                               SizedBox(
-                                width: TSizes.buttonWidth,
+                                width: Sizes.buttonWidth,
                                 child: ElevatedButton(
                                   onPressed: () {
                                     mediaCubit.uploadImagesConfirmation(
@@ -202,19 +202,19 @@ class _MediaUploaderState extends State<MediaUploader> {
                       ],
                     ),
 
-                    const SizedBox(height: TSizes.spaceBtwSections),
+                    const SizedBox(height: Sizes.spaceBtwSections),
 
                     Wrap(
                       alignment: WrapAlignment.start,
-                      spacing: TSizes.spaceBtwItems / 2,
-                      runSpacing: TSizes.spaceBtwItems / 2,
+                      spacing: Sizes.spaceBtwItems / 2,
+                      runSpacing: Sizes.spaceBtwItems / 2,
                       children: state.selectedImagesToUpload
                           .where((image) => image.localImageToDisplay != null)
                           .map(
                             (image) => TRoundedImage(
                               width: 90,
                               height: 90,
-                              padding: TSizes.sm,
+                              padding: Sizes.sm,
                               imageType: ImageType.memory,
                               memoryImage: image.localImageToDisplay,
                               backgroundColor: TColors.primaryBackground,
@@ -223,7 +223,7 @@ class _MediaUploaderState extends State<MediaUploader> {
                           .toList(),
                     ),
 
-                    const SizedBox(height: TSizes.spaceBtwSections),
+                    const SizedBox(height: Sizes.spaceBtwSections),
 
                     if (TDeviceUtils.isMobileScreen(context))
                       SizedBox(
@@ -239,7 +239,7 @@ class _MediaUploaderState extends State<MediaUploader> {
                 ),
               ),
 
-            const SizedBox(height: TSizes.spaceBtwSections),
+            const SizedBox(height: Sizes.spaceBtwSections),
           ],
         );
       },

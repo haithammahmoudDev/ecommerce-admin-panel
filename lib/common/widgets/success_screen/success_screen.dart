@@ -31,19 +31,19 @@ class SuccessScreen extends StatelessWidget {
                 image,
                 width: MediaQuery.of(context).size.width * 0.6,
               ),
-              const SizedBox(height: TSizes.spaceBtwSections),
+              const SizedBox(height: Sizes.spaceBtwSections),
               Text(
                 title,
                 style: Theme.of(context).textTheme.headlineMedium,
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: TSizes.spaceBtwItems),
+              const SizedBox(height: Sizes.spaceBtwItems),
               Text(
                 subTitle,
                 style: Theme.of(context).textTheme.labelMedium,
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: TSizes.spaceBtwSections),
+              const SizedBox(height: Sizes.spaceBtwSections),
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(

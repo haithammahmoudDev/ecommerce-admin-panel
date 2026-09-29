@@ -21,7 +21,7 @@ class ProductCategories extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text('Categories', style: Theme.of(context).textTheme.headlineSmall),
-          const SizedBox(height: TSizes.spaceBtwItems),
+          const SizedBox(height: Sizes.spaceBtwItems),
 
           BlocBuilder<CategoryCubit, BaseDataTableState<CategoryEntity>>(
             builder: (context, categoryState) {
@@ -30,22 +30,33 @@ class ProductCategories extends StatelessWidget {
                   final categoriesLoading =
                       (categoryState.status == DataTableStatus.loading &&
                           categoryState.allItems.isEmpty) ||
-                          editState.isCategoriesLoading;
+                      editState.isCategoriesLoading;
 
                   if (categoriesLoading) {
-                    return const TShimmerEffect(width: double.infinity, height: 50);
+                    return const TShimmerEffect(
+                      width: double.infinity,
+                      height: 50,
+                    );
                   }
 
                   return MultiSelectDialogField<CategoryEntity>(
                     buttonText: const Text("Select Categories"),
                     title: const Text("Categories"),
                     initialValue: editState.selectedCategories,
-                    items: categoryState.allItems.where((e)=> e.parentId.isNotEmpty)
-                        .map((category) => MultiSelectItem<CategoryEntity>(category, category.name))
+                    items: categoryState.allItems
+                        .where((e) => e.parentId.isNotEmpty)
+                        .map(
+                          (category) => MultiSelectItem<CategoryEntity>(
+                            category,
+                            category.name,
+                          ),
+                        )
                         .toList(),
                     listType: MultiSelectListType.CHIP,
                     onConfirm: (values) {
-                      context.read<EditProductCubit>().setSelectedCategories(values);
+                      context.read<EditProductCubit>().setSelectedCategories(
+                        values,
+                      );
                     },
                   );
                 },

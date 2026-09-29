@@ -25,12 +25,12 @@ class OrderCustomerInfo extends StatelessWidget {
           children: [
             // 1. Personal Info
             RoundedContainer(
-              padding: const EdgeInsets.all(TSizes.defaultSpace),
+              padding: const EdgeInsets.all(Sizes.defaultSpace),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text('Customer', style: Theme.of(context).textTheme.headlineMedium),
-                  const SizedBox(height: TSizes.spaceBtwSections),
+                  const SizedBox(height: Sizes.spaceBtwSections),
                   BlocBuilder<OrderDetailCubit, OrderDetailState>(
                   builder: (context, state) {
                     return Row(
@@ -45,7 +45,7 @@ class OrderCustomerInfo extends StatelessWidget {
                             ? ImageType.network
                             : ImageType.asset,
                       ),
-                      const SizedBox(width: TSizes.spaceBtwItems),
+                      const SizedBox(width: Sizes.spaceBtwItems),
                       Expanded(
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
@@ -73,7 +73,7 @@ class OrderCustomerInfo extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: TSizes.spaceBtwSections),
+            const SizedBox(height: Sizes.spaceBtwSections),
 
             // 2. Contact Info (Contact Person)
             BlocBuilder<OrderDetailCubit, OrderDetailState>(
@@ -81,22 +81,22 @@ class OrderCustomerInfo extends StatelessWidget {
     return SizedBox(
               width: double.infinity,
               child: RoundedContainer(
-                padding: const EdgeInsets.all(TSizes.defaultSpace),
+                padding: const EdgeInsets.all(Sizes.defaultSpace),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text('Contact Person', style: Theme.of(context).textTheme.headlineMedium),
-                    const SizedBox(height: TSizes.spaceBtwSections),
+                    const SizedBox(height: Sizes.spaceBtwSections),
                     Text(
                       state.customer.fullName.isNotEmpty ? state.customer.fullName : 'N/A',
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
-                    const SizedBox(height: TSizes.spaceBtwItems / 2),
+                    const SizedBox(height: Sizes.spaceBtwItems / 2),
                     Text(
                       state.customer.email.isNotEmpty ? state.customer.email : 'N/A',
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
-                    const SizedBox(height: TSizes.spaceBtwItems / 2),
+                    const SizedBox(height: Sizes.spaceBtwItems / 2),
                     Text(
                       state.customer.formattedPhoneNo.isNotEmpty
                           ? state.customer.formattedPhoneNo
@@ -109,23 +109,23 @@ class OrderCustomerInfo extends StatelessWidget {
             );
   },
 ),
-            const SizedBox(height: TSizes.spaceBtwSections),
+            const SizedBox(height: Sizes.spaceBtwSections),
 
             // 3. Shipping Address Section
             SizedBox(
               width: double.infinity,
               child: RoundedContainer(
-                padding: const EdgeInsets.all(TSizes.defaultSpace),
+                padding: const EdgeInsets.all(Sizes.defaultSpace),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text('Shipping Address', style: Theme.of(context).textTheme.headlineMedium),
-                    const SizedBox(height: TSizes.spaceBtwSections),
+                    const SizedBox(height: Sizes.spaceBtwSections),
                     Text(
                       order.shippingAddress != null ? order.shippingAddress!.name : '',
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
-                    const SizedBox(height: TSizes.spaceBtwItems / 2),
+                    const SizedBox(height: Sizes.spaceBtwItems / 2),
                     Text(
                       order.shippingAddress != null ? order.shippingAddress!.toString() : '',
                       style: Theme.of(context).textTheme.titleSmall,
@@ -134,25 +134,25 @@ class OrderCustomerInfo extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: TSizes.spaceBtwSections),
+            const SizedBox(height: Sizes.spaceBtwSections),
 
             // 4. Billing Address Section
             SizedBox(
               width: double.infinity,
               child: RoundedContainer(
-                padding: const EdgeInsets.all(TSizes.defaultSpace),
+                padding: const EdgeInsets.all(Sizes.defaultSpace),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text('Billing Address', style: Theme.of(context).textTheme.headlineMedium),
-                    const SizedBox(height: TSizes.spaceBtwSections),
+                    const SizedBox(height: Sizes.spaceBtwSections),
                     Text(
                       order.billingAddressSameAsShipping
                           ? (order.shippingAddress?.name ?? '')
                           : (order.billingAddress?.name ?? ''),
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
-                    const SizedBox(height: TSizes.spaceBtwItems / 2),
+                    const SizedBox(height: Sizes.spaceBtwItems / 2),
                     Text(
                       order.billingAddressSameAsShipping
                           ? (order.shippingAddress?.toString() ?? '')
@@ -163,7 +163,7 @@ class OrderCustomerInfo extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: TSizes.spaceBtwItems),
+            const SizedBox(height: Sizes.spaceBtwItems),
           ],
         );
   }

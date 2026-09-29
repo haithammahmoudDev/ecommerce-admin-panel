@@ -12,7 +12,7 @@ class ForgetPasswordScreenMobile extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(TSizes.defaultSpace),
+          padding: const EdgeInsets.all(Sizes.defaultSpace),
           child: HeaderAndForm(formKey: _formKey, email: email,),
         ), // Padding
       ), // SingleChildScrollView

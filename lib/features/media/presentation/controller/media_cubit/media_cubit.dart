@@ -251,7 +251,7 @@ class MediaCubit extends Cubit<MediaState> {
                   width: 300,
                   fit: BoxFit.contain,
                 ),
-                const SizedBox(height: TSizes.spaceBtwItems),
+                const SizedBox(height: Sizes.spaceBtwItems),
                 const Text('Sit Tight, Your images are uploading...'),
               ],
             ),
@@ -615,7 +615,7 @@ class MediaCubit extends Cubit<MediaState> {
                   color: TColors.primaryBackground,
                   child: SingleChildScrollView(
                     child: Padding(
-                      padding: const EdgeInsets.all(TSizes.defaultSpace),
+                      padding: const EdgeInsets.all(Sizes.defaultSpace),
                       child: Column(
                         children: [
                           MediaUploader(),

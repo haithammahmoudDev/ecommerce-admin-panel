@@ -1,4 +1,3 @@
-// core/network/firebase/auth_client.dart
 
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -18,7 +17,7 @@ abstract class AuthClient {
   });
   Future<UserCredential> linkWithPhoneCredential({required PhoneAuthCredential credential});
   Future<void> sendEmailVerification();
-  Future<void> updatePassword({required String newPassword}); // ← NEW
+  Future<void> updatePassword({required String newPassword});
   Future<void> signOut();
   Future<void> reAuthenticateWithEmailAndPassword({
     required String email,

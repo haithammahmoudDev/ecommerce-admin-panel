@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
 import '../../../domain/entities/user_entity.dart';
 import '../../../domain/repos/social_auth_repo.dart';
 part 'social_auth_state.dart';

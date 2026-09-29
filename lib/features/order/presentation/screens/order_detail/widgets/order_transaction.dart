@@ -19,12 +19,12 @@ class OrderTransactions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RoundedContainer(
-      padding: const EdgeInsets.all(TSizes.defaultSpace),
+      padding: const EdgeInsets.all(Sizes.defaultSpace),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text('Transactions', style: Theme.of(context).textTheme.headlineMedium),
-          const SizedBox(height: TSizes.spaceBtwSections),
+          const SizedBox(height: Sizes.spaceBtwSections),
 
           // Adjust as per your needs
           Row(

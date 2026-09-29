@@ -4,10 +4,8 @@ import 'package:ecommerce_admin_pannal/features/order/presentation/screens/order
 import 'package:ecommerce_admin_pannal/features/order/presentation/screens/order_detail/responsive_screens/order_detail_tablet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../../common/di/injection_container.dart';
 import '../../../../../common/widgets/layouts/templates/site_layout.dart';
-import '../../../../product/presentation/screens/all_products/esponsive_screens/products_mobile.dart';
 import '../../../domain/entities/order_entity.dart';
 
 class OrderDetailScreen extends StatelessWidget {

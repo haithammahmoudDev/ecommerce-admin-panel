@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../../../utils/constants/enums.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../../../controller/create_product/create_product_cubit.dart';
@@ -22,7 +21,7 @@ class ProductTypeWidget extends StatelessWidget {
           children: [
             Text('Product Type',
                 style: Theme.of(context).textTheme.bodyMedium),
-            const SizedBox(width: TSizes.spaceBtwItems),
+            const SizedBox(width: Sizes.spaceBtwItems),
 
             RadioMenuButton<ProductType>(
               value: ProductType.single,

@@ -10,7 +10,7 @@ class CreateCategoriesTabletScreen extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(TSizes.defaultSpace),
+          padding: const EdgeInsets.all(Sizes.defaultSpace),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -18,10 +18,8 @@ class CreateCategoriesTabletScreen extends StatelessWidget {
                 'Create Category',
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
-              const SizedBox(height: TSizes.spaceBtwSections / 2),
-
-              // Form
-             const CreateCategoryForm(),
+              const SizedBox(height: Sizes.spaceBtwSections / 2),
+              const CreateCategoryForm(),
             ],
           ), // Column
         ), // Padding

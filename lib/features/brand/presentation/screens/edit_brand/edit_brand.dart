@@ -4,10 +4,8 @@ import 'package:ecommerce_admin_pannal/features/brand/presentation/screens/edit_
 import 'package:ecommerce_admin_pannal/features/brand/presentation/screens/edit_brand/reponsive_screens/edit_brand_tablet_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../../common/di/injection_container.dart';
 import '../../../../../common/widgets/layouts/templates/site_layout.dart';
-import '../../../data/models/brand_model.dart';
 import '../../../domain/entities/brand_entity.dart';
 
 class EditBrandScreen extends StatelessWidget {

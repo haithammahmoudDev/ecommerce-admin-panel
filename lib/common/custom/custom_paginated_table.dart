@@ -2,8 +2,7 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
-/// ويدجيت جدول مخصص وقابل لإعادة الاستخدام في أي شاشة، بمظهر بسيط 🚀
-class CustomPaginatedTable extends StatelessWidget {
+ class CustomPaginatedTable extends StatelessWidget {
   const CustomPaginatedTable({
     super.key,
     required this.columns,
@@ -33,7 +32,6 @@ class CustomPaginatedTable extends StatelessWidget {
   final double? minWidth;
   final Widget? emptyWidget;
 
-  // ===== لوحة الألوان البسيطة =====
   static const Color _borderColor = Color(0xFFEAECEF);
   static const Color _headerText = Color(0xFF6B7280);
   static const Color _bodyText = Color(0xFF1D2939);
@@ -52,11 +50,10 @@ class CustomPaginatedTable extends StatelessWidget {
         child: PaginatedDataTable2(
           source: source,
           columns: columns,
-          /// /// COLUMNS & ROWS
-          columnSpacing: 16,
+           columnSpacing: 16,
           minWidth: minWidth,
           dividerThickness: 1,
-          horizontalMargin: 16, // 🌟 مسافة جانبية للجدول
+          horizontalMargin: 16,
           rowsPerPage: rowsPerPage,
           dataRowHeight: dataRowHeight,
           headingRowHeight: 44,
@@ -83,13 +80,11 @@ class CustomPaginatedTable extends StatelessWidget {
             verticalInside: BorderSide.none,
           ),
 
-          /// /// CHECKBOX
           showCheckboxColumn: true,
           onSelectAll: onSelectAll,
-          checkboxHorizontalMargin: 12, // 🌟 إضافة مسافة حول الـ Checkbox لمنع الالتصاق
+          checkboxHorizontalMargin: 12,
           checkboxAlignment: Alignment.centerLeft,
 
-          /// /// PAGINATION
           showFirstLastButtons: true,
           onPageChanged: onPageChanged,
           renderEmptyRowsInTheEnd: false,

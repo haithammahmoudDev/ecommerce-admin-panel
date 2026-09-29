@@ -33,7 +33,7 @@ class _CreateBrandFormState extends State<CreateBrandForm> {
     final cubit = context.read<CreateBrandCubit>();
     return RoundedContainer(
       width: 500,
-      padding: const EdgeInsets.all(TSizes.defaultSpace),
+      padding: const EdgeInsets.all(Sizes.defaultSpace),
       child: Form(
         key: _formKey,
         child: Column(
@@ -41,9 +41,9 @@ class _CreateBrandFormState extends State<CreateBrandForm> {
           children: [
 
             // Heading
-            const SizedBox(height: TSizes.sm),
+            const SizedBox(height: Sizes.sm),
             Text('Create New Brand', style: Theme.of(context).textTheme.headlineMedium),
-            const SizedBox(height: TSizes.spaceBtwSections),
+            const SizedBox(height: Sizes.spaceBtwSections),
 
             // Name Text Field
             TextFormField(
@@ -59,12 +59,12 @@ class _CreateBrandFormState extends State<CreateBrandForm> {
               },
               decoration: const InputDecoration(labelText: 'Brand Name', prefixIcon: Icon(Iconsax.box)),
             ), // TextFormField
-            const SizedBox(height: TSizes.spaceBtwInputFields),
+            const SizedBox(height: Sizes.spaceBtwInputFields),
 
             // Categories Selection
             // Categories Selection
             Text('Select Categories', style: Theme.of(context).textTheme.titleMedium),
-            const SizedBox(height: TSizes.spaceBtwInputFields / 2),
+            const SizedBox(height: Sizes.spaceBtwInputFields / 2),
 
             BlocBuilder<CategoryCubit, BaseDataTableState<CategoryEntity>>(
               builder: (context, categoryState) {
@@ -72,13 +72,13 @@ class _CreateBrandFormState extends State<CreateBrandForm> {
                 return BlocBuilder<CreateBrandCubit, CreateBrandState>(
                   builder: (context, brandState) {
                     return Wrap(
-                      spacing: TSizes.sm,
+                      spacing: Sizes.sm,
                       children: categoryState.allItems.map((category) {
                         // 2. التحقق مما إذا كانت الفئة الحالية موجودة في القائمة المحددة
                         final isSelected = brandState.selectedCategories.contains(category);
 
                         return Padding(
-                          padding: const EdgeInsets.only(bottom: TSizes.sm),
+                          padding: const EdgeInsets.only(bottom: Sizes.sm),
                           child: TChoiceChip(
                             text: category.name,
                             selected: isSelected,
@@ -93,7 +93,7 @@ class _CreateBrandFormState extends State<CreateBrandForm> {
                 );
               },
             ),
-            const SizedBox(height: TSizes.spaceBtwInputFields * 2),
+            const SizedBox(height: Sizes.spaceBtwInputFields * 2),
 
             // // Image Uploader
             BlocBuilder<CreateBrandCubit, CreateBrandState>(
@@ -107,7 +107,7 @@ class _CreateBrandFormState extends State<CreateBrandForm> {
             );
   },
 ), // TImageUploader
-            const SizedBox(height: TSizes.spaceBtwInputFields),
+            const SizedBox(height: Sizes.spaceBtwInputFields),
 
             // //Checkbox
             BlocBuilder<CreateBrandCubit, CreateBrandState>(
@@ -119,7 +119,7 @@ class _CreateBrandFormState extends State<CreateBrandForm> {
             );
   },
 ), // CheckboxMenuButton
-            const SizedBox(height: TSizes.spaceBtwInputFields * 2),
+            const SizedBox(height: Sizes.spaceBtwInputFields * 2),
 
             // //Button
             SizedBox(
@@ -131,7 +131,7 @@ class _CreateBrandFormState extends State<CreateBrandForm> {
                 child: const Text('Create'),
               ),
             ), // SizedBox
-            const SizedBox(height: TSizes.spaceBtwInputFields * 2),
+            const SizedBox(height: Sizes.spaceBtwInputFields * 2),
           ],
         ), // Column
       ), // Form

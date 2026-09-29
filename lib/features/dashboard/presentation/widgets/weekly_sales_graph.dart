@@ -2,7 +2,6 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
-
 import '../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../../common/widgets/icons/t_circular_icon.dart';
 import '../../../../utils/constants/colors.dart';
@@ -17,42 +16,38 @@ class TWeeklySalesGraph extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<DashboardCubit, DashboardState>(
       builder: (context, state) {
-        // حساب أعلى قيمة للمبيعات لتحديد مدى المحور الصادي (Y-Axis)
-        final double maxOrder = state.weeklySales.isEmpty
+         final double maxOrder = state.weeklySales.isEmpty
             ? 0
             : state.weeklySales.reduce((a, b) => a > b ? a : b);
 
         return RoundedContainer(
-          padding: const EdgeInsets.all(TSizes.md),
+          padding: const EdgeInsets.all(Sizes.md),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Header Row with Icon and Title
-              Row(
+               Row(
                 children: [
                   TCircularIcon(
                     icon: Iconsax.graph,
                     backgroundColor: Colors.brown.withOpacity(0.1),
                     color: Colors.brown,
-                    size: TSizes.md,
+                    size: Sizes.md,
                   ),
-                  const SizedBox(width: TSizes.spaceBtwItems),
+                  const SizedBox(width: Sizes.spaceBtwItems),
                   Text(
                     'Weekly Sales',
                     style: Theme.of(context).textTheme.headlineSmall,
                   ),
                 ],
               ),
-              const SizedBox(height: TSizes.spaceBtwSections),
+              const SizedBox(height: Sizes.spaceBtwSections),
 
-              // Graph
-              state.weeklySales.isNotEmpty
+               state.weeklySales.isNotEmpty
                   ? SizedBox(
                 height: 400,
                 child: BarChart(
                   BarChartData(
-                    // تحديد الحد الأقصى للمحور Y ليعرض شبكة رسم بياني كاملة حتى لو كانت المبيعات 0
-                    maxY: maxOrder > 0 ? maxOrder : 1000,
+                     maxY: maxOrder > 0 ? maxOrder : 1000,
                     titlesData: buildFLTitlesData(state.weeklySales),
                     borderData: FlBorderData(
                       show: true,
@@ -64,7 +59,7 @@ class TWeeklySalesGraph extends StatelessWidget {
                     gridData: const FlGridData(
                       show: true,
                       drawHorizontalLine: true,
-                      drawVerticalLine: true, // تفعيل الخطوط الرأسية كما في التصميم
+                      drawVerticalLine: true,
                       horizontalInterval: 200,
                     ),
                     barGroups: state.weeklySales
@@ -79,13 +74,13 @@ class TWeeklySalesGraph extends StatelessWidget {
                             toY: entry.value,
                             color: TColors.primary,
                             borderRadius:
-                            BorderRadius.circular(TSizes.sm),
+                            BorderRadius.circular(Sizes.sm),
                           ),
                         ],
                       ),
                     )
                         .toList(),
-                    groupsSpace: TSizes.spaceBtwItems,
+                    groupsSpace: Sizes.spaceBtwItems,
                     barTouchData: BarTouchData(
                       touchTooltipData: BarTouchTooltipData(
                         getTooltipColor: (_) => TColors.secondary,

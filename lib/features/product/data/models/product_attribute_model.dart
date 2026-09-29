@@ -6,12 +6,10 @@ class ProductAttributeModel {
 
   ProductAttributeModel({this.name, this.values});
 
-  /// Json Format
   toJson() {
     return {'Name': name, 'Values': values};
   }
 
-  /// Map json oriented document snapshot from Firebase to Model
   factory ProductAttributeModel.fromJson(Map<String, dynamic> document) {
     final data = document;
 
@@ -23,7 +21,6 @@ class ProductAttributeModel {
     );
   }
 
-  /// Convert Model to Entity
   ProductAttributeEntity toEntity() {
     return ProductAttributeEntity(
       name: name,

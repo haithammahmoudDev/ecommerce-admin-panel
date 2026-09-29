@@ -1,9 +1,8 @@
-import 'package:bloc/bloc.dart';
 import 'package:ecommerce_admin_pannal/features/media/domain/entities/image_entity.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../utils/helpers/network_manager.dart';
-import '../../../../media/data/models/image_model.dart';
 import '../../../../media/presentation/controller/media_cubit/media_cubit.dart';
 import '../../../domain/entities/settings_entity.dart';
 import '../../../domain/repos/settings_repo.dart';
@@ -14,9 +13,8 @@ class SettingsCubit extends Cubit<SettingsState> {
   final SettingsRepo settingsRepository;
   final MediaCubit _mediaCubit;
 
-  SettingsCubit(this.settingsRepository, {required MediaCubit mediaCubit})
-      : _mediaCubit = mediaCubit,
-        super(const SettingsState());
+  SettingsCubit(this.settingsRepository, {required this._mediaCubit})
+      : super(const SettingsState());
 
   final formKey = GlobalKey<FormState>();
   final appNameController = TextEditingController();
@@ -55,7 +53,6 @@ class SettingsCubit extends Cubit<SettingsState> {
     );
   }
 
-  /// Pick & Update App Logo (Triggers Logo Selector Only)
   Future<void> updateAppLogo(BuildContext context) async {
     List<ImageEntity>? selectedImages =
     await _mediaCubit.selectImagesFromMedia(context: context);
@@ -93,7 +90,6 @@ class SettingsCubit extends Cubit<SettingsState> {
     }
   }
 
-  /// Update Setting Information (Triggers Button Selector Only)
   Future<void> updateSettingInformation() async {
     final isConnected = await NetworkManager.instance.isConnected();
     if (!isConnected) {

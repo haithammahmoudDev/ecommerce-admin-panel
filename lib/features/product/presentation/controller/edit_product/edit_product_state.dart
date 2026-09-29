@@ -6,13 +6,9 @@ class EditProductState extends Equatable {
   final BrandEntity? selectedBrand;
   final List<CategoryEntity> selectedCategories;
   final List<CategoryEntity> alreadyAddedCategories;
-
-  // Media & Data Loading States
   final bool isThumbnailLoading;
   final bool isAdditionalImagesLoading;
   final bool isCategoriesLoading;
-
-  // Progress Indicators
   final bool thumbnailUploader;
   final bool additionalImagesUploader;
   final bool productDataUploader;

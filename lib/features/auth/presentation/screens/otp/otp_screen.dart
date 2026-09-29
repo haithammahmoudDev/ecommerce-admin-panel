@@ -16,7 +16,7 @@ class OTPScreen extends StatelessWidget {
   Widget build(BuildContext context) {
      return Scaffold(
       body: Container(
-        padding: const EdgeInsets.all(TSizes.defaultSpace),
+        padding: const EdgeInsets.all(Sizes.defaultSpace),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

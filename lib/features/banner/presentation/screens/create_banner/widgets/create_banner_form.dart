@@ -19,17 +19,17 @@ class CreateBannerForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return RoundedContainer(
       width: 500,
-      padding: const EdgeInsets.all(TSizes.defaultSpace),
+      padding: const EdgeInsets.all(Sizes.defaultSpace),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Heading
-          const SizedBox(height: TSizes.sm),
+          const SizedBox(height: Sizes.sm),
           Text(
             'Create New Banner',
             style: Theme.of(context).textTheme.headlineMedium,
           ), // Text
-          const SizedBox(height: TSizes.spaceBtwSections),
+          const SizedBox(height: Sizes.spaceBtwSections),
 
           // // Image Uploader & Featured Checkbox
           Column(
@@ -49,14 +49,14 @@ class CreateBannerForm extends StatelessWidget {
       ), // TRoundedImage
               ),
         // GestureDetector
-              const SizedBox(height: TSizes.spaceBtwItems),
+              const SizedBox(height: Sizes.spaceBtwItems),
               TextButton(
                 onPressed: ()=> context.read<CreateBannerCubit>().pickImage(context),
                 child: const Text('Select Image'),
               ), // TextButton
             ],
           ), // Column
-          const SizedBox(height: TSizes.spaceBtwInputFields),
+          const SizedBox(height: Sizes.spaceBtwInputFields),
 
           Text(
             'Make your Banner Active or InActive',
@@ -71,7 +71,7 @@ class CreateBannerForm extends StatelessWidget {
           );
         },
       ), // CheckboxMenuButton
-          const SizedBox(height: TSizes.spaceBtwInputFields),
+          const SizedBox(height: Sizes.spaceBtwInputFields),
 
         BlocBuilder<CreateBannerCubit, CreateBannerState>(
         builder: (context, state) {
@@ -85,7 +85,7 @@ class CreateBannerForm extends StatelessWidget {
         );
         },
       ), // Dropd
-          const SizedBox(height: TSizes.spaceBtwInputFields),
+          const SizedBox(height: Sizes.spaceBtwInputFields),
 
           SizedBox(
             width: double.infinity,
@@ -94,7 +94,7 @@ class CreateBannerForm extends StatelessWidget {
               child: const Text('Create'),
             ), // ElevatedButton
           ), // SizedBox
-          const SizedBox(height: TSizes.spaceBtwInputFields),
+          const SizedBox(height: Sizes.spaceBtwInputFields),
         ],
       ), // Form
     ); // TRoundedContainer

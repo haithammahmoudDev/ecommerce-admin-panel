@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 import '../../domain/entities/banner_entity.dart';
 
 class BannerModel {
@@ -15,8 +13,7 @@ class BannerModel {
     required this.targetScreen,
   });
 
-  // 1. التحويل من Firebase Data (Map) مباشرة
-  factory BannerModel.fromFirebaseData(Map<String, dynamic> data,String? docId) {
+   factory BannerModel.fromFirebaseData(Map<String, dynamic> data,String? docId) {
     return BannerModel(
       id: docId ?? data['id'] ?? '',
       imageUrl: data['imageUrl'] ?? '',
@@ -34,7 +31,6 @@ class BannerModel {
   }
 
 
-  // 4. تحويل الموديل الحالي إلى Entity نقي
   BannerEntity toEntity() {
     return BannerEntity(
       id: id,
@@ -44,6 +40,5 @@ class BannerModel {
     );
   }
 
-  // حالة افتراضية فارغة
   static BannerModel empty() => BannerModel(id: '', imageUrl: '', active: false, targetScreen: '');
 }

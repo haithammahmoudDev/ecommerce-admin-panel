@@ -6,7 +6,6 @@ import 'package:go_router/go_router.dart';
 import '../../../../../../common/abstraction/base_data_table/base_data_table_state.dart';
 import '../../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../../../../utils/constants/sizes.dart';
-import '../../../../../brand/domain/entities/brand_entity.dart';
 import '../../../../../categories/presentation/screens/all_categories/widgets/table_header.dart';
 import '../../../../domain/entities/product_entity.dart';
 import '../table/data-table.dart';
@@ -35,7 +34,7 @@ class _ProductsDesktopScreenState extends State<ProductsDesktopScreen> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(TSizes.defaultSpace),
+          padding: const EdgeInsets.all(Sizes.defaultSpace),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -43,11 +42,10 @@ class _ProductsDesktopScreenState extends State<ProductsDesktopScreen> {
             'Products',
             style: Theme.of(context).textTheme.headlineLarge,
           ),
-          const SizedBox(height: TSizes.spaceBtwSections / 2),
+          const SizedBox(height: Sizes.spaceBtwSections / 2),
               RoundedContainer(
                 child: Column(
                   children: [
-                    // Table Header
                     TableHeader(
                       buttonText: 'Add Product',
                       onPressed: () => context.push('/products/create-product'),
@@ -56,9 +54,7 @@ class _ProductsDesktopScreenState extends State<ProductsDesktopScreen> {
                         context.read<ProductCubit>().searchQuery(query);
                       },
                     ), // TTableHeading
-                    const SizedBox(height: TSizes.spaceBtwItems),
-
-                    // Table
+                    const SizedBox(height: Sizes.spaceBtwItems),
                     BlocBuilder<ProductCubit, BaseDataTableState<ProductEntity>>(
                       builder: (context, state) {
                         if (state.status == DataTableStatus.loading) {

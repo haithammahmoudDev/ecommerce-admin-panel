@@ -1,10 +1,6 @@
 part of 'user_cubit.dart';
 
-enum UserDataStatus {
-  loading,
-  loaded,
-  error,
-}
+enum UserDataStatus { loading, loaded, error }
 
 class UserState extends Equatable {
   final UserEntity? user;
@@ -15,7 +11,7 @@ class UserState extends Equatable {
     this.user,
     this.userDataStatus = UserDataStatus.loading,
     this.errorMessage,
-   });
+  });
 
   UserState copyWith({
     UserEntity? user,
@@ -28,10 +24,9 @@ class UserState extends Equatable {
       user: user ?? this.user,
       userDataStatus: userDataStatus ?? this.userDataStatus,
       errorMessage: clearError ? null : (errorMessage ?? this.errorMessage),
-     );
+    );
   }
 
   @override
-  List<Object?> get props => [user,
-    errorMessage, userDataStatus,  ];
+  List<Object?> get props => [user, errorMessage, userDataStatus];
 }

@@ -29,13 +29,12 @@ class EditProductDesktopScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = context.read<ProductImagesCubit>();
 
     return Scaffold(
       bottomNavigationBar: ProductBottomNavigationButtons(product: product,),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(TSizes.defaultSpace),
+          padding: const EdgeInsets.all(Sizes.defaultSpace),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -43,62 +42,57 @@ class EditProductDesktopScreen extends StatelessWidget {
                 'Edit Product',
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
-              const SizedBox(height: TSizes.spaceBtwSections / 2),
+              const SizedBox(height: Sizes.spaceBtwSections / 2),
 
-              // Edit Product Form Layout
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Main Content Side (Flex 2 or 3 based on screen size)
                   Expanded(
                     flex: TDeviceUtils.isTabletScreen(context) ? 2 : 3,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Basic Information
                         const ProductTitleAndDescription(),
-                        const SizedBox(height: TSizes.spaceBtwSections),
-
-                        // Stock & Pricing Container
+                        const SizedBox(height: Sizes.spaceBtwSections),
                         RoundedContainer(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text('Stock & Pricing', style: Theme.of(context).textTheme.headlineSmall),
-                              const SizedBox(height: TSizes.spaceBtwItems),
+                              const SizedBox(height: Sizes.spaceBtwItems),
 
                               const ProductTypeWidget(),
-                              const SizedBox(height: TSizes.spaceBtwInputFields),
+                              const SizedBox(height: Sizes.spaceBtwInputFields),
 
                               const ProductStockAndPricing(),
-                              const SizedBox(height: TSizes.spaceBtwSections),
+                              const SizedBox(height: Sizes.spaceBtwSections),
 
                               ProductAttributes(),
-                              const SizedBox(height: TSizes.spaceBtwSections),
+                              const SizedBox(height: Sizes.spaceBtwSections),
                             ],
                           ), // Column
                         ), // RoundedContainer
-                        const SizedBox(height: TSizes.spaceBtwSections),
+                        const SizedBox(height: Sizes.spaceBtwSections),
 
                         const ProductVariations(),
                       ],
                     ), // Column
                   ), // Expanded
 
-                  const SizedBox(width: TSizes.defaultSpace),
+                  const SizedBox(width: Sizes.defaultSpace),
 
                   Expanded(
                     child: Column(
                       children: [
                         const ProductThumbnailImage(),
-                        const SizedBox(height: TSizes.spaceBtwSections),
+                        const SizedBox(height: Sizes.spaceBtwSections),
 
                         RoundedContainer(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text('All Product Images', style: Theme.of(context).textTheme.headlineSmall),
-                              const SizedBox(height: TSizes.spaceBtwItems),
+                              const SizedBox(height: Sizes.spaceBtwItems),
                               BlocBuilder<ProductImagesCubit, ProductImagesState>(
                                 builder: (context, state) {
                                   return
@@ -112,14 +106,14 @@ class EditProductDesktopScreen extends StatelessWidget {
                               ), // ProductAdditionalImages
                             ],
                           ), // Column
-                        ), // TRoundedContainer
-                        const SizedBox(height: TSizes.spaceBtwSections),
+                        ), // RoundedContainer
+                        const SizedBox(height: Sizes.spaceBtwSections),
 
                         const ProductBrand(),
-                        const SizedBox(height: TSizes.spaceBtwSections),
+                        const SizedBox(height: Sizes.spaceBtwSections),
 
                         ProductCategories(),
-                        const SizedBox(height: TSizes.spaceBtwSections),
+                        const SizedBox(height: Sizes.spaceBtwSections),
 
                         const ProductVisibilityWidget(),
                       ],

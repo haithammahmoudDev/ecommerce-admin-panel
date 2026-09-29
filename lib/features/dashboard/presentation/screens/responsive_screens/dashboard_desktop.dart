@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
-
 import '../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/sizes.dart';
@@ -19,7 +18,7 @@ class DashboardDesktopScreen extends StatelessWidget {
     return BlocBuilder<DashboardCubit, DashboardState>(
       builder: (context, state) {
         return SingleChildScrollView(
-          padding: const EdgeInsets.all(TSizes.defaultSpace),
+          padding: const EdgeInsets.all(Sizes.defaultSpace),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -27,12 +26,11 @@ class DashboardDesktopScreen extends StatelessWidget {
                 'Dashboard',
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
-              const SizedBox(height: TSizes.spaceBtwSections / 2),
+              const SizedBox(height: Sizes.spaceBtwSections / 2),
 
               Row(
                 children: [
-                  // 1. Sales Total Card
-                  Expanded(
+                   Expanded(
                     child: TDashboardCard(
                       headingIcon: Iconsax.note,
                       headingIconColor: Colors.blue,
@@ -44,10 +42,9 @@ class DashboardDesktopScreen extends StatelessWidget {
                       color: state.salesStats < 0 ? TColors.error : TColors.success,
                     ),
                   ),
-                  const SizedBox(width: TSizes.spaceBtwItems),
+                  const SizedBox(width: Sizes.spaceBtwItems),
 
-                  // 2. Average Order Value Card
-                  Expanded(
+                   Expanded(
                     child: TDashboardCard(
                       headingIcon: Iconsax.external_drive,
                       headingIconColor: Colors.green,
@@ -59,10 +56,9 @@ class DashboardDesktopScreen extends StatelessWidget {
                       color: state.avgOrderStats < 0 ? TColors.error : TColors.success,
                     ),
                   ),
-                  const SizedBox(width: TSizes.spaceBtwItems),
+                  const SizedBox(width: Sizes.spaceBtwItems),
 
-                  // 3. Total Orders Card
-                  Expanded(
+                   Expanded(
                     child: TDashboardCard(
                       headingIcon: Iconsax.box,
                       headingIconColor: Colors.deepPurple,
@@ -74,10 +70,9 @@ class DashboardDesktopScreen extends StatelessWidget {
                       color: state.ordersStats < 0 ? TColors.error : TColors.success,
                     ),
                   ),
-                  const SizedBox(width: TSizes.spaceBtwItems),
+                  const SizedBox(width: Sizes.spaceBtwItems),
 
-                  // 4. Visitors / Customers Card
-                  Expanded(
+                   Expanded(
                     child: TDashboardCard(
                       headingIcon: Iconsax.user,
                       headingIconColor: Colors.deepOrange,
@@ -91,19 +86,17 @@ class DashboardDesktopScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: TSizes.spaceBtwSections),
+              const SizedBox(height: Sizes.spaceBtwSections),
 
-              // Main Content Layout (Graphs & Table)
-              Row(
+               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Left Side: Weekly Sales & Recent Orders Table
-                  Expanded(
+                   Expanded(
                     flex: 2,
                     child: Column(
                       children: [
                         const TWeeklySalesGraph(),
-                        const SizedBox(height: TSizes.spaceBtwSections),
+                        const SizedBox(height: Sizes.spaceBtwSections),
                         RoundedContainer(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -112,7 +105,7 @@ class DashboardDesktopScreen extends StatelessWidget {
                                 'Recent Orders',
                                 style: Theme.of(context).textTheme.headlineSmall,
                               ),
-                              const SizedBox(height: TSizes.spaceBtwSections),
+                              const SizedBox(height: Sizes.spaceBtwSections),
                               const DashboardOrderTable(),
                             ],
                           ),
@@ -120,10 +113,9 @@ class DashboardDesktopScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const SizedBox(width: TSizes.spaceBtwSections),
+                  const SizedBox(width: Sizes.spaceBtwSections),
 
-                  // Right Side: Order Status Pie Chart
-                  const Expanded(
+                   const Expanded(
                     flex: 1,
                     child: OrderStatusPieChart(),
                   ),

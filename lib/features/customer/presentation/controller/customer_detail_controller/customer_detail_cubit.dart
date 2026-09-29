@@ -1,11 +1,8 @@
-import 'package:bloc/bloc.dart';
 import 'package:ecommerce_admin_pannal/features/customer/domain/repos/address_repo.dart';
 import 'package:ecommerce_admin_pannal/utils/popups/exports.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:meta/meta.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../order/domain/entities/order_entity.dart';
 import '../../../../auth/domain/entities/user_entity.dart';
 import '../../../../order/domain/repos/user_repo.dart';
@@ -18,13 +15,11 @@ class CustomerDetailCubit extends Cubit<CustomerDetailState> {
   final AddressRepo _addressRepo;
 
   CustomerDetailCubit({
-    required UserRepo userRepo,
+    required this._userRepo,
     required this._addressRepo,
-  })  : _userRepo = userRepo,
-        super(CustomerDetailState());
+  })  : super(CustomerDetailState());
 
-  /// Load customer orders
-  Future<void> getCustomerOrders(BuildContext context) async {
+   Future<void> getCustomerOrders(BuildContext context) async {
      emit(state.copyWith(ordersLoading: true));
 
      if (state.customer.id.isNotEmpty) {
@@ -53,15 +48,12 @@ class CustomerDetailCubit extends Cubit<CustomerDetailState> {
   }
 
   Future<void> getCustomerAddresses(BuildContext context) async {
-    // Show loader while loading addresses
     emit(state.copyWith(addressesLoading: true));
 
-    // Fetch customer addresses
     if (state.customer.id.isNotEmpty) {
       final result = await _addressRepo.fetchUserAddresses(state.customer.id);
 
       result.fold(
-        // Catch Error
             (failure) {
           emit(state.copyWith(
             addressesLoading: false,
@@ -70,7 +62,6 @@ class CustomerDetailCubit extends Cubit<CustomerDetailState> {
           TLoaders.errorSnackBar(title: 'Oh Snap!', message: failure.message, context: context
           );
         },
-          // On Success
             (addresses) {
           final updatedCustomer = state.customer.copyWith(addresses: addresses);
           emit(state.copyWith(
@@ -86,7 +77,6 @@ class CustomerDetailCubit extends Cubit<CustomerDetailState> {
   void updateCustomer(UserEntity user){
     emit(state.copyWith(customer: user));
   }
-  /// Search Query Filter
   void searchQuery(String query) {
     if (query.trim().isEmpty) {
       emit(state.copyWith(filteredCustomerOrders: state.allCustomerOrders));
@@ -103,11 +93,8 @@ class CustomerDetailCubit extends Cubit<CustomerDetailState> {
   }
 
   void sortById(int columnIndex, bool ascending) {
-    // عمل نسخة من القائمة الحالية لترتيبها
-    final sortedOrders = List<OrderEntity>.from(state.allCustomerOrders);
-
-    // تنفيذ عملية الترتيب حسب الـ ID
-    sortedOrders.sort((a, b) {
+     final sortedOrders = List<OrderEntity>.from(state.allCustomerOrders);
+     sortedOrders.sort((a, b) {
       if (ascending) {
         return a.id.compareTo(b.id);
       } else {
@@ -115,7 +102,6 @@ class CustomerDetailCubit extends Cubit<CustomerDetailState> {
       }
     });
 
-    // تحديث الحالة بالبيانات والتأتيشات الجديدة
     emit(state.copyWith(
       sortColumnIndex: columnIndex,
       sortAscending: ascending,

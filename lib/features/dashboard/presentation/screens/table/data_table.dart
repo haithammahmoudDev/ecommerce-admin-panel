@@ -19,7 +19,7 @@ class DashboardOrderTable extends StatelessWidget {
         return CustomPaginatedTable(
           minWidth: 700,
           tableHeight: 500,
-          dataRowHeight: TSizes.xl * 1.2,
+          dataRowHeight: Sizes.xl * 1.2,
           sortAscending: state.sortAscending,
           sortColumnIndex: state.sortColumnIndex,
           columns: [

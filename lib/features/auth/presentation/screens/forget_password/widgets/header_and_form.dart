@@ -23,17 +23,17 @@ class HeaderAndForm extends StatelessWidget {
           onPressed: () => context.goNamed('login'),
           icon: const Icon(Iconsax.arrow_left),
         ),
-        const SizedBox(height: TSizes.spaceBtwItems),
+        const SizedBox(height: Sizes.spaceBtwItems),
         Text(
           TTexts.tForgetPasswordTitle,
           style: Theme.of(context).textTheme.headlineMedium,
         ),
-        const SizedBox(height: TSizes.spaceBtwItems),
+        const SizedBox(height: Sizes.spaceBtwItems),
         Text(
           TTexts.tForgetPasswordSubTitle,
           style: Theme.of(context).textTheme.labelMedium,
         ),
-        const SizedBox(height: TSizes.spaceBtwSections * 2),
+        const SizedBox(height: Sizes.spaceBtwSections * 2),
 
         /// Form
         Form(
@@ -54,7 +54,7 @@ class HeaderAndForm extends StatelessWidget {
             },
           ), // TextFormField
         ), // Form
-        const SizedBox(height: TSizes.spaceBtwSections),
+        const SizedBox(height: Sizes.spaceBtwSections),
 
         /// Submit Button
         SizedBox(
@@ -68,7 +68,7 @@ class HeaderAndForm extends StatelessWidget {
             child: const Text(TTexts.submit),
           ),
         ), // SizedBox
-        const SizedBox(height: TSizes.spaceBtwSections * 2),
+        const SizedBox(height: Sizes.spaceBtwSections * 2),
       ],
     );
   }

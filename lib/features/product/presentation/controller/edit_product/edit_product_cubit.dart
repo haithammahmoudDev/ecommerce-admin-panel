@@ -32,19 +32,12 @@ class EditProductCubit extends Cubit<EditProductState> {
   final ProductCubit _productCubit;
   final CategoryCubit _categoryCubit;
   final BrandCubit _brandCubit;
-
-  // Place these inside EditProductCubit class:
   CategoryCubit get productCategoriesCubit => _categoryCubit;
-
   ProductImagesCubit get productImagesCubit => _productImagesCubit;
   ProductVariationsCubit get productVariationsCubit => _productVariationsCubit;
   ProductAttributesCubit get productAttributesCubit => _productAttributesCubit;
-
-  // Form Keys
   final GlobalKey<FormState> titleDescriptionFormKey = GlobalKey<FormState>();
   final GlobalKey<FormState> stockPriceFormKey = GlobalKey<FormState>();
-
-  // Text Controllers
   final TextEditingController title = TextEditingController();
   final TextEditingController description = TextEditingController();
   final TextEditingController stock = TextEditingController();
@@ -54,19 +47,13 @@ class EditProductCubit extends Cubit<EditProductState> {
 
   EditProductCubit({
     required this.productRepo,
-    required ProductVariationsCubit productVariationsCubit,
-    required ProductImagesCubit productImagesCubit,
-    required ProductAttributesCubit productAttributesCubit,
-    required ProductCubit productCubit,
-    required CategoryCubit categoryCubit,
-    required BrandCubit brandCubit,
-  })  : _productVariationsCubit = productVariationsCubit,
-        _productImagesCubit = productImagesCubit,
-        _productAttributesCubit = productAttributesCubit,
-        _productCubit = productCubit,
-        _categoryCubit = categoryCubit,
-        _brandCubit = brandCubit,
-        super(const EditProductState());
+    required this._productVariationsCubit,
+    required this._productImagesCubit,
+    required this._productAttributesCubit,
+    required this._productCubit,
+    required this._categoryCubit,
+    required this._brandCubit,
+  })  : super(const EditProductState());
 
   void selectBrand(BrandEntity brand) {
     emit(state.copyWith(selectedBrand: brand));

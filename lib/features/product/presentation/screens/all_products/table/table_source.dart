@@ -2,19 +2,13 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:ecommerce_admin_pannal/features/product/presentation/controller/product_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
- import 'package:get/get_core/src/get_main.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../../../../../common/widgets/images/t_rounded_image.dart';
-import '../../../../../../routes/routes.dart';
 import '../../../../../../utils/constants/colors.dart';
 import '../../../../../../utils/constants/enums.dart';
-import '../../../../../../utils/constants/image_strings.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../../../../../categories/presentation/screens/all_categories/table/table_action_icon_button.dart';
-import '../../../../data/models/product_model.dart';
 import '../../../../domain/entities/product_entity.dart';
-// أضف بقية الـ imports الخاصة بمشروعك هنا (مثل Get, TColors, TSizes, TRoundedImage...)
 
 class ProductsRows extends DataTableSource {
   final BuildContext context;
@@ -33,20 +27,19 @@ class ProductsRows extends DataTableSource {
       onTap: () => context.push('/products/edit-product', extra: product),
       onSelectChanged: (value) => controller.toggleRowSelection(index, value),
       cells: [
-        // 1. Product Column
         DataCell(
           Row(
             children: [
               TRoundedImage(
                 width: 50,
                 height: 50,
-                padding: TSizes.xs,
+                padding: Sizes.xs,
                 image: product.thumbnail,
                 imageType: ImageType.network,
-                borderRadius: TSizes.borderRadiusMd,
+                borderRadius: Sizes.borderRadiusMd,
                 backgroundColor: TColors.primaryBackground,
               ), // TRoundedImage
-              const SizedBox(width: TSizes.spaceBtwItems),
+              const SizedBox(width: Sizes.spaceBtwItems),
               Flexible(
                 child: Text(
                   product.title,
@@ -62,20 +55,18 @@ class ProductsRows extends DataTableSource {
           ),
         ),
 
-        // 2. Stock Column
         DataCell(Text(controller.getProductStockTotal(product))),
         DataCell(Text(controller.getProductSoldQuantity(product))),
 
 
-        // 3. Brand Column
         DataCell(
           Row(
             children: [
               TRoundedImage(
                 width: 35,
                 height: 35,
-                padding: TSizes.xs,
-                borderRadius: TSizes.borderRadiusMd,
+                padding: Sizes.xs,
+                borderRadius: Sizes.borderRadiusMd,
                 backgroundColor: TColors.primaryBackground,
                 imageType: product.brand != null ? ImageType.network : ImageType
                     .asset,
@@ -83,7 +74,7 @@ class ProductsRows extends DataTableSource {
                     ? product.brand!.image
                     : 'assets/images/profile/logo.png',
               ), // TRoundedImage
-              const SizedBox(width: TSizes.spaceBtwItems),
+              const SizedBox(width: Sizes.spaceBtwItems),
               Flexible(
                 child: Text(
                   product.brand != null ? product.brand!.name : '',
@@ -98,11 +89,9 @@ class ProductsRows extends DataTableSource {
           ), // Row
         ), // DataCell
 
-        // 4. Price Column
         DataCell(Text('\$${controller.getProductPrice(product)}')),
         DataCell(Text(product.formattedDate)),
 
-        // 6. Action Column
         DataCell(
           TTableActionButtons(
             onEditPressed: () =>
@@ -152,29 +141,28 @@ class ProductsRows extends DataTableSource {
                   },
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(
-                      vertical: TSizes.buttonHeight / 2,
+                      vertical: Sizes.buttonHeight / 2,
                     ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(
-                          TSizes.buttonRadius * 5),
+                          Sizes.buttonRadius * 5),
                     ),
                   ),
                   child: const Text('Ok'),
                 ),
               ),
 
-              // === Cancel ===
               SizedBox(
                 width: 60,
                 child: OutlinedButton(
                   onPressed: () => dialogContext.pop(),
                   style: OutlinedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(
-                      vertical: TSizes.buttonHeight / 2,
+                      vertical: Sizes.buttonHeight / 2,
                     ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(
-                          TSizes.buttonRadius * 5),
+                          Sizes.buttonRadius * 5),
                     ),
                   ),
                   child: const Text('Cancel'),

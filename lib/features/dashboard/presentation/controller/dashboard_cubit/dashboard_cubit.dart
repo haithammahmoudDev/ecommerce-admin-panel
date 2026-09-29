@@ -16,21 +16,14 @@ class DashboardCubit extends Cubit<DashboardState> {
   final OrderRepo _orderRepo;
   final UserRepo _userRepo;
 
-  DashboardCubit({
-    required OrderRepo orderRepo,
-    required UserRepo userRepo,
-  })  : _orderRepo = orderRepo,
-        _userRepo = userRepo,
-        super(const DashboardState()) {
+  DashboardCubit({required OrderRepo orderRepo, required UserRepo userRepo})
+    : _orderRepo = orderRepo,
+      _userRepo = userRepo,
+      super(const DashboardState()) {
     fetchData();
   }
 
-  /// Alias method for consistency with dependency injection calls
   Future<void> getDashboardData() => fetchData();
-
-  // ==========================================
-  // Data Fetching Logic
-  // ==========================================
 
   Future<void> fetchData() async {
     emit(state.copyWith(status: DataTableStatus.loading));
@@ -44,29 +37,24 @@ class DashboardCubit extends Cubit<DashboardState> {
     final usersResult = results[1] as Either<Failure, List<UserEntity>>;
 
     ordersResult.fold(
-          (error) {
-        emit(state.copyWith(
-          status: DataTableStatus.error,
-          errorMessage: error.message,
-        ));
+      (error) {
+        emit(
+          state.copyWith(
+            status: DataTableStatus.error,
+            errorMessage: error.message,
+          ),
+        );
       },
-          (orders) {
+      (orders) {
         final totalCustomers = usersResult.fold(
-              (_) => 0,
-              (users) => users.length,
+          (_) => 0,
+          (users) => users.length,
         );
 
-        emit(_buildUpdatedMetricsState(
-          orders,
-          totalCustomers: totalCustomers,
-        ));
+        emit(_buildUpdatedMetricsState(orders, totalCustomers: totalCustomers));
       },
     );
   }
-
-  // ==========================================
-  // Data Table Functionalities
-  // ==========================================
 
   String getItemId(OrderEntity item) => item.id;
 
@@ -82,17 +70,19 @@ class DashboardCubit extends Cubit<DashboardState> {
         .where((item) => filterCondition(item, query))
         .toList();
 
-    emit(state.copyWith(
-      filterdItems: filtered,
-      selectedRows: List<bool>.filled(filtered.length, false),
-    ));
+    emit(
+      state.copyWith(
+        filterdItems: filtered,
+        selectedRows: List<bool>.filled(filtered.length, false),
+      ),
+    );
   }
 
   void sortByProperty(
-      int columnIndex,
-      bool ascending,
-      Comparable Function(OrderEntity item) property,
-      ) {
+    int columnIndex,
+    bool ascending,
+    Comparable Function(OrderEntity item) property,
+  ) {
     final sorted = List<OrderEntity>.from(state.filterdItems);
 
     sorted.sort((a, b) {
@@ -103,11 +93,13 @@ class DashboardCubit extends Cubit<DashboardState> {
           : Comparable.compare(bValue, aValue);
     });
 
-    emit(state.copyWith(
-      filterdItems: sorted,
-      sortColumnIndex: columnIndex,
-      sortAscending: ascending,
-    ));
+    emit(
+      state.copyWith(
+        filterdItems: sorted,
+        sortColumnIndex: columnIndex,
+        sortAscending: ascending,
+      ),
+    );
   }
 
   void toggleRowSelection(int index, bool? selected) {
@@ -142,21 +134,25 @@ class DashboardCubit extends Cubit<DashboardState> {
     final itemId = getItemId(item);
     final index = state.filterdItems.indexWhere((c) => getItemId(c) == itemId);
 
-    final updatedAll =
-    state.allItems.where((c) => getItemId(c) != itemId).toList();
-    final updatedFiltered =
-    state.filterdItems.where((c) => getItemId(c) != itemId).toList();
+    final updatedAll = state.allItems
+        .where((c) => getItemId(c) != itemId)
+        .toList();
+    final updatedFiltered = state.filterdItems
+        .where((c) => getItemId(c) != itemId)
+        .toList();
 
     final updatedSelected = List<bool>.from(state.selectedRows);
     if (index != -1 && index < updatedSelected.length) {
       updatedSelected.removeAt(index);
     }
 
-    emit(_buildUpdatedMetricsState(
-      updatedAll,
-      filteredItems: updatedFiltered,
-      selectedRows: updatedSelected,
-    ));
+    emit(
+      _buildUpdatedMetricsState(
+        updatedAll,
+        filteredItems: updatedFiltered,
+        selectedRows: updatedSelected,
+      ),
+    );
   }
 
   void addItemToLists(OrderEntity item) {
@@ -165,11 +161,13 @@ class DashboardCubit extends Cubit<DashboardState> {
       ..add(item);
     final updatedSelected = [...state.selectedRows, false];
 
-    emit(_buildUpdatedMetricsState(
-      updatedAll,
-      filteredItems: updatedFiltered,
-      selectedRows: updatedSelected,
-    ));
+    emit(
+      _buildUpdatedMetricsState(
+        updatedAll,
+        filteredItems: updatedFiltered,
+        selectedRows: updatedSelected,
+      ),
+    );
   }
 
   void updateItemInLists(OrderEntity updatedItem) {
@@ -183,33 +181,33 @@ class DashboardCubit extends Cubit<DashboardState> {
       return getItemId(item) == updatedId ? updatedItem : item;
     }).toList();
 
-    emit(_buildUpdatedMetricsState(
-      updatedAll,
-      filteredItems: updatedFiltered,
-      selectedRows: state.selectedRows,
-    ));
+    emit(
+      _buildUpdatedMetricsState(
+        updatedAll,
+        filteredItems: updatedFiltered,
+        selectedRows: state.selectedRows,
+      ),
+    );
   }
 
-  // ==========================================
-  // Helper Calculations & Centralized State Builder
-  // ==========================================
-
   DashboardState _buildUpdatedMetricsState(
-      List<OrderEntity> allItems, {
-        List<OrderEntity>? filteredItems,
-        List<bool>? selectedRows,
-        int? totalCustomers,
-      }) {
+    List<OrderEntity> allItems, {
+    List<OrderEntity>? filteredItems,
+    List<bool>? selectedRows,
+    int? totalCustomers,
+  }) {
     final filtered = filteredItems ?? allItems;
     final weeklySales = _calculateWeeklySales(allItems);
     final statusData = _calculateOrderStatusData(allItems);
 
-    final totalSales =
-    allItems.fold<double>(0.0, (sum, item) => sum + item.totalAmount);
-    final avgOrderValue =
-    allItems.isNotEmpty ? totalSales / allItems.length : 0.0;
+    final totalSales = allItems.fold<double>(
+      0.0,
+      (sum, item) => sum + item.totalAmount,
+    );
+    final avgOrderValue = allItems.isNotEmpty
+        ? totalSales / allItems.length
+        : 0.0;
 
-    // Calculate dynamic stats comparing current week to previous week
     final stats = _calculateGrowthStats(allItems);
 
     return state.copyWith(
@@ -233,12 +231,14 @@ class DashboardCubit extends Cubit<DashboardState> {
 
   List<double> _calculateWeeklySales(List<OrderEntity> orders) {
     final List<double> weeklySales = List<double>.filled(7, 0.0);
-    final DateTime currentWeekStart =
-    THelperFunctions.getStartOfWeek(DateTime.now());
+    final DateTime currentWeekStart = THelperFunctions.getStartOfWeek(
+      DateTime.now(),
+    );
 
     for (var order in orders) {
-      final DateTime orderWeekStart =
-      THelperFunctions.getStartOfWeek(order.orderDate);
+      final DateTime orderWeekStart = THelperFunctions.getStartOfWeek(
+        order.orderDate,
+      );
       if (orderWeekStart.isAtSameMomentAs(currentWeekStart)) {
         int index = (order.orderDate.weekday - 6) % 7;
         if (index < 0) index += 7;
@@ -248,10 +248,8 @@ class DashboardCubit extends Cubit<DashboardState> {
     return weeklySales;
   }
 
-  ({
-  Map<OrderStatus, int> counts,
-  Map<OrderStatus, double> amounts,
-  }) _calculateOrderStatusData(List<OrderEntity> orders) {
+  ({Map<OrderStatus, int> counts, Map<OrderStatus, double> amounts})
+  _calculateOrderStatusData(List<OrderEntity> orders) {
     final Map<OrderStatus, int> statusCountMap = {
       for (var status in OrderStatus.values) status: 0,
     };
@@ -269,15 +267,17 @@ class DashboardCubit extends Cubit<DashboardState> {
   }
 
   ({
-  double salesStats,
-  double avgOrderStats,
-  double ordersStats,
-  double customersStats,
-  }) _calculateGrowthStats(List<OrderEntity> orders) {
+    double salesStats,
+    double avgOrderStats,
+    double ordersStats,
+    double customersStats,
+  })
+  _calculateGrowthStats(List<OrderEntity> orders) {
     final now = DateTime.now();
     final currentWeekStart = THelperFunctions.getStartOfWeek(now);
-    final previousWeekStart =
-    currentWeekStart.subtract(const Duration(days: 7));
+    final previousWeekStart = currentWeekStart.subtract(
+      const Duration(days: 7),
+    );
 
     double thisWeekSales = 0.0;
     double lastWeekSales = 0.0;
@@ -300,16 +300,18 @@ class DashboardCubit extends Cubit<DashboardState> {
       return ((current - previous) / previous) * 100.0;
     }
 
-    final thisWeekAvg =
-    thisWeekOrders > 0 ? thisWeekSales / thisWeekOrders : 0.0;
-    final lastWeekAvg =
-    lastWeekOrders > 0 ? lastWeekSales / lastWeekOrders : 0.0;
+    final thisWeekAvg = thisWeekOrders > 0
+        ? thisWeekSales / thisWeekOrders
+        : 0.0;
+    final lastWeekAvg = lastWeekOrders > 0
+        ? lastWeekSales / lastWeekOrders
+        : 0.0;
 
     return (
-    salesStats: calcPercent(thisWeekSales, lastWeekSales),
-    avgOrderStats: calcPercent(thisWeekAvg, lastWeekAvg),
-    ordersStats: calcPercent(thisWeekOrders, lastWeekOrders),
-    customersStats: 0.0,
+      salesStats: calcPercent(thisWeekSales, lastWeekSales),
+      avgOrderStats: calcPercent(thisWeekAvg, lastWeekAvg),
+      ordersStats: calcPercent(thisWeekOrders, lastWeekOrders),
+      customersStats: 0.0,
     );
   }
 }

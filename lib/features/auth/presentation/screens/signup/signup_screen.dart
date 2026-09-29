@@ -22,7 +22,7 @@ class SignupScreen extends StatelessWidget {
         child: Scaffold(
           body: SingleChildScrollView(
             child: Container(
-              padding: const EdgeInsets.all(TSizes.defaultSpace),
+              padding: const EdgeInsets.all(Sizes.defaultSpace),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

@@ -6,18 +6,12 @@ enum CreateProductStatus { initial, loading, success, error }
 class CreateProductState extends Equatable {
   final CreateProductStatus status;
   final String? errorMessage;
-
-  // Enums & Selection
   final ProductType productType;
   final ProductVisibility productVisibility;
   final BrandEntity? selectedBrand;
   final List<CategoryEntity> selectedCategories;
-
-  // Media Loading Flags
   final bool isThumbnailLoading;
   final bool isAdditionalImagesLoading;
-
-  // Step Progress Flags (From Tutorial UI Workflow)
   final bool thumbnailUploader;
   final bool additionalImagesUploader;
   final bool productDataUploader;

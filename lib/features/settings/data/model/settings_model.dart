@@ -1,6 +1,5 @@
 import '../../domain/entities/settings_entity.dart';
 
-/// Model class representing user data.
 class SettingsModel {
   final String? id;
   double taxRate;
@@ -9,7 +8,6 @@ class SettingsModel {
   String appName;
   String appLogo;
 
-  /// Constructor for SettingModel.
   SettingsModel({
     this.id,
     this.taxRate = 0.0,
@@ -19,7 +17,6 @@ class SettingsModel {
     this.appLogo = '',
   });
 
-  /// Convert model to JSON structure for storing data in Firebase.
   Map<String, dynamic> toJson() {
     return {
       'taxRate': taxRate,
@@ -30,7 +27,6 @@ class SettingsModel {
     };
   }
 
-  /// Create a SettingsModel from a Firebase DocumentSnapshot or Map.
   factory SettingsModel.fromJson(Map<String, dynamic> json, {String? docId}) {
     return SettingsModel(
       id: docId,
@@ -42,7 +38,6 @@ class SettingsModel {
     );
   }
 
-  /// Factory method to create a SettingsModel from Firebase document data.
   factory SettingsModel.fromFirebaseData(Map<String, dynamic> data, {String? docId}) {
     return SettingsModel(
       id: docId,
@@ -65,7 +60,6 @@ class SettingsModel {
     );
   }
 
-  /// Convert Entity to Model
   factory SettingsModel.fromEntity(SettingsEntity entity) {
     return SettingsModel(
       id: entity.id,

@@ -11,7 +11,6 @@ import '../../../../../utils/helpers/network_manager.dart';
 import '../../../../../utils/popups/full_screen_loader.dart';
 import '../../../../../utils/popups/loaders.dart';
 import '../../../../categories/domain/entities/category_entity.dart';
-import '../../../../media/data/models/image_model.dart';
 import '../../../../media/presentation/controller/media_cubit/media_cubit.dart';
 import '../../../data/models/brand_category.dart';
 import '../../../data/models/brand_model.dart';
@@ -23,22 +22,26 @@ class EditBrandCubit extends Cubit<EditBrandState> {
   final BrandRepo _brandRepo;
   EditBrandCubit({required this._brandRepo}) : super(const EditBrandState());
 
-  /// Initialize form state when opening the edit screen.
   void init(BrandEntity brand) {
-    emit(state.copyWith(
-      imageUrl: brand.image,
-      isFeatured: brand.isFeatured,
-      selectedCategories: brand.brandCategories != null
-          ? List<CategoryEntity>.from(brand.brandCategories!)
-          : <CategoryEntity>[],
-    ));
+    emit(
+      state.copyWith(
+        imageUrl: brand.image,
+        isFeatured: brand.isFeatured,
+        selectedCategories: brand.brandCategories != null
+            ? List<CategoryEntity>.from(brand.brandCategories!)
+            : <CategoryEntity>[],
+      ),
+    );
   }
 
-  /// Select / unselect a category (compared by id to avoid == pitfalls).
   void selectParentCategory(CategoryEntity category) {
-    final List<CategoryEntity> updatedCategories = List.from(state.selectedCategories);
+    final List<CategoryEntity> updatedCategories = List.from(
+      state.selectedCategories,
+    );
 
-    final index = updatedCategories.indexWhere((item) => item.id == category.id);
+    final index = updatedCategories.indexWhere(
+      (item) => item.id == category.id,
+    );
 
     if (index >= 0) {
       updatedCategories.removeAt(index);
@@ -76,7 +79,7 @@ class EditBrandCubit extends Cubit<EditBrandState> {
 
     final result = await _brandRepo.editBrand(newRecord);
     await result.fold(
-          (error) async {
+      (error) async {
         TFullScreenLoader.stopLoading(context);
         TLoaders.errorSnackBar(
           title: 'Oh Snap',
@@ -84,15 +87,17 @@ class EditBrandCubit extends Cubit<EditBrandState> {
           context: context,
         );
       },
-          (_) async {
+      (_) async {
         final BrandEntity updatedBrand = brand.copyWith(
           name: newRecord.name,
           image: newRecord.image,
           isFeatured: newRecord.isFeatured,
         );
 
-        // Stop here (and don't show success) if the category sync failed.
-        final bool categoryUpdateOk = await updateBrandCategory(updatedBrand, context);
+        final bool categoryUpdateOk = await updateBrandCategory(
+          updatedBrand,
+          context,
+        );
         if (!categoryUpdateOk) return;
 
         await updatedBrandInProducts(updatedBrand);
@@ -111,15 +116,16 @@ class EditBrandCubit extends Cubit<EditBrandState> {
     );
   }
 
-  /// Returns true if category sync succeeded, false if an error occurred
-  /// (in which case editBrand stops instead of showing a false success message).
-  Future<bool> updateBrandCategory(BrandEntity brand, BuildContext context) async {
+  Future<bool> updateBrandCategory(
+    BrandEntity brand,
+    BuildContext context,
+  ) async {
     final result = await _brandRepo.getCategoriesOfSpecificBrand(brand.id);
 
     bool success = true;
 
     await result.fold(
-          (error) async {
+      (error) async {
         success = false;
         TFullScreenLoader.stopLoading(context);
         TLoaders.errorSnackBar(
@@ -128,33 +134,35 @@ class EditBrandCubit extends Cubit<EditBrandState> {
           context: context,
         );
       },
-          (brandCategories) async {
-        final selectedCategoryIds = state.selectedCategories.map((e) => e.id).toSet();
+      (brandCategories) async {
+        final selectedCategoryIds = state.selectedCategories
+            .map((e) => e.id)
+            .toSet();
 
-        // 1. Remove relations that were unselected.
-        for (var cat in brandCategories.where((ec) => !selectedCategoryIds.contains(ec.categoryId))) {
+        for (var cat in brandCategories.where(
+          (ec) => !selectedCategoryIds.contains(ec.categoryId),
+        )) {
           await _brandRepo.deleteCategoryBrand(cat.id ?? '');
         }
 
-        // 2. Add new relations that don't already exist.
         for (var cat in state.selectedCategories.where(
-              (nc) => !brandCategories.any((ec) => ec.categoryId == nc.id),
+          (nc) => !brandCategories.any((ec) => ec.categoryId == nc.id),
         )) {
-          var brandCategory = BrandCategoryModel(brandId: brand.id, categoryId: cat.id);
+          var brandCategory = BrandCategoryModel(
+            brandId: brand.id,
+            categoryId: cat.id,
+          );
           final catResult = await _brandRepo.createBrandCategory(brandCategory);
 
-          catResult.fold(
-                (error) {
-              success = false;
-              TFullScreenLoader.stopLoading(context);
-              TLoaders.errorSnackBar(
-                title: 'Oh Snap',
-                message: error.message,
-                context: context,
-              );
-            },
-                (brandCategoryId) => brandCategory.id = brandCategoryId,
-          );
+          catResult.fold((error) {
+            success = false;
+            TFullScreenLoader.stopLoading(context);
+            TLoaders.errorSnackBar(
+              title: 'Oh Snap',
+              message: error.message,
+              context: context,
+            );
+          }, (brandCategoryId) => brandCategory.id = brandCategoryId);
 
           if (!success) break;
         }
@@ -170,7 +178,9 @@ class EditBrandCubit extends Cubit<EditBrandState> {
 
   Future<void> pickImage(BuildContext context) async {
     final controller = context.read<MediaCubit>();
-    final selectedImages = await controller.selectImagesFromMedia(context: context);
+    final selectedImages = await controller.selectImagesFromMedia(
+      context: context,
+    );
 
     if (selectedImages != null && selectedImages.isNotEmpty) {
       final ImageEntity selectedImage = selectedImages.first;

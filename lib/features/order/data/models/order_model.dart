@@ -36,7 +36,6 @@ class OrderModel {
     this.billingAddressSameAsShipping = true,
   });
 
-  // Factory to create OrderModel from Firebase Document Data (Map)
   factory OrderModel.fromFirebaseData(Map<String, dynamic> json, String? docId) {
     return OrderModel(
       id: docId ?? json['id'] ?? '',
@@ -70,7 +69,6 @@ class OrderModel {
     );
   }
 
-  // Convert Domain Entity to Data Model
   factory OrderModel.fromEntity(OrderEntity entity) {
     return OrderModel(
       id: entity.id,
@@ -94,7 +92,6 @@ class OrderModel {
     );
   }
 
-  // Convert OrderModel to JSON Map for saving to Firebase
   Map<String, dynamic> toJson() {
     return {
       'id': id,
@@ -113,7 +110,6 @@ class OrderModel {
     };
   }
 
-  // Convert OrderModel directly into an independent OrderEntity
   OrderEntity toEntity() {
     return OrderEntity(
       id: id,

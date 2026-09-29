@@ -19,9 +19,7 @@ import '../../../domain/entities/user_entity.dart';
 part 'user_state.dart';
 
 class UserCubit extends Cubit<UserState> {
-  UserCubit({required ProfileRepo personalizationRepo})
-      : _personalizationRepo = personalizationRepo,
-        super(UserState()){
+  UserCubit({required this._personalizationRepo}) : super(UserState()) {
     getUserData();
   }
 
@@ -32,10 +30,12 @@ class UserCubit extends Cubit<UserState> {
 
     if (cachedUser != null) {
       if (!isClosed) {
-        emit(state.copyWith(
-          user: cachedUser.toEntity(),
-          userDataStatus: UserDataStatus.loaded,
-        ));
+        emit(
+          state.copyWith(
+            user: cachedUser.toEntity(),
+            userDataStatus: UserDataStatus.loaded,
+          ),
+        );
       }
     } else {
       if (!isClosed) {
@@ -47,29 +47,38 @@ class UserCubit extends Cubit<UserState> {
     if (isClosed) return;
 
     result.fold(
-          (error) {
+      (error) {
         if (cachedUser == null) {
           if (!isClosed) {
-            emit(state.copyWith(
-              errorMessage: error.message,
-              userDataStatus: UserDataStatus.error,
-            ));
+            emit(
+              state.copyWith(
+                errorMessage: error.message,
+                userDataStatus: UserDataStatus.error,
+              ),
+            );
           }
         }
       },
-          (freshUser) async {
-            await LocalStorageService.userRepo.saveData(UserModel.fromEntity(freshUser));
+      (freshUser) async {
+        await LocalStorageService.userRepo.saveData(
+          UserModel.fromEntity(freshUser),
+        );
         if (!isClosed) {
-          emit(state.copyWith(
-            user: freshUser,
-            userDataStatus: UserDataStatus.loaded,
-          ));
+          emit(
+            state.copyWith(
+              user: freshUser,
+              userDataStatus: UserDataStatus.loaded,
+            ),
+          );
         }
       },
     );
   }
 
-  Future<void> updateUserData(BuildContext context, {required UserEntity user}) async {
+  Future<void> updateUserData(
+    BuildContext context, {
+    required UserEntity user,
+  }) async {
     if (!isClosed) {
       emit(state.copyWith(userDataStatus: UserDataStatus.loading));
     }
@@ -79,34 +88,42 @@ class UserCubit extends Cubit<UserState> {
     if (isClosed) return;
 
     result.fold(
-          (error) {
+      (error) {
         if (!isClosed) {
-          emit(state.copyWith(
-            errorMessage: error.message,
-            userDataStatus: UserDataStatus.error,
-          ));
-          TLoaders.errorSnackBar(title: 'Updated Error', context: context,
-              message: 'Failed to update Your Profile');
+          emit(
+            state.copyWith(
+              errorMessage: error.message,
+              userDataStatus: UserDataStatus.error,
+            ),
+          );
+          TLoaders.errorSnackBar(
+            title: 'Updated Error',
+            context: context,
+            message: 'Failed to update Your Profile',
+          );
         }
       },
-          (_) async {
-            await LocalStorageService.userRepo.saveData(UserModel.fromEntity(user));
-            TLoaders.successSnackBar(title: 'Updated', context: context,
-                message: 'Your Profile updated successfully!');
+      (_) async {
+        await LocalStorageService.userRepo.saveData(UserModel.fromEntity(user));
+        TLoaders.successSnackBar(
+          title: 'Updated',
+          context: context,
+          message: 'Your Profile updated successfully!',
+        );
         if (!isClosed) {
-          emit(state.copyWith(
-            user: user,
-            userDataStatus: UserDataStatus.loaded,
-          ));
+          emit(
+            state.copyWith(user: user, userDataStatus: UserDataStatus.loaded),
+          );
         }
       },
     );
   }
 
-
   Future<void> pickImage(BuildContext context) async {
-     final MediaCubit mediaCubit = context.read<MediaCubit>();
-    List<ImageEntity>? selectedImages = await mediaCubit.selectImagesFromMedia(context: context);
+    final MediaCubit mediaCubit = context.read<MediaCubit>();
+    List<ImageEntity>? selectedImages = await mediaCubit.selectImagesFromMedia(
+      context: context,
+    );
 
     if (isClosed) return;
     if (selectedImages == null || selectedImages.isEmpty) return;
@@ -115,30 +132,39 @@ class UserCubit extends Cubit<UserState> {
       emit(state.copyWith(userDataStatus: UserDataStatus.loading));
     }
 
-     ImageEntity selectedImage = selectedImages.first;
+    ImageEntity selectedImage = selectedImages.first;
 
-     final result = await _personalizationRepo.updateProfilePictureUrl(imageUrl: selectedImage.url);
+    final result = await _personalizationRepo.updateProfilePictureUrl(
+      imageUrl: selectedImage.url,
+    );
 
     if (isClosed) return;
 
     result.fold(
-          (error) {
+      (error) {
         if (!isClosed) {
-          emit(state.copyWith(
-            userDataStatus: UserDataStatus.error,
-            errorMessage: error.message,
-          ));
+          emit(
+            state.copyWith(
+              userDataStatus: UserDataStatus.error,
+              errorMessage: error.message,
+            ),
+          );
         }
       },
-          (successUrl) {
+      (successUrl) {
         if (!isClosed) {
-          emit(state.copyWith(
-            user: LocalStorageService.userRepo.getData()!.copyWith(
-              profilePicture: successUrl,
-              updatedAt: DateTime.now(),
-            ).toEntity(),
-            userDataStatus: UserDataStatus.loaded,
-          ));
+          emit(
+            state.copyWith(
+              user: LocalStorageService.userRepo
+                  .getData()!
+                  .copyWith(
+                    profilePicture: successUrl,
+                    updatedAt: DateTime.now(),
+                  )
+                  .toEntity(),
+              userDataStatus: UserDataStatus.loaded,
+            ),
+          );
         }
       },
     );
@@ -185,10 +211,12 @@ class UserCubit extends Cubit<UserState> {
     } catch (e) {
       TFullScreenLoader.stopLoading(context);
       if (!isClosed) {
-        emit(state.copyWith(
-          errorMessage: e.toString(),
-          userDataStatus: UserDataStatus.error,
-        ));
+        emit(
+          state.copyWith(
+            errorMessage: e.toString(),
+            userDataStatus: UserDataStatus.error,
+          ),
+        );
       }
     }
   }
@@ -210,7 +238,7 @@ class UserCubit extends Cubit<UserState> {
     );
 
     result.fold(
-          (error) {
+      (error) {
         TFullScreenLoader.stopLoading(context);
         TLoaders.errorSnackBar(
           title: 'Error',
@@ -218,7 +246,7 @@ class UserCubit extends Cubit<UserState> {
           message: error.message,
         );
       },
-          (_) {
+      (_) {
         TFullScreenLoader.stopLoading(context);
         context.goNamed('login');
       },

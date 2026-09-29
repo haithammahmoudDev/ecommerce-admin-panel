@@ -32,15 +32,12 @@ part 'create_product_state.dart';
 class CreateProductCubit extends Cubit<CreateProductState> {
   final ProductRepo productRepo;
   final ProductVariationsCubit _productVariationsCubit;
-  final ProductImagesCubit _productImagesCubit;
   final ProductAttributesCubit _productAttributesCubit;
   final ProductCubit _productCubit;
 
-  // Form Keys
   final GlobalKey<FormState> titleDescriptionFormKey = GlobalKey<FormState>();
   final GlobalKey<FormState> stockPriceFormKey = GlobalKey<FormState>();
 
-  // Text Controllers
   final TextEditingController title = TextEditingController();
   final TextEditingController description = TextEditingController();
   final TextEditingController stock = TextEditingController();
@@ -51,12 +48,10 @@ class CreateProductCubit extends Cubit<CreateProductState> {
   CreateProductCubit({
     required this.productRepo,
     required this._productVariationsCubit,
-    required this._productImagesCubit,
     required this._productAttributesCubit,
     required this._productCubit,
   }) : super(const CreateProductState());
 
-  // State Mutators
   void selectBrand(BrandEntity brand) {
     emit(state.copyWith(selectedBrand: brand));
   }
@@ -79,7 +74,6 @@ class CreateProductCubit extends Cubit<CreateProductState> {
     emit(state.copyWith(productVisibility: visibility));
   }
 
-  /// UI Helper: Build Checkbox item
   Widget buildCheckBox(String label, bool value) {
     return Row(
       children: [
@@ -89,13 +83,12 @@ class CreateProductCubit extends Cubit<CreateProductState> {
               ? const Icon(CupertinoIcons.checkmark_alt_circle_fill, color: Colors.blue)
               : const Icon(CupertinoIcons.checkmark_alt_circle),
         ),
-        const SizedBox(width: TSizes.spaceBtwItems),
+        const SizedBox(width: Sizes.spaceBtwItems),
         Text(label),
       ],
     );
   }
 
-  /// UI Helper: Show Completion Dialog
   void showCompletionDialog(BuildContext context) {
     showDialog(
       context: context,
@@ -117,12 +110,12 @@ class CreateProductCubit extends Cubit<CreateProductState> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Image.asset('assets/images/products/packaging-produt.webp', height: 200, width: 200),
-              const SizedBox(height: TSizes.spaceBtwItems),
+              const SizedBox(height: Sizes.spaceBtwItems),
               Text(
                 'Congratulations',
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
-              const SizedBox(height: TSizes.spaceBtwItems),
+              const SizedBox(height: Sizes.spaceBtwItems),
               const Text('Your Product has been Created'),
             ],
           ),
@@ -145,12 +138,12 @@ class CreateProductCubit extends Cubit<CreateProductState> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Image.asset('TImages.creatingProductIllustration', height: 200, width: 200),
-                const SizedBox(height: TSizes.spaceBtwItems),
+                const SizedBox(height: Sizes.spaceBtwItems),
                 buildCheckBox('Thumbnail Image', state.thumbnailUploader),
                 buildCheckBox('Additional Images', state.additionalImagesUploader),
                 buildCheckBox('Product Data, Attributes & Variations', state.productDataUploader),
                 buildCheckBox('Product Categories', state.categoriesRelationshipUploader),
-                const SizedBox(height: TSizes.spaceBtwItems),
+                const SizedBox(height: Sizes.spaceBtwItems),
                 const Text('Sit Tight, Your product is uploading...'),
               ],
             ), // Column
@@ -160,17 +153,14 @@ class CreateProductCubit extends Cubit<CreateProductState> {
     );
   }
 
-  /// Create Product workflow using pure dartz .fold()
   Future<void> createProduct({required BuildContext context}) async {
     showProgressDialog(context);
 
-    // 1. القراءة المباشرة للـ Cubits الحية من الـ BuildContext (تجنباً لمشكلة النسخ المستقلة من GetIt)
     final variationsCubit = context.read<ProductVariationsCubit>();
     final imagesCubit = context.read<ProductImagesCubit>();
     final attributesCubit = context.read<ProductAttributesCubit>();
     final productCubit = context.read<ProductCubit>();
 
-    // 2. التحقق من اتصال الإنترنت
     final isConnected = await NetworkManager.instance.isConnected();
     if (!isConnected) {
       if (context.mounted) {
@@ -184,7 +174,6 @@ class CreateProductCubit extends Cubit<CreateProductState> {
       return;
     }
 
-    // 3. التحقق من صحة حقول النموذج الرئيسية
     if (!titleDescriptionFormKey.currentState!.validate()) {
       if (context.mounted) TFullScreenLoader.stopLoading(context);
       return;
@@ -196,7 +185,6 @@ class CreateProductCubit extends Cubit<CreateProductState> {
       return;
     }
 
-    // 4. التحقق من اختيار البراند
     final selectedBrand = state.selectedBrand;
     if (selectedBrand == null) {
       if (context.mounted) {
@@ -210,8 +198,6 @@ class CreateProductCubit extends Cubit<CreateProductState> {
       return;
     }
 
-    // 4.5. التحقق من اختيار قسم (Category) واحد على الأقل
-    // -- ده ضروري عشان نضمن إن categoryId مش هيتسجل null في الـ Product نفسه
     if (state.selectedCategories.isEmpty) {
       if (context.mounted) {
         TFullScreenLoader.stopLoading(context);
@@ -224,7 +210,6 @@ class CreateProductCubit extends Cubit<CreateProductState> {
       return;
     }
 
-    // 5. جلب التنويعات ومزامنة المدخلات المكتوبة داخل الـ TextFields
     var variations = variationsCubit.getUpdatedVariationsWithInputs();
 
     if (state.productType == ProductType.variable && variations.isEmpty) {
@@ -239,7 +224,6 @@ class CreateProductCubit extends Cubit<CreateProductState> {
       return;
     }
 
-    // 6. التحقق من صحة بيانات كل تنويع (السعر، المخزون، والصورة)
     if (state.productType == ProductType.variable) {
       final variationCheckFailed = variations.any((element) =>
       element.price < 0 ||
@@ -260,7 +244,6 @@ class CreateProductCubit extends Cubit<CreateProductState> {
       }
     }
 
-    // 7. التحقق من رفع الصورة الرئيسية (Thumbnail)
     emit(state.copyWith(thumbnailUploader: true));
     final thumbnailUrl = imagesCubit.state.selectedThumbnailImageUrl;
     if (thumbnailUrl == null || thumbnailUrl.isEmpty) {
@@ -277,32 +260,18 @@ class CreateProductCubit extends Cubit<CreateProductState> {
 
     emit(state.copyWith(additionalImagesUploader: true));
 
-    // تفريغ التنويعات إذا كان نوع المنتج Single
     if (state.productType == ProductType.single && variations.isNotEmpty) {
       variationsCubit.resetAllValues();
       variations = [];
     }
-
-    // -- الـ categoryId الأساسي اللي هيتسجل جوه الـ Product نفسه (أول category متختارة)
-    // ده منفصل عن collection الربط ProductCategory اللي بتدعم Many-to-Many في الخطوة 10
     final primaryCategoryId = state.selectedCategories.first.id;
-
-    // 8. تجهيز موديل المنتج الجديد
-    // FIX 1: isFeatured كانت ثابتة true دائماً بغض النظر عن اختيار المستخدم
-    // الفعلي في فورم الـ Visibility. الآن تُقرأ من state.productVisibility
-    // بنفس الطريقة المستخدمة في EditProductCubit.
-    // FIX 2: productType كانت تُخزَّن بصيغة .toString() (تنتج نص زي
-    // "ProductType.single") بينما EditProductCubit يخزنها بصيغة .name
-    // (تنتج "single" فقط). هذا التضارب كان يتسبب في فشل المقارنات في
-    // ProductCubit (getProductStockTotal / getProductSoldQuantity) وقد
-    // يؤدي لـ Null check crash عند القراءة لاحقاً. الآن موحّدة على .name.
     final newRecord = ProductModel(
       id: '',
       sku: '',
       isFeatured: state.productVisibility == ProductVisibility.published,
       title: title.text.trim(),
       brand: BrandModel.fromEntity(selectedBrand),
-      categoryId: primaryCategoryId, // -- تم إضافتها هنا لحل مشكلة null
+      categoryId: primaryCategoryId,
       productVariations: variations.map((e) => ProductVariationModel.fromEntity(e)).toList(),
       description: description.text.trim(),
       productType: state.productType.name,
@@ -317,7 +286,6 @@ class CreateProductCubit extends Cubit<CreateProductState> {
       date: DateTime.now(),
     );
 
-    // 9. حفظ المنتج في القواعد البيانات
     emit(state.copyWith(productDataUploader: true));
     final createProductResult = await productRepo.createProduct(newRecord);
 
@@ -335,8 +303,6 @@ class CreateProductCubit extends Cubit<CreateProductState> {
       },
           (productId) async {
         newRecord.id = productId;
-
-        // 10. ربط المنتج بالأقسام (Categories) -- علاقة Many-to-Many عبر ProductCategory
         if (state.selectedCategories.isNotEmpty) {
           emit(state.copyWith(categoriesRelationshipUploader: true));
 
@@ -363,7 +329,6 @@ class CreateProductCubit extends Cubit<CreateProductState> {
           }
         }
 
-        // 11. إضافة المنتج للقائمة الرئيسية وتحديث الواجهة عند النجاح
         productCubit.addItemToLists(newRecord.toEntity());
 
         if (context.mounted) {
@@ -386,8 +351,6 @@ class CreateProductCubit extends Cubit<CreateProductState> {
     brandTextField.clear();
     _productVariationsCubit.resetAllValues();
     _productAttributesCubit.resetProductAttributes([]);
-
-    // Reset Upload Flags + selections + status, all back to initial in one emit
     emit(const CreateProductState());
   }
 

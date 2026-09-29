@@ -23,8 +23,7 @@ class ProductVariations extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Product Variations Header
-          Row(
+           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
@@ -37,7 +36,7 @@ class ProductVariations extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: TSizes.spaceBtwItems),
+          const SizedBox(height: Sizes.spaceBtwItems),
 
           // Variations List / No Variations State
           BlocBuilder<ProductVariationsCubit, ProductVariationsState>(
@@ -51,7 +50,7 @@ class ProductVariations extends StatelessWidget {
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 separatorBuilder: (_, __) =>
-                const SizedBox(height: TSizes.spaceBtwItems),
+                const SizedBox(height: Sizes.spaceBtwItems),
                 itemBuilder: (_, index) {
                   final variation = state.productVariations[index];
                   return _buildVariationTile(context, cubit, variation, index);
@@ -89,10 +88,10 @@ class ProductVariations extends StatelessWidget {
     return ExpansionTile(
       backgroundColor: TColors.lightGrey,
       collapsedBackgroundColor: TColors.lightGrey,
-      childrenPadding: const EdgeInsets.all(TSizes.md),
+      childrenPadding: const EdgeInsets.all(Sizes.md),
       expandedCrossAxisAlignment: CrossAxisAlignment.start,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(TSizes.borderRadiusLg),
+        borderRadius: BorderRadius.circular(Sizes.borderRadiusLg),
       ),
       title: Text(titleText.isEmpty ? 'Variation ${index + 1}' : titleText),
       children: [
@@ -114,7 +113,7 @@ class ProductVariations extends StatelessWidget {
             }
           },
         ),
-        const SizedBox(height: TSizes.spaceBtwInputFields),
+        const SizedBox(height: Sizes.spaceBtwInputFields),
 
         // Variation Stock and Pricing
         Row(
@@ -132,7 +131,7 @@ class ProductVariations extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(width: TSizes.spaceBtwInputFields),
+            const SizedBox(width: Sizes.spaceBtwInputFields),
 
             Expanded(
               child: TextFormField(
@@ -149,7 +148,7 @@ class ProductVariations extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(width: TSizes.spaceBtwInputFields),
+            const SizedBox(width: Sizes.spaceBtwInputFields),
 
             Expanded(
               child: TextFormField(
@@ -168,7 +167,7 @@ class ProductVariations extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: TSizes.spaceBtwInputFields),
+        const SizedBox(height: Sizes.spaceBtwInputFields),
 
         // Variation Description
         TextFormField(
@@ -178,7 +177,7 @@ class ProductVariations extends StatelessWidget {
             hintText: 'Add description of this variation...',
           ),
         ),
-        const SizedBox(height: TSizes.spaceBtwSections),
+        const SizedBox(height: Sizes.spaceBtwSections),
       ],
     );
   }
@@ -198,7 +197,7 @@ class ProductVariations extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: TSizes.spaceBtwItems),
+        const SizedBox(height: Sizes.spaceBtwItems),
         const Text('There are no variations added for this product'),
       ],
     );

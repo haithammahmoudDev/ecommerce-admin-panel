@@ -7,10 +7,8 @@ abstract class ProfileDatasource {
   Future<void> logOut();
   Future<String> uploadImageProfile({required File file});
   Future<void> deleteAccount();
-  Future<void> reAuthenticateEmailAndPassword(
-      {
-        required String email,
-        required String password,
-      }
-      );
+  Future<void> reAuthenticateEmailAndPassword({
+    required String email,
+    required String password,
+  });
 }

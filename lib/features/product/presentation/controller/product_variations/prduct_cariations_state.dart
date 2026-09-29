@@ -1,7 +1,6 @@
 part of 'prduct_cariations_cubit.dart';
 
-
-class ProductVariationsState extends Equatable {
+ class ProductVariationsState extends Equatable {
   final bool isLoading;
   List<ProductVariationEntity> productVariations;
 

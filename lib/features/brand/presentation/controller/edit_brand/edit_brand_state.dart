@@ -1,6 +1,6 @@
 part of 'edit_brand_cubit.dart';
 
- enum EditBrandStatus { initial, loading, error, success }
+enum EditBrandStatus { initial, loading, error, success }
 
 class EditBrandState extends Equatable {
   final bool? isFeatured;
@@ -42,4 +42,3 @@ class EditBrandState extends Equatable {
     imageUrl,
   ];
 }
-

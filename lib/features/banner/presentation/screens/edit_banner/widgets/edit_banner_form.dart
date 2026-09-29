@@ -22,17 +22,17 @@ class EditBannerForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return RoundedContainer(
       width: 500,
-      padding: const EdgeInsets.all(TSizes.defaultSpace),
+      padding: const EdgeInsets.all(Sizes.defaultSpace),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Heading
-          const SizedBox(height: TSizes.sm),
+          const SizedBox(height: Sizes.sm),
           Text(
             'Edit Banner',
             style: Theme.of(context).textTheme.headlineMedium,
           ), // Text
-          const SizedBox(height: TSizes.spaceBtwSections),
+          const SizedBox(height: Sizes.spaceBtwSections),
 
           // // Image Uploader & Featured Checkbox
           Column(
@@ -51,14 +51,14 @@ class EditBannerForm extends StatelessWidget {
                   },
                 ), // TRoundedImage
               ),
-              const SizedBox(height: TSizes.spaceBtwItems),
+              const SizedBox(height: Sizes.spaceBtwItems),
               TextButton(
                 onPressed: ()=> context.read<EditBannerCubit>().pickImage(context),
                 child: const Text('Select Image'),
               ), // TextButton
             ],
           ), // Column
-          const SizedBox(height: TSizes.spaceBtwInputFields),
+          const SizedBox(height: Sizes.spaceBtwInputFields),
 
           Text(
             'Make your Banner Active or InActive',
@@ -73,7 +73,7 @@ class EditBannerForm extends StatelessWidget {
               );
             },
           ),  // CheckboxMenuButton
-          const SizedBox(height: TSizes.spaceBtwInputFields),
+          const SizedBox(height: Sizes.spaceBtwInputFields),
 
           // // Dropdown Menu Screens
           BlocBuilder<EditBannerCubit, EditBannerState>(
@@ -88,7 +88,7 @@ class EditBannerForm extends StatelessWidget {
               );
             },
           ),
-          const SizedBox(height: TSizes.spaceBtwInputFields * 2),
+          const SizedBox(height: Sizes.spaceBtwInputFields * 2),
 
           SizedBox(
             width: double.infinity,
@@ -98,7 +98,7 @@ class EditBannerForm extends StatelessWidget {
               child: const Text('Update'),
             ), // ElevatedButton
           ), // SizedBox
-          const SizedBox(height: TSizes.spaceBtwInputFields * 2),
+          const SizedBox(height: Sizes.spaceBtwInputFields * 2),
         ],
       ), // Form
     ); // TRoundedContainer

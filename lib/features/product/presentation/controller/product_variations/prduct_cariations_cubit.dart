@@ -12,13 +12,11 @@ part 'prduct_cariations_state.dart';
 class ProductVariationsCubit extends Cubit<ProductVariationsState> {
   ProductVariationsCubit() : super(ProductVariationsState());
 
-  // Lists to store controllers for each variation attribute
   final List<Map<ProductVariationEntity, TextEditingController>> stockControllersList = [];
   final List<Map<ProductVariationEntity, TextEditingController>> priceControllersList = [];
   final List<Map<ProductVariationEntity, TextEditingController>> salePriceControllersList = [];
   final List<Map<ProductVariationEntity, TextEditingController>> descriptionControllersList = [];
 
-  /// Initialize controllers for each variation
   void initializeVariationControllers(List<ProductVariationEntity> variations) {
     _clearControllersOnly();
 
@@ -26,10 +24,9 @@ class ProductVariationsCubit extends Cubit<ProductVariationsState> {
       final stockText = variation.stock > 0 ? variation.stock.toString() : '';
       final priceText = variation.price > 0 ? variation.price.toString() : '';
 
-      // عند التعديل: حساب قيمة الخصم (الفرق بين السعر الأساسي وسعر الخصم) لعرضها في خانة الخصم
       double discountValue = 0.0;
-      if (variation.salePrice != null && variation.salePrice! > 0 && variation.salePrice! < variation.price) {
-        discountValue = variation.price - variation.salePrice!;
+      if (variation.salePrice > 0 && variation.salePrice! < variation.price) {
+        discountValue = variation.price - variation.salePrice;
       }
       final salePriceText = discountValue > 0 ? discountValue.toString() : '';
       final descText = variation.description ?? '';
@@ -43,7 +40,6 @@ class ProductVariationsCubit extends Cubit<ProductVariationsState> {
     emit(state.copyWith(productVariations: variations));
   }
 
-  /// Extracts values from TextControllers and updates state list
   List<ProductVariationEntity> getUpdatedVariationsWithInputs() {
     final currentVariations = state.productVariations;
     final List<ProductVariationEntity> updatedList = [];
@@ -67,7 +63,6 @@ class ProductVariationsCubit extends Cubit<ProductVariationsState> {
       final double parsedPrice = double.tryParse(priceText) ?? 0.0;
       final double discountInput = double.tryParse(salePriceText) ?? 0.0;
 
-      // طرح قيمة الخصم المدخلة من السعر الأساسي لحساب السعر الفعلي بعد الخصم (salePrice)
       double parsedSalePrice = 0.0;
       if (discountInput > 0 && discountInput < parsedPrice) {
         parsedSalePrice = parsedPrice - discountInput;
@@ -87,14 +82,12 @@ class ProductVariationsCubit extends Cubit<ProductVariationsState> {
     return updatedList;
   }
 
-  /// حساب نسبة الخصم مباشرة لعرضها أو استخدامها
   String calculateDiscountPercentage(double price, double? salePrice) {
     if (salePrice == null || salePrice <= 0 || price <= 0 || salePrice >= price) return '';
     final percentage = ((price - salePrice) / price) * 100;
     return '${percentage.toStringAsFixed(0)}% OFF';
   }
 
-  /// Function to remove variations with a confirmation dialog
   void removeVariations(BuildContext context) {
     TDialogs.defaultDialog(
       context: context,
@@ -113,7 +106,6 @@ class ProductVariationsCubit extends Cubit<ProductVariationsState> {
     emit(state.copyWith(productVariations: updatedVariations));
   }
 
-  /// Function to generate variations with a confirmation dialog
   void generateVariationsConfirmation(
       BuildContext context,
       List<ProductAttributeEntity> productAttributes,
@@ -131,7 +123,6 @@ class ProductVariationsCubit extends Cubit<ProductVariationsState> {
     );
   }
 
-  /// Function to generate variations from attributes
   void generateVariationsFromAttributes(
       List<ProductAttributeEntity> productAttributes,
       ) {
@@ -168,7 +159,6 @@ class ProductVariationsCubit extends Cubit<ProductVariationsState> {
     emit(state.copyWith(productVariations: variations));
   }
 
-  /// Get all combinations of attribute values
   List<List<String>> getCombinations(List<List<String>> lists) {
     final List<List<String>> result = [];
     combine(lists, 0, <String>[], result);
@@ -179,7 +169,6 @@ class ProductVariationsCubit extends Cubit<ProductVariationsState> {
     emit(state.copyWith(productVariations: variations));
   }
 
-  /// Helper function to recursively combine attribute values
   void combine(
       List<List<String>> lists,
       int index,
@@ -218,7 +207,6 @@ class ProductVariationsCubit extends Cubit<ProductVariationsState> {
     descriptionControllersList.clear();
   }
 
-  /// Function to reset all values and controllers
   void resetAllValues() {
     _clearControllersOnly();
     emit(state.copyWith(productVariations: []));

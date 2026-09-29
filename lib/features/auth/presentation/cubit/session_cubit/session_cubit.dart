@@ -12,16 +12,15 @@ class SessionCubit extends Cubit<SessionState> {
 
   Future<void> SignOut() async {
     emit(const SessionLoading());
-     final result = await sessionRepository.signOut();
+    final result = await sessionRepository.signOut();
 
     result.fold(
-          (failure) {emit(SessionError(message: failure.message));
-           },
-          (_) {
-            emit(
-                const Unauthenticated()
-            );
-           }
+      (failure) {
+        emit(SessionError(message: failure.message));
+      },
+      (_) {
+        emit(const Unauthenticated());
+      },
     );
   }
 }

@@ -1,13 +1,9 @@
-import 'package:bloc/bloc.dart';
-import 'package:ecommerce_admin_pannal/features/settings/data/repos/settings_repo_impl.dart';
 import 'package:ecommerce_admin_pannal/features/settings/domain/entities/settings_entity.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:meta/meta.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../settings/domain/repos/settings_repo.dart';
 import '../../../domain/repos/email_auth_repo.dart';
-
 part 'email_auth_event.dart';
 part 'email_auth_state.dart';
 

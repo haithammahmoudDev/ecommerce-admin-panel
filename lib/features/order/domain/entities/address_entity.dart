@@ -25,8 +25,7 @@ class AddressEntity {
     required this.selectedAddress,
   });
 
-  /// Factory method to return an empty AddressEntity
-  static AddressEntity empty() => AddressEntity(
+   static AddressEntity empty() => AddressEntity(
     id: '',
     name: '',
     phoneNumber: '',
@@ -39,8 +38,7 @@ class AddressEntity {
     selectedAddress: false,
   );
 
-  // Convert AddressEntity back into a Data AddressModel
-  AddressModel toModel() {
+   AddressModel toModel() {
     return AddressModel(
       id: id,
       name: name,

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../widgets/image_meta.dart';
@@ -13,7 +12,7 @@ class SettingsDesktopScreen extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(TSizes.defaultSpace),
+          padding: const EdgeInsets.all(Sizes.defaultSpace),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -21,18 +20,15 @@ class SettingsDesktopScreen extends StatelessWidget {
                 'Settings',
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
-              const SizedBox(height: TSizes.spaceBtwSections / 2),
+              const SizedBox(height: Sizes.spaceBtwSections / 2),
 
-              // Body
               const Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Profile Pic and Meta
-                  Expanded(child: ImageAndMeta()),
-                  SizedBox(width: TSizes.spaceBtwSections),
+                  Expanded(child: const ImageAndMeta()),
+                 const SizedBox(width: Sizes.spaceBtwSections),
 
-                  // Form
-                  Expanded(flex: 2, child: SettingsForm()),
+                  Expanded(flex: 2, child: const SettingsForm()),
                 ],
               ) // Row
             ],

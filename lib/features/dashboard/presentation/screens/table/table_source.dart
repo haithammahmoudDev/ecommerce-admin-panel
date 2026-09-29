@@ -2,14 +2,10 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:ecommerce_admin_pannal/features/dashboard/presentation/controller/dashboard_cubit/dashboard_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get_utils/src/extensions/string_extensions.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../../../utils/constants/colors.dart';
-import '../../../../../utils/constants/sizes.dart';
-import '../../../../../utils/helpers/helper_functions.dart';
-import '../../../../order/domain/entities/order_entity.dart';
+
 
 class OrderRows extends DataTableSource {
   final BuildContext context;
@@ -40,7 +36,6 @@ class OrderRows extends DataTableSource {
         DataCell(Text('${order.items.length} Items')),
         DataCell(
           RoundedContainer(
-            // حالة الطلب
           ),
         ),
         DataCell(Text('\$${order.totalAmount}')),

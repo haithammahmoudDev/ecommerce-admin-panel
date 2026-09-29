@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../../../../../order/domain/entities/address_entity.dart';
@@ -26,7 +25,7 @@ class _ShippingAddressState extends State<ShippingAddress> {
       builder: (context, state) {
         if (state.addressesLoading) {
           return const RoundedContainer(
-            padding: EdgeInsets.all(TSizes.defaultSpace),
+            padding: EdgeInsets.all(Sizes.defaultSpace),
             child: Center(child: CircularProgressIndicator(color: Colors.blue,)),
           );
         }
@@ -38,7 +37,7 @@ class _ShippingAddressState extends State<ShippingAddress> {
         );
 
         return RoundedContainer(
-          padding: const EdgeInsets.all(TSizes.defaultSpace),
+          padding: const EdgeInsets.all(Sizes.defaultSpace),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -46,14 +45,13 @@ class _ShippingAddressState extends State<ShippingAddress> {
                 'Address',
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
-              const SizedBox(height: TSizes.spaceBtwSections),
+              const SizedBox(height: Sizes.spaceBtwSections),
 
-              // Name
               Row(
                 children: [
                   const SizedBox(width: 120, child: Text('Name')),
                   const Text(' : '),
-                  const SizedBox(width: TSizes.spaceBtwItems / 2),
+                  const SizedBox(width: Sizes.spaceBtwItems / 2),
                   Expanded(
                     child: Text(
                       selectedAddress.name,
@@ -62,14 +60,13 @@ class _ShippingAddressState extends State<ShippingAddress> {
                   ),
                 ],
               ),
-              const SizedBox(height: TSizes.spaceBtwItems),
+              const SizedBox(height: Sizes.spaceBtwItems),
 
-              // Country
               Row(
                 children: [
                   const SizedBox(width: 120, child: Text('Country')),
                   const Text(' : '),
-                  const SizedBox(width: TSizes.spaceBtwItems / 2),
+                  const SizedBox(width: Sizes.spaceBtwItems / 2),
                   Expanded(
                     child: Text(
                       selectedAddress.country,
@@ -78,14 +75,13 @@ class _ShippingAddressState extends State<ShippingAddress> {
                   ),
                 ],
               ),
-              const SizedBox(height: TSizes.spaceBtwItems),
+              const SizedBox(height: Sizes.spaceBtwItems),
 
-              // Phone Number
               Row(
                 children: [
                   const SizedBox(width: 120, child: Text('Phone Number')),
                   const Text(' : '),
-                  const SizedBox(width: TSizes.spaceBtwItems / 2),
+                  const SizedBox(width: Sizes.spaceBtwItems / 2),
                   Expanded(
                     child: Text(
                       selectedAddress.phoneNumber,
@@ -94,14 +90,13 @@ class _ShippingAddressState extends State<ShippingAddress> {
                   ),
                 ],
               ),
-              const SizedBox(height: TSizes.spaceBtwItems),
+              const SizedBox(height: Sizes.spaceBtwItems),
 
-              // Address
               Row(
                 children: [
                   const SizedBox(width: 120, child: Text('Address')),
                   const Text(' : '),
-                  const SizedBox(width: TSizes.spaceBtwItems / 2),
+                  const SizedBox(width: Sizes.spaceBtwItems / 2),
                   Expanded(
                     child: Text(
                       selectedAddress.id.isNotEmpty ? selectedAddress.toString() : '',

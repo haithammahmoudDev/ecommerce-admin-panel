@@ -23,7 +23,7 @@ class CreateProductTabletScreen extends StatelessWidget {
       bottomNavigationBar: const ProductBottomNavigationButtons(),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(TSizes.defaultSpace),
+          padding: const EdgeInsets.all(Sizes.defaultSpace),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -31,7 +31,7 @@ class CreateProductTabletScreen extends StatelessWidget {
                 'Create Product',
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
-              const SizedBox(height: TSizes.spaceBtwSections / 2),
+              const SizedBox(height: Sizes.spaceBtwSections / 2),
 
               // Create Product Layout for Tablet
               Row(
@@ -45,7 +45,7 @@ class CreateProductTabletScreen extends StatelessWidget {
                       children: [
                         // Basic Information
                         const ProductTitleAndDescription(),
-                        const SizedBox(height: TSizes.spaceBtwSections),
+                        const SizedBox(height: Sizes.spaceBtwSections),
 
                         // Stock & Pricing
                         RoundedContainer(
@@ -53,46 +53,42 @@ class CreateProductTabletScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text('Stock & Pricing', style: Theme.of(context).textTheme.headlineSmall),
-                              const SizedBox(height: TSizes.spaceBtwItems),
+                              const SizedBox(height: Sizes.spaceBtwItems),
 
                               const ProductTypeWidget(),
-                              const SizedBox(height: TSizes.spaceBtwInputFields),
+                              const SizedBox(height: Sizes.spaceBtwInputFields),
 
                               const ProductStockAndPricing(),
-                              const SizedBox(height: TSizes.spaceBtwSections),
+                              const SizedBox(height: Sizes.spaceBtwSections),
 
                               const ProductAttributes(),
-                              const SizedBox(height: TSizes.spaceBtwSections),
+                              const SizedBox(height: Sizes.spaceBtwSections),
                             ],
                           ),
-                        ), // TRoundedContainer
-                        const SizedBox(height: TSizes.spaceBtwSections),
+                        ), // RoundedContainer
+                        const SizedBox(height: Sizes.spaceBtwSections),
 
-                        // Variations
                         const ProductVariations(),
                       ],
                     ),
-                  ), // Expanded (Main Content)
+                  ),
 
-                  const SizedBox(width: TSizes.defaultSpace),
+                  const SizedBox(width: Sizes.defaultSpace),
 
-                  // 2. Sidebar Content Side (تم تقليص حجمها لتناسب التابلت)
                   Expanded(
-                    flex: 1, // يأخذ الثلث المتبقي من مساحة العرض
+                    flex: 1,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Product Thumbnail
                         const ProductThumbnailImage(),
-                        const SizedBox(height: TSizes.spaceBtwSections),
+                        const SizedBox(height: Sizes.spaceBtwSections),
 
-                        // Product Images
                         RoundedContainer(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text('All Product Images', style: Theme.of(context).textTheme.headlineSmall),
-                              const SizedBox(height: TSizes.spaceBtwItems),
+                              const SizedBox(height: Sizes.spaceBtwItems),
                               ProductAdditionalImages(
                                 additionalProductImagesURLs: RxList<String>.empty(),
                                 onTapToAddImages: () {},
@@ -100,15 +96,13 @@ class CreateProductTabletScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-                        ), // TRoundedContainer
-                        const SizedBox(height: TSizes.spaceBtwSections),
+                        ), // RoundedContainer
+                        const SizedBox(height: Sizes.spaceBtwSections),
 
 
-                        // Product Categories
                         const ProductCategories(),
-                        const SizedBox(height: TSizes.spaceBtwSections),
+                        const SizedBox(height: Sizes.spaceBtwSections),
 
-                        // Product Visibility
                         const ProductVisibilityWidget(),
                       ],
                     ),

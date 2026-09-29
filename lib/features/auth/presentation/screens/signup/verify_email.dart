@@ -91,7 +91,7 @@ class VerifyEmailScreen extends StatelessWidget {
                   body: SingleChildScrollView(
                     // Padding to Give Default Equal Space on all sides in all screens.
                     child: Padding(
-                      padding: const EdgeInsets.all(TSizes.defaultSpace),
+                      padding: const EdgeInsets.all(Sizes.defaultSpace),
                       child: Column(
                         children: [
                           /// Image
@@ -99,14 +99,14 @@ class VerifyEmailScreen extends StatelessWidget {
                             image: const AssetImage(TImages.deliveredEmailIllustration),
                             width: MediaQuery.of(context).size.width * 0.6,
                           ),
-                          const SizedBox(height: TSizes.spaceBtwSections),
+                          const SizedBox(height: Sizes.spaceBtwSections),
 
                            Text(TTexts.confirmEmail, style: Theme.of(context).textTheme.headlineMedium, textAlign: TextAlign.center),
-                          const SizedBox(height: TSizes.spaceBtwItems),
+                          const SizedBox(height: Sizes.spaceBtwItems),
                           Text(email, style: Theme.of(context).textTheme.labelLarge, textAlign: TextAlign.center),
-                          const SizedBox(height: TSizes.spaceBtwItems),
+                          const SizedBox(height: Sizes.spaceBtwItems),
                           Text(TTexts.confirmEmailSubTitle, style: Theme.of(context).textTheme.labelMedium, textAlign: TextAlign.center),
-                          const SizedBox(height: TSizes.spaceBtwSections),
+                          const SizedBox(height: Sizes.spaceBtwSections),
 
                           /// Continue Button
                           /// Continue Button
@@ -132,7 +132,7 @@ class VerifyEmailScreen extends StatelessWidget {
                               },
                             ),
                           ),
-                          const SizedBox(height: TSizes.spaceBtwItems),
+                          const SizedBox(height: Sizes.spaceBtwItems),
 
                           SizedBox(
                             width: double.infinity,

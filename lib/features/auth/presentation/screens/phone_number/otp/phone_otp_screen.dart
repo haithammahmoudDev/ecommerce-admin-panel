@@ -21,7 +21,7 @@ class PhoneOtpScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: dark ? TColors.dark : TColors.white,
       body: Container(
-        padding: const EdgeInsets.all(TSizes.defaultSpace),
+        padding: const EdgeInsets.all(Sizes.defaultSpace),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

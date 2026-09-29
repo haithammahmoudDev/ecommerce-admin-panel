@@ -1,4 +1,3 @@
-// sidebar_state.dart
 import 'package:equatable/equatable.dart';
 
 class SidebarState extends Equatable {

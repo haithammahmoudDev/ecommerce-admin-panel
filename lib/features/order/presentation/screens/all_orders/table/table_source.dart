@@ -43,8 +43,8 @@ class OrderRows extends DataTableSource {
         DataCell(Text('${order.items.length} Items')),
         DataCell(
           RoundedContainer(
-            radius: TSizes.cardRadiusSm,
-            padding: const EdgeInsets.symmetric(vertical: TSizes.sm, horizontal: TSizes.md),
+            radius: Sizes.cardRadiusSm,
+            padding: const EdgeInsets.symmetric(vertical: Sizes.sm, horizontal: Sizes.md),
             backgroundColor:
             THelperFunctions.getOrderStatusColor(order.status).withOpacity(0.1),
             child: Text(
@@ -101,11 +101,11 @@ void confirmAndDeleteOrder({
                 },
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(
-                    vertical: TSizes.buttonHeight / 2,
+                    vertical: Sizes.buttonHeight / 2,
                   ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(
-                        TSizes.buttonRadius * 5),
+                        Sizes.buttonRadius * 5),
                   ),
                 ),
                 child: const Text('Ok'),
@@ -119,11 +119,11 @@ void confirmAndDeleteOrder({
                 onPressed: () => dialogContext.pop(),
                 style: OutlinedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(
-                    vertical: TSizes.buttonHeight / 2,
+                    vertical: Sizes.buttonHeight / 2,
                   ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(
-                        TSizes.buttonRadius * 5),
+                        Sizes.buttonRadius * 5),
                   ),
                 ),
                 child: const Text('Cancel'),

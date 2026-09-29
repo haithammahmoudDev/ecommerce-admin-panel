@@ -13,7 +13,7 @@ class ProfileTabletScreen extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(TSizes.defaultSpace),
+          padding: const EdgeInsets.all(Sizes.defaultSpace),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -21,15 +21,14 @@ class ProfileTabletScreen extends StatelessWidget {
                 'Profile',
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
-              const SizedBox(height: TSizes.spaceBtwSections / 2),
+              const SizedBox(height: Sizes.spaceBtwSections / 2),
 
               Column(
                 children: [
                   const ImageAndMeta(),
-                  const SizedBox(height: TSizes.spaceBtwSections),
+                  const SizedBox(height: Sizes.spaceBtwSections),
 
-                  // Form
-                  ProfileForm(),
+                 const ProfileForm(),
                 ],
               ),
             ],

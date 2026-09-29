@@ -6,7 +6,7 @@ class BrandCategoryModel {
   final String categoryId;
 
   BrandCategoryModel({
-      this.id = '',
+    this.id = '',
     required this.brandId,
     required this.categoryId,
   });
@@ -27,7 +27,10 @@ class BrandCategoryModel {
     );
   }
 
-  factory BrandCategoryModel.fromFirebaseData(Map<String, dynamic> data, {String? docId}) {
+  factory BrandCategoryModel.fromFirebaseData(
+    Map<String, dynamic> data, {
+    String? docId,
+  }) {
     return BrandCategoryModel(
       id: docId ?? data['Id'] ?? data['id'] ?? '',
       brandId: data['BrandId'] ?? data['brandId'] ?? '',
@@ -36,9 +39,6 @@ class BrandCategoryModel {
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'BrandId': brandId,
-      'CategoryId': categoryId,
-    };
+    return {'BrandId': brandId, 'CategoryId': categoryId};
   }
 }

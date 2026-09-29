@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../../../../utils/constants/sizes.dart';
-import '../../../../data/models/brand_model.dart';
 import '../../../../domain/entities/brand_entity.dart';
 import '../widgets/edit_brand_form.dart';
 
@@ -14,18 +12,15 @@ class EditBrandMobileScreen extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(TSizes.defaultSpace),
+          padding: const EdgeInsets.all(Sizes.defaultSpace),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Breadcrumbs
               Text(
                 'Edit Brand',
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
-              const SizedBox(height: TSizes.spaceBtwSections / 2),
-
-              // Form
+              const SizedBox(height: Sizes.spaceBtwSections / 2),
               EditBrandForm(brand: brand),
             ],
           ), // Column

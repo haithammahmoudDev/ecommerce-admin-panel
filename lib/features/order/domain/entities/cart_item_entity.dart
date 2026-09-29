@@ -23,8 +23,7 @@ class CartItemEntity {
 
   String get totalAmount => (price * quantity).toStringAsFixed(1);
 
-  /// Convert CartItemEntity back into a Data CartItemModel
-  CartItemModel toModel() {
+   CartItemModel toModel() {
     return CartItemModel(
       productId: productId,
       title: title,

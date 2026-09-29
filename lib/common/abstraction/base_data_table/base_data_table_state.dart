@@ -34,8 +34,6 @@ class BaseDataTableState<T> extends Equatable {
       allItems: allItems ?? this.allItems,
       filterdItems: filterdItems ?? this.filterdItems,
       status: status ?? this.status,
-      // Note: pass errorMessage explicitly (even null) if you want to clear it;
-      // the `??` pattern below keeps the old message unless a new one is given.
       errorMessage: errorMessage ?? this.errorMessage,
       sortColumnIndex: sortColumnIndex ?? this.sortColumnIndex,
       sortAscending: sortAscending ?? this.sortAscending,

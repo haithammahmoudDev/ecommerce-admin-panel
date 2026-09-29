@@ -19,9 +19,6 @@ class BannersRows extends DataTableSource {
 
   @override
   DataRow? getRow(int index) {
-    // نفس الـ bounds check اللي في CategoryRows — بيمنع RangeError لحظة
-    // ما filterdItems بتصغر أثناء البحث/الحذف، واللي كان بيبان كأن
-    // الفلتر "مش بيشتغل".
     if (index < 0 || index >= controller.state.filterdItems.length) {
       return null;
     }
@@ -42,10 +39,10 @@ class BannersRows extends DataTableSource {
           TRoundedImage(
             width: 180,
             height: 100,
-            padding: TSizes.sm,
+            padding: Sizes.sm,
             image: banner.imageUrl,
             imageType: ImageType.network,
-            borderRadius: TSizes.borderRadiusMd,
+            borderRadius: Sizes.borderRadiusMd,
             backgroundColor: TColors.primaryBackground,
           ),
         ),
@@ -78,8 +75,6 @@ class BannersRows extends DataTableSource {
   @override
   int get rowCount => controller.state.filterdItems.length;
 
-  // FIX: استخدمت selectedCount من BaseDataTableState زي CategoryRows
-  // بالظبط بدل إعادة حساب selectedRows.where(...).length يدويًا.
   @override
   int get selectedRowCount => controller.state.selectedCount;
 }
@@ -95,8 +90,7 @@ void confirmAndDeleteBrand({
       title: const Text('Delete Brand'),
       content: const Text('Are you sure you want to delete this brand?'),
       actions: [
-        // === Confirm ===
-        SizedBox(
+         SizedBox(
           width: 60,
           child: ElevatedButton(
             onPressed: () {
@@ -105,27 +99,26 @@ void confirmAndDeleteBrand({
             },
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(
-                vertical: TSizes.buttonHeight / 2,
+                vertical: Sizes.buttonHeight / 2,
               ),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(TSizes.buttonRadius * 5),
+                borderRadius: BorderRadius.circular(Sizes.buttonRadius * 5),
               ),
             ),
             child: const Text('Ok'),
           ),
         ),
 
-        // === Cancel ===
         SizedBox(
           width: 60,
           child: OutlinedButton(
             onPressed: () => dialogContext.pop(),
             style: OutlinedButton.styleFrom(
               padding: const EdgeInsets.symmetric(
-                vertical: TSizes.buttonHeight / 2,
+                vertical: Sizes.buttonHeight / 2,
               ),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(TSizes.buttonRadius * 5),
+                borderRadius: BorderRadius.circular(Sizes.buttonRadius * 5),
               ),
             ),
             child: const Text('Cancel'),

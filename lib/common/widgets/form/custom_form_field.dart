@@ -1,14 +1,16 @@
-
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
 class CustomFormfieldWidget extends StatefulWidget {
-
-  CustomFormfieldWidget(
-      {super.key, required this.label, required this.withdownEar,
-        required this.controller, required this.validator, this.prefixIcon,
-      });
+  CustomFormfieldWidget({
+    super.key,
+    required this.label,
+    required this.withdownEar,
+    required this.controller,
+    required this.validator,
+    this.prefixIcon,
+  });
   final String label;
-   final bool withdownEar;
+  final bool withdownEar;
   final TextEditingController controller;
   final Function(String?) validator;
   final Widget? prefixIcon;
@@ -17,7 +19,7 @@ class CustomFormfieldWidget extends StatefulWidget {
 
     required this.controller,
     required this.validator,
-      this.prefixIcon
+    this.prefixIcon,
   }) : withdownEar = true;
 
   @override
@@ -34,10 +36,10 @@ class _CustomFormfieldWidgetState extends State<CustomFormfieldWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-         TextFormField(
-          validator:(value)=>widget.validator(value),
+        TextFormField(
+          validator: (value) => widget.validator(value),
           controller: widget.controller,
-          obscureText:widget.withdownEar == false ? obScureText : false,
+          obscureText: widget.withdownEar == false ? obScureText : false,
           style: TextStyle(
             color: Color(0xFF363636),
             fontSize: 16,
@@ -45,17 +47,22 @@ class _CustomFormfieldWidgetState extends State<CustomFormfieldWidget> {
           ),
           decoration: InputDecoration(
             label: Text(widget.label),
-               suffixIcon: widget.withdownEar == true ? null : IconButton(
-                onPressed: (){
-                  setState(() {
-                    isVisible = !isVisible;
-                    obScureText = !obScureText;
-                  });
-                },
-                icon: !isVisible ? Icon(Icons.visibility) : Icon(Icons.visibility_off),
-              ),
-              prefixIcon: widget.prefixIcon,
-          ),),
+            suffixIcon: widget.withdownEar == true
+                ? null
+                : IconButton(
+                    onPressed: () {
+                      setState(() {
+                        isVisible = !isVisible;
+                        obScureText = !obScureText;
+                      });
+                    },
+                    icon: !isVisible
+                        ? Icon(Icons.visibility)
+                        : Icon(Icons.visibility_off),
+                  ),
+            prefixIcon: widget.prefixIcon,
+          ),
+        ),
       ],
     );
   }

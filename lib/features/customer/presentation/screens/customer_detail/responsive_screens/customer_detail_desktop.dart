@@ -16,7 +16,7 @@ class CustomerDetailDesktopScreen extends StatelessWidget {
      return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(TSizes.defaultSpace),
+          padding: const EdgeInsets.all(Sizes.defaultSpace),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -24,7 +24,7 @@ class CustomerDetailDesktopScreen extends StatelessWidget {
                 customer.fullName,
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
-              const SizedBox(height: TSizes.spaceBtwSections / 2),
+              const SizedBox(height: Sizes.spaceBtwSections / 2),
 
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,14 +33,14 @@ class CustomerDetailDesktopScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         CustomerInfo(customer: customer),
-                        const SizedBox(height: TSizes.spaceBtwSections),
+                        const SizedBox(height: Sizes.spaceBtwSections),
 
                         const ShippingAddress(),
                       ],
                     ), //  Column
                   ), //  Expanded
 
-                  const SizedBox(width: TSizes.spaceBtwSections),
+                  const SizedBox(width: Sizes.spaceBtwSections),
 
                   const Expanded(
                     flex: 2,

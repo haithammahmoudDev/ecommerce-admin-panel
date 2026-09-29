@@ -2,7 +2,6 @@ import 'package:ecommerce_admin_pannal/features/profile/presentation/screens/res
 import 'package:ecommerce_admin_pannal/features/profile/presentation/screens/responsive_screens/profile_mobile.dart';
 import 'package:ecommerce_admin_pannal/features/profile/presentation/screens/responsive_screens/profile_tablet.dart';
 import 'package:flutter/cupertino.dart';
-
 import '../../../../common/widgets/layouts/templates/site_layout.dart';
 
 class ProfileScreen extends StatelessWidget {

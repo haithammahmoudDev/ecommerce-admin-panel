@@ -6,9 +6,7 @@ import '../../../../../../utils/validators/validation.dart';
 import '../../../controller/create_product/create_product_cubit.dart';
 
 class ProductTitleAndDescription extends StatelessWidget {
-  const ProductTitleAndDescription({
-    super.key,
-  });
+  const ProductTitleAndDescription({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,23 +18,18 @@ class ProductTitleAndDescription extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Basic Information Text
             Text(
               'Basic Information',
               style: Theme.of(context).textTheme.headlineSmall,
             ),
-            const SizedBox(height: TSizes.spaceBtwItems),
-
-            // Product Title Input Field
+            const SizedBox(height: Sizes.spaceBtwItems),
             TextFormField(
               controller: cubit.title,
               validator: (value) =>
-                  TValidator.validateEmptyText('Product Title', value),
+                  Validator.validateEmptyText('Product Title', value),
               decoration: const InputDecoration(labelText: 'Product Title'),
             ),
-            const SizedBox(height: TSizes.spaceBtwInputFields),
-
-            // Product Description Input Field
+            const SizedBox(height: Sizes.spaceBtwInputFields),
             SizedBox(
               height: 300,
               child: TextFormField(
@@ -47,7 +40,7 @@ class ProductTitleAndDescription extends StatelessWidget {
                 keyboardType: TextInputType.multiline,
                 textAlignVertical: TextAlignVertical.top,
                 validator: (value) =>
-                    TValidator.validateEmptyText('Product Description', value),
+                    Validator.validateEmptyText('Product Description', value),
                 decoration: const InputDecoration(
                   labelText: 'Product Description',
                   hintText: 'Add your Product Description here...',

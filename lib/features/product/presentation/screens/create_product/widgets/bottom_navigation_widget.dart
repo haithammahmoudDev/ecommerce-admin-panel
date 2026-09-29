@@ -16,16 +16,14 @@ class ProductBottomNavigationButtons extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          // Discard button
           OutlinedButton(
             onPressed: () {
                context.pop();
             },
             child: const Text('Discard'),
           ),
-          const SizedBox(width: TSizes.spaceBtwItems / 2),
+          const SizedBox(width: Sizes.spaceBtwItems / 2),
 
-          // Save Changes button
           SizedBox(
             width: 160,
             child: ElevatedButton(

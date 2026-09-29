@@ -1,9 +1,7 @@
-import 'package:ecommerce_admin_pannal/common/widgets/images/t_rounded_image.dart';
 import 'package:ecommerce_admin_pannal/features/categories/presentation/controller/edit_category/edit_category_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
-
 import '../../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../../../../common/widgets/shimmers/shimmer.dart';
 import '../../../../../../utils/constants/enums.dart';
@@ -37,25 +35,28 @@ class _EditCategoryFormState extends State<EditCategoryForm> {
     final cubit = context.read<EditCategoryCubit>();
     return RoundedContainer(
       width: 500,
-      padding: const EdgeInsets.all(TSizes.defaultSpace),
+      padding: const EdgeInsets.all(Sizes.defaultSpace),
       child: Form(
         key: _formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Heading
-            const SizedBox(height: TSizes.sm),
-            Text('Update New Category', style: Theme.of(context).textTheme.headlineMedium),
-            const SizedBox(height: TSizes.spaceBtwSections),
-
-            // Name Text Field
+            const SizedBox(height: Sizes.sm),
+            Text(
+              'Update New Category',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            const SizedBox(height: Sizes.spaceBtwSections),
             TextFormField(
               controller: nameController,
-              validator: (value) => TValidator.validateEmptyText('Name', value),
-              decoration: const InputDecoration(labelText: 'Category Name', prefixIcon: Icon(Iconsax.category)),
+              validator: (value) => Validator.validateEmptyText('Name', value),
+              decoration: const InputDecoration(
+                labelText: 'Category Name',
+                prefixIcon: Icon(Iconsax.category),
+              ),
             ), // TextFormField
 
-            const SizedBox(height: TSizes.spaceBtwInputFields * 2),
+            const SizedBox(height: Sizes.spaceBtwInputFields * 2),
 
             BlocBuilder<EditCategoryCubit, EditCategoryState>(
               builder: (context, state) {
@@ -66,44 +67,37 @@ class _EditCategoryFormState extends State<EditCategoryForm> {
                   );
                 }
 
-                final categoriesList = context.read<CategoryCubit>().state.allItems;
+                final categoriesList = context
+                    .read<CategoryCubit>()
+                    .state
+                    .allItems;
 
-                // Resolve the actual parent entity from parentId
-                // (NOT widget.category itself — that is the category being edited)
-                final initialParent = widget.category.parentId == null
-                    ? CategoryEntity.empty
-                    : categoriesList.firstWhere(
-                      (cat) => cat.id == widget.category.parentId,
+                final initialParent = categoriesList.firstWhere(
+                  (cat) => cat.id == widget.category.parentId,
                   orElse: () => CategoryEntity.empty,
                 );
 
-                final currentValue = state.selectedParent == CategoryEntity.empty
+                final currentValue =
+                    state.selectedParent == CategoryEntity.empty
                     ? initialParent
                     : state.selectedParent;
 
-                // IMPORTANT: DropdownButtonFormField requires that `value`
-                // matches EXACTLY ONE entry in `items`. Since our fallback
-                // can be CategoryEntity.empty ("No Parent"), we must include
-                // that as an actual item — otherwise Flutter throws:
-                // "There should be exactly one item with [DropdownButton]'s value"
                 final dropdownItems = <DropdownMenuItem<CategoryEntity>>[
                   const DropdownMenuItem<CategoryEntity>(
                     value: CategoryEntity.empty,
                     child: Text('No Parent'),
                   ),
                   ...categoriesList
-                      .where((item) => item.id != widget.category.id) // prevent self-parenting
+                      .where((item) => item.id != widget.category.id)
                       .map(
                         (item) => DropdownMenuItem<CategoryEntity>(
-                      value: item,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(item.name),
-                        ],
+                          value: item,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [Text(item.name)],
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
                 ];
 
                 return DropdownButtonFormField<CategoryEntity>(
@@ -111,18 +105,20 @@ class _EditCategoryFormState extends State<EditCategoryForm> {
                     hintText: 'Parent Category',
                     labelText: 'Parent Category',
                     prefixIcon: Icon(Iconsax.bezier),
-                  ), // InputDecoration
-                  value: currentValue,
+                  ),
+                  initialValue: currentValue,
                   onChanged: (newValue) {
                     if (newValue != null) {
-                      context.read<EditCategoryCubit>().selectParentCategory(newValue);
+                      context.read<EditCategoryCubit>().selectParentCategory(
+                        newValue,
+                      );
                     }
                   },
                   items: dropdownItems,
                 );
               },
             ), // DropdownButtonFormField
-            const SizedBox(height: TSizes.spaceBtwInputFields * 2),
+            const SizedBox(height: Sizes.spaceBtwInputFields * 2),
             BlocBuilder<EditCategoryCubit, EditCategoryState>(
               builder: (context, state) {
                 return TImageUploader(
@@ -132,13 +128,13 @@ class _EditCategoryFormState extends State<EditCategoryForm> {
                       ? context.read<EditCategoryCubit>().state.imageUrl
                       : widget.category.image,
                   imageType: ImageType.network,
-                  onIconButtonPressed: () => context.read<EditCategoryCubit>().pickImage(context),
+                  onIconButtonPressed: () =>
+                      context.read<EditCategoryCubit>().pickImage(context),
                 );
               },
             ), // TImageUploader
-            const SizedBox(height: TSizes.spaceBtwInputFields),
+            const SizedBox(height: Sizes.spaceBtwInputFields),
 
-            // CheckboxMenuButton
             BlocBuilder<EditCategoryCubit, EditCategoryState>(
               builder: (context, state) {
                 return CheckboxMenuButton(
@@ -149,17 +145,18 @@ class _EditCategoryFormState extends State<EditCategoryForm> {
                   child: const Text('Featured'),
                 );
               },
-            ), // CheckboxMenuButton
-            const SizedBox(height: TSizes.spaceBtwInputFields * 2),
+            ),
+            const SizedBox(height: Sizes.spaceBtwInputFields * 2),
 
-            // Create Button
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    cubit.editCategory(nameController: nameController, context: context,
-                        id: CategoryModel.fromEntity(widget.category).id,
+                    cubit.editCategory(
+                      nameController: nameController,
+                      context: context,
+                      id: CategoryModel.fromEntity(widget.category).id,
                     );
                   }
                 },
@@ -167,7 +164,7 @@ class _EditCategoryFormState extends State<EditCategoryForm> {
               ),
             ),
 
-            const SizedBox(height: TSizes.spaceBtwInputFields * 2),
+            const SizedBox(height: Sizes.spaceBtwInputFields * 2),
           ],
         ), // Column
       ), // Form

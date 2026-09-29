@@ -27,7 +27,7 @@ class _TermsAndConditionOncheckboxState extends State<TermsAndConditionOncheckbo
             widget.valueChanged(value ?? false);
             setState(() {});
           })),
-          const SizedBox(width: TSizes.spaceBtwItems),
+          const SizedBox(width: Sizes.spaceBtwItems),
           Text.rich(
             TextSpan(children: [
               TextSpan(text: 'I agree to', style: Theme.of(context).textTheme.bodySmall),

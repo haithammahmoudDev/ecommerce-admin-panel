@@ -17,11 +17,8 @@ class ProductVisibilityWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Visibility Header
           Text('Visibility', style: Theme.of(context).textTheme.headlineSmall),
-          const SizedBox(height: TSizes.spaceBtwItems),
-
-          // Radio buttons for product visibility
+          const SizedBox(height: Sizes.spaceBtwItems),
           BlocBuilder<CreateProductCubit, CreateProductState>(
             builder: (context, state) {
               return Column(
@@ -44,10 +41,9 @@ class ProductVisibilityWidget extends StatelessWidget {
           ),
         ],
       ), // Column
-    ); // TRoundedContainer
+    ); // RoundedContainer
   }
 
-  // Helper method to build a radio button for product visibility
   Widget _buildVisibilityRadioButton(
       BuildContext context,
       ProductVisibility value,

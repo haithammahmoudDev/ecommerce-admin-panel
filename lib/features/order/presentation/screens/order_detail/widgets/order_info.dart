@@ -21,12 +21,12 @@ class OrderInfo extends StatelessWidget {
     final cubit = context.read<OrderCubit>();
     cubit.selectOrderStatus(order.status);
     return RoundedContainer(
-      padding: const EdgeInsets.all(TSizes.defaultSpace),
+      padding: const EdgeInsets.all(Sizes.defaultSpace),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text('Order Information', style: Theme.of(context).textTheme.headlineMedium),
-          const SizedBox(height: TSizes.spaceBtwSections),
+          const SizedBox(height: Sizes.spaceBtwSections),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -69,8 +69,8 @@ class OrderInfo extends StatelessWidget {
                        );
                      }
                   return RoundedContainer(
-                      radius: TSizes.cardRadiusSm,
-                      padding: const EdgeInsets.symmetric(horizontal: TSizes.sm, vertical: 0),
+                      radius: Sizes.cardRadiusSm,
+                      padding: const EdgeInsets.symmetric(horizontal: Sizes.sm, vertical: 0),
                       backgroundColor: THelperFunctions.
                       getOrderStatusColor(state.selectedOrderStatus).withOpacity(0.1),
                       child: DropdownButton<OrderStatus>(

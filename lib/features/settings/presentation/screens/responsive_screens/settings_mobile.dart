@@ -11,7 +11,7 @@ class SettingsMobileScreen extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(TSizes.defaultSpace),
+          padding: const EdgeInsets.all(Sizes.defaultSpace),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -19,14 +19,14 @@ class SettingsMobileScreen extends StatelessWidget {
                 'Settings',
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
-              const SizedBox(height: TSizes.spaceBtwSections / 2),
+              const SizedBox(height: Sizes.spaceBtwSections / 2),
 
               const Column(
                 children: [
-                  ImageAndMeta(),
-                  SizedBox(height: TSizes.spaceBtwSections),
+                 const ImageAndMeta(),
+                const  SizedBox(height: Sizes.spaceBtwSections),
 
-                  SettingsForm(),
+                 const SettingsForm(),
                 ],
               ),
             ],

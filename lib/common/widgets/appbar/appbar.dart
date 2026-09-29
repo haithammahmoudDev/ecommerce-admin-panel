@@ -1,10 +1,7 @@
 import 'package:badges/badges.dart' as badges;
-import 'package:ecommerce_admin_pannal/app.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
-
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/text_strings.dart';
 import '../../../utils/device/device_utility.dart';

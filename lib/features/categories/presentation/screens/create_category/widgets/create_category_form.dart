@@ -36,16 +36,16 @@ class _CreateCategoryFormState extends State<CreateCategoryForm> {
     final cubit = context.read<CreateCategoryCubit>();
     return RoundedContainer(
       width: 500,
-      padding: const EdgeInsets.all(TSizes.defaultSpace),
+      padding: const EdgeInsets.all(Sizes.defaultSpace),
       child: Form(
         key: _formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Heading
-            const SizedBox(height: TSizes.sm),
+            const SizedBox(height: Sizes.sm),
             Text('Create New Category', style: Theme.of(context).textTheme.headlineMedium),
-            const SizedBox(height: TSizes.spaceBtwSections),
+            const SizedBox(height: Sizes.spaceBtwSections),
 
             // Name Text Field
             TextFormField(
@@ -59,7 +59,7 @@ class _CreateCategoryFormState extends State<CreateCategoryForm> {
               decoration: const InputDecoration(labelText: 'Category Name', prefixIcon: Icon(Iconsax.category)),
             ),
 
-            const SizedBox(height: TSizes.spaceBtwInputFields * 2),
+            const SizedBox(height: Sizes.spaceBtwInputFields * 2),
 
             BlocBuilder<CreateCategoryCubit, CreateCategoryState>(
               builder: (context, state) {
@@ -96,7 +96,7 @@ class _CreateCategoryFormState extends State<CreateCategoryForm> {
               },
             ),
 
-            const SizedBox(height: TSizes.spaceBtwInputFields * 2),
+            const SizedBox(height: Sizes.spaceBtwInputFields * 2),
 
             BlocBuilder<CreateCategoryCubit, CreateCategoryState>(
               builder: (context, state) {
@@ -110,7 +110,7 @@ class _CreateCategoryFormState extends State<CreateCategoryForm> {
               },
             ),
 
-            const SizedBox(height: TSizes.spaceBtwInputFields),
+            const SizedBox(height: Sizes.spaceBtwInputFields),
 
             // CheckboxMenuButton
             BlocBuilder<CreateCategoryCubit, CreateCategoryState>(
@@ -123,7 +123,7 @@ class _CreateCategoryFormState extends State<CreateCategoryForm> {
               },
             ),
 
-            const SizedBox(height: TSizes.spaceBtwInputFields * 2),
+            const SizedBox(height: Sizes.spaceBtwInputFields * 2),
 
             // Create Button
             SizedBox(
@@ -141,7 +141,7 @@ class _CreateCategoryFormState extends State<CreateCategoryForm> {
               ),
             ),
 
-            const SizedBox(height: TSizes.spaceBtwInputFields * 2),
+            const SizedBox(height: Sizes.spaceBtwInputFields * 2),
           ],
         ),
       ),

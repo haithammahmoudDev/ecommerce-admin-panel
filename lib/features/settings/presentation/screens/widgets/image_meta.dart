@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
-
 import '../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../../../utils/constants/enums.dart';
 import '../../../../../../utils/constants/sizes.dart';
@@ -14,13 +13,12 @@ class ImageAndMeta extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RoundedContainer(
-      padding: const EdgeInsets.symmetric(vertical: TSizes.lg, horizontal: TSizes.md),
+      padding: const EdgeInsets.symmetric(vertical: Sizes.lg, horizontal: Sizes.md),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Column(
             children: [
-              // 1. SELECTOR #1: Logo & Logo Loading State
               BlocSelector<SettingsCubit, SettingsState, ({String appLogo, bool isLogoLoading})>(
                 selector: (state) => (
                 appLogo: state.settings.appLogo,
@@ -43,7 +41,7 @@ class ImageAndMeta extends StatelessWidget {
                   );
                 },
               ),
-              const SizedBox(height: TSizes.spaceBtwSections),
+              const SizedBox(height: Sizes.spaceBtwSections),
             ],
           ),
         ],

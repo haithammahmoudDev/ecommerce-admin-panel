@@ -10,10 +10,10 @@ class TTextFormFieldTheme {
     prefixIconColor: TColors.secondary,
     floatingLabelStyle: const TextStyle(color: TColors.secondary),
     border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(TSizes.borderRadiusLg),
+      borderRadius: BorderRadius.circular(Sizes.borderRadiusLg),
     ),
     focusedBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(TSizes.borderRadiusLg),
+      borderRadius: BorderRadius.circular(Sizes.borderRadiusLg),
       borderSide: const BorderSide(width: 2, color: TColors.secondary),
     ),
   );
@@ -22,10 +22,10 @@ class TTextFormFieldTheme {
     prefixIconColor: TColors.primary,
     floatingLabelStyle: const TextStyle(color: TColors.primary),
     border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(TSizes.borderRadiusLg),
+      borderRadius: BorderRadius.circular(Sizes.borderRadiusLg),
     ),
     focusedBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(TSizes.borderRadiusLg),
+      borderRadius: BorderRadius.circular(Sizes.borderRadiusLg),
       borderSide: const BorderSide(width: 2, color: TColors.primary),
     ),
   );

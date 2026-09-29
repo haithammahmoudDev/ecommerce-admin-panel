@@ -24,11 +24,10 @@ class BrandModel {
     this.brandCategories,
   });
 
-  /// Convert this Data Model into a Clean Architecture Entity
   BrandEntity toEntity() {
     return BrandEntity(
-      id: id,                          // ← جاي من BrandModel بعد التصحيح
-      name: name,                      // ← جاي من BrandModel بعد التصحيح
+      id: id,
+      name: name,
       image: image,
       isFeatured: isFeatured,
       productsCount: productsCount,
@@ -51,7 +50,7 @@ class BrandModel {
 
   /// Create a Data Model from a Clean Architecture Entity
   factory BrandModel.fromEntity(BrandEntity? entity) {
-    if(entity == null) return BrandModel.empty();
+    if (entity == null) return BrandModel.empty();
     return BrandModel(
       id: entity.id,
       name: entity.name,
@@ -64,19 +63,10 @@ class BrandModel {
     );
   }
 
-  // FIX: field keys were capitalized ('Name', 'Image', 'IsFeatured',
-  // 'ProductsCount', 'CreatedAt', 'UpdatedAt') but your actual Firestore
-  // documents use lowerCamelCase ('name', 'image', 'isFeatured',
-  // 'productCounts'). Every field was silently falling back to its
-  // default ('' / false / 0) because the key never matched — that's why
-  // the table showed empty cells despite Firestore having real data.
-  //
-  // Also: `id` now reads from `data['id']` (the field that's actually
-  // inside the document, as seen in your Firestore console), instead of
-  // relying on a `docId` parameter that BrandRepoImpl never passes in.
-  // `docId` is kept as an optional override for callers that DO pass the
-  // real Firestore document ID.
-  factory BrandModel.fromFirebaseData(Map<String, dynamic> data, {String? docId}) {
+  factory BrandModel.fromFirebaseData(
+    Map<String, dynamic> data, {
+    String? docId,
+  }) {
     return BrandModel(
       id: docId ?? data['id']?.toString() ?? '',
       name: data['name'] ?? '',
@@ -92,7 +82,6 @@ class BrandModel {
     );
   }
 
-  /// Convert model to JSON structure for Firestore storage
   Map<String, dynamic> toJson() {
     return {
       'id': id,

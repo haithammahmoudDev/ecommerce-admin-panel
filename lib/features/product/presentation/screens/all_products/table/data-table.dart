@@ -3,7 +3,6 @@ import 'package:ecommerce_admin_pannal/features/product/presentation/controller/
 import 'package:ecommerce_admin_pannal/features/product/presentation/screens/all_products/table/table_source.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../../../common/abstraction/base_data_table/base_data_table_state.dart';
 import '../../../../../../common/custom/custom_paginated_table.dart';
 import '../../../../../../utils/device/device_utility.dart';

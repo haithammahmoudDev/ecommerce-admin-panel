@@ -38,7 +38,7 @@ class _CategoriesMobileScreenState extends State<CategoriesMobileScreen> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(TSizes.defaultSpace),
+          padding: const EdgeInsets.all(Sizes.defaultSpace),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -46,7 +46,7 @@ class _CategoriesMobileScreenState extends State<CategoriesMobileScreen> {
                 'Categories',
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
-              const SizedBox(height: TSizes.spaceBtwSections / 2),
+              const SizedBox(height: Sizes.spaceBtwSections / 2),
 
               // Table Body
                   RoundedContainer(
@@ -61,7 +61,7 @@ class _CategoriesMobileScreenState extends State<CategoriesMobileScreen> {
                           controller.searchQuery(query);
                         },
                       ),
-                      SizedBox(height: TSizes.spaceBtwItems),
+                      SizedBox(height: Sizes.spaceBtwItems),
 
                       // Table
                       BlocBuilder<CategoryCubit, BaseDataTableState<CategoryEntity>>(

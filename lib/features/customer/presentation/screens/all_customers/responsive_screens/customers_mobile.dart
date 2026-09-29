@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
  import '../../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../../../../utils/constants/sizes.dart';
@@ -12,7 +11,7 @@ class CustomersMobileScreen extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(TSizes.defaultSpace),
+          padding: const EdgeInsets.all(Sizes.defaultSpace),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -20,16 +19,13 @@ class CustomersMobileScreen extends StatelessWidget {
                 'Customers',
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
-              const SizedBox(height: TSizes.spaceBtwSections / 2),
+              const SizedBox(height: Sizes.spaceBtwSections / 2),
 
               RoundedContainer(
                 child: Column(
                   children: [
-                    // Table Header
                     TableHeader(showLeftWidget: false,),
-                    const SizedBox(height: TSizes.spaceBtwItems),
-
-                    // Table
+                    const SizedBox(height: Sizes.spaceBtwItems),
                     CustomerTable(),
                   ],
                 ),

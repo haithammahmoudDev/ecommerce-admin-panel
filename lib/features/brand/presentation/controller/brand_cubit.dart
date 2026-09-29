@@ -13,7 +13,7 @@ import '../../domain/repos/brand_repo.dart';
 
 class BrandCubit extends BaseDataTableCubit<BrandEntity> {
   final BrandRepo brandRepo;
-  final CategoryCubit categoryCubit; // 1. اعتمدنا على CategoryCubit هنا
+  final CategoryCubit categoryCubit;
 
   BrandCubit({
     required this.brandRepo,
@@ -32,19 +32,16 @@ class BrandCubit extends BaseDataTableCubit<BrandEntity> {
   Future<Either<Failure, List<BrandEntity>>> fetchItems() async {
     Failure? failure;
 
-    // جلب الماركات
     List<BrandEntity> fetchedBrands = [];
     final brandsResult = await brandRepo.fetchAllBrands();
     brandsResult.fold((l) => failure = l, (r) => fetchedBrands = r);
     if (failure != null) return Left(failure!);
 
-    // جلب علاقات الماركات بالأصناف
     List<BrandCategoryEntity> fetchedBrandCategories = [];
     final brandCategoriesResult = await brandRepo.fetchAllBrandCategories();
     brandCategoriesResult.fold((l) => failure = l, (r) => fetchedBrandCategories = r);
     if (failure != null) return Left(failure!);
 
-    // 2. استخدام CategoryCubit للتحقق والجلب إذا كانت القائمة فارغة
     if (categoryCubit.state.allItems.isEmpty) {
       await categoryCubit.fetchData();
     }

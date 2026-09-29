@@ -96,8 +96,7 @@ class UserModel {
     return null;
   }
 
-  /// Factory method to create UserModel from standard JSON Map
-  factory UserModel.fromJson(Map<String, dynamic>? json) {
+   factory UserModel.fromJson(Map<String, dynamic>? json) {
     if (json == null || json.isEmpty) return UserModel.empty();
 
     return UserModel(
@@ -158,8 +157,7 @@ class UserModel {
     return UserModel.fromFirebaseData(document.data(), docId: document.id);
   }
 
-  /// Convert Domain Entity to Data Model
-  factory UserModel.fromEntity(UserEntity entity) {
+   factory UserModel.fromEntity(UserEntity entity) {
     return UserModel(
       id: entity.id,
       fullName: entity.fullName,

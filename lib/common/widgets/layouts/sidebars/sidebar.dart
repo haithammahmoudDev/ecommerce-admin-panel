@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
-import '../../../../features/categories/presentation/screens/create_category/widgets/image_uploader.dart';
 import '../../../../features/product/presentation/screens/edit_product/widgets/thumbnail_widget.dart';
 import '../../../../features/settings/presentation/controller/settings_cubit/settings_cubit.dart';
 import '../../../../utils/constants/sizes.dart';
-import '../../images/t_circular_image.dart';
 import 'menu/menu_item.dart';
 
 class Sidebar extends StatelessWidget {
@@ -74,7 +72,6 @@ class Sidebar extends StatelessWidget {
                   ),
                   const SizedBox(width: 16),
 
-                  // 2. قسم اسم التطبيق (تم استبدال BlocSelector بـ BlocBuilder وحل مشكلة الـ Shimmer)
                   Expanded(
                     child: BlocBuilder<SettingsCubit, SettingsState>(
                       buildWhen: (previous, current) =>
@@ -111,10 +108,10 @@ class Sidebar extends StatelessWidget {
                 ],
               ),
 
-              const SizedBox(height: TSizes.spaceBtwSections / 2),
+              const SizedBox(height: Sizes.spaceBtwSections / 2),
 
               Padding(
-                padding: const EdgeInsets.all(TSizes.md / 2),
+                padding: const EdgeInsets.all(Sizes.md / 2),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,

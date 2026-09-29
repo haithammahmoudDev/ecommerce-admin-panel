@@ -2,8 +2,6 @@ import 'package:ecommerce_admin_pannal/features/media/domain/entities/image_enti
 import 'package:ecommerce_admin_pannal/features/product/presentation/controller/product_image/product_image_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../media/data/models/image_model.dart';
 import '../../../../media/presentation/controller/media_cubit/media_cubit.dart';
 
 class ProductImagesCubit extends Cubit<ProductImagesState> {

@@ -1,11 +1,8 @@
 import 'package:intl/intl.dart';
-
 import '../constants/text_strings.dart';
 
-/// VALIDATION CLASS
-class TValidator {
-  /// Empty Text Validation
-  static String? validateEmptyText(String? fieldName, String? value) {
+ class Validator {
+   static String? validateEmptyText(String? fieldName, String? value) {
     if (value == null || value.isEmpty) {
       return '$fieldName is required.';
     }
@@ -18,8 +15,7 @@ class TValidator {
       return 'Pin Code is required.';
     }
 
-    // Check for minimum pinCode length
-    if (pinCode.length < 6) {
+     if (pinCode.length < 6) {
       return 'Pin Code must be 6 Digits.';
     }
 
@@ -32,8 +28,7 @@ class TValidator {
     }
 
     try {
-      // Parse the input date in the 'dd-MMM-yyyy' format
-      final DateFormat format = DateFormat('dd-MMM-yyyy');
+       final DateFormat format = DateFormat('dd-MMM-yyyy');
       final DateTime dateOfBirth = format.parse(input);
 
       final DateTime today = DateTime.now();
@@ -50,23 +45,18 @@ class TValidator {
     return null;
   }
 
-  /// Username Validation
-  static String? validateUsername(String? username) {
+   static String? validateUsername(String? username) {
     if (username == null || username.isEmpty) {
       return 'Username is required.';
     }
 
-    // Define a regular expression pattern for the username.
-    const pattern = r"^[a-zA-Z0-9_-]{3,20}$";
+     const pattern = r"^[a-zA-Z0-9_-]{3,20}$";
 
-    // Create a RegExp instance from the pattern.
-    final regex = RegExp(pattern);
+     final regex = RegExp(pattern);
 
-    // Use the hasMatch method to check if the username matches the pattern.
-    bool isValid = regex.hasMatch(username);
+     bool isValid = regex.hasMatch(username);
 
-    // Check if the username doesn't start or end with an underscore or hyphen.
-    if (isValid) {
+     if (isValid) {
       isValid = !username.startsWith('_') && !username.startsWith('-') && !username.endsWith('_') && !username.endsWith('-');
     }
 
@@ -93,14 +83,12 @@ class TValidator {
     return null;
   }
 
-  /// Password Validation
-  static String? validatePassword(String? value) {
+   static String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
       return 'Password is required.';
     }
 
-    // Check for minimum password length
-    if (value.length < 6) {
+     if (value.length < 6) {
       return 'Password must be at least 6 characters long.';
     }
 

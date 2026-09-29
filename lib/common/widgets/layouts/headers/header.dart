@@ -9,8 +9,8 @@ import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/device/device_utility.dart';
 import '../../images/t_rounded_image.dart';
 
-class THeader extends StatelessWidget implements PreferredSizeWidget {
-  const THeader({super.key, this.scaffoldKey});
+class HeaderCustom extends StatelessWidget implements PreferredSizeWidget {
+  const HeaderCustom({super.key, this.scaffoldKey});
 
   final GlobalKey<ScaffoldState>? scaffoldKey;
 
@@ -26,8 +26,8 @@ class THeader extends StatelessWidget implements PreferredSizeWidget {
             border: Border(bottom: BorderSide(color: TColors.grey, width: 1)),
           ),
           padding: const EdgeInsets.symmetric(
-            horizontal: TSizes.md,
-            vertical: TSizes.sm,
+            horizontal: Sizes.md,
+            vertical: Sizes.sm,
           ),
           child: SafeArea(
             child: Row(
@@ -61,13 +61,12 @@ class THeader extends StatelessWidget implements PreferredSizeWidget {
                     onPressed: () {},
                   ),
 
-                // زر الإشعارات
                 IconButton(
                   icon: const Icon(Iconsax.notification),
                   onPressed: () {},
                 ),
 
-                const SizedBox(width: TSizes.spaceBtwItems / 2),
+                const SizedBox(width: Sizes.spaceBtwItems / 2),
 
                 BlocBuilder<UserCubit, UserState>(
                   buildWhen: (previous, current) =>
@@ -98,7 +97,7 @@ class THeader extends StatelessWidget implements PreferredSizeWidget {
                           isCircle: true,
                           fit: BoxFit.cover,
                         ),
-                        const SizedBox(width: TSizes.sm),
+                        const SizedBox(width: Sizes.sm),
 
                         if (!TDeviceUtils.isMobileScreen(context))
                           Column(
@@ -154,7 +153,7 @@ class _UserShimmer extends StatelessWidget {
             ),
           ),
           if (!TDeviceUtils.isMobileScreen(context)) ...[
-            const SizedBox(width: TSizes.sm),
+            const SizedBox(width: Sizes.sm),
             Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,

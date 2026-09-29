@@ -20,11 +20,11 @@ class TRoundedImage extends StatelessWidget {
     this.overlayColor,
     required this.imageType,
     this.backgroundColor,
-    this.padding = 0, // Default changed to 0 to prevent inner clipping
+    this.padding = 0,
     this.margin,
-    this.fit = BoxFit.cover, // Changed default to cover for standard rounded tiles
+    this.fit = BoxFit.cover,
     this.applyImageRadius = true,
-    this.borderRadius = TSizes.md,
+    this.borderRadius = Sizes.md,
     this.isCircle = false,
   });
 
@@ -88,9 +88,6 @@ class TRoundedImage extends StatelessWidget {
     }
   }
 
-  // ============================================================
-  // Network Image
-  // ============================================================
   Widget _buildNetworkImage() {
     if (image == null || image!.trim().isEmpty) {
       return const SizedBox.shrink();
@@ -114,9 +111,6 @@ class TRoundedImage extends StatelessWidget {
     );
   }
 
-  // ============================================================
-  // Asset Image
-  // ============================================================
   Widget _buildAssetImage() {
     if (image == null || image!.trim().isEmpty) {
       return const SizedBox.shrink();
@@ -136,9 +130,6 @@ class TRoundedImage extends StatelessWidget {
     );
   }
 
-  // ============================================================
-  // File Image
-  // ============================================================
   Widget _buildFileImage() {
     if (file == null) {
       return const SizedBox.shrink();
@@ -153,9 +144,6 @@ class TRoundedImage extends StatelessWidget {
     );
   }
 
-  // ============================================================
-  // Memory Image
-  // ============================================================
   Widget _buildMemoryImage() {
     if (memoryImage == null) {
       return const SizedBox.shrink();

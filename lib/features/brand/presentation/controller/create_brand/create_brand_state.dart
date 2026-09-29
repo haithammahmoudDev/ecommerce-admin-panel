@@ -9,16 +9,22 @@ class CreateBrandState extends Equatable {
   final String imageUrl;
   final List<CategoryEntity> selectedCategories;
 
-  CreateBrandState({
+  const CreateBrandState({
     this.errorMessage,
     this.status = CreateBrandStatus.initial,
     this.imageUrl = '',
     this.isFeatured = false,
-    this.selectedCategories= const[],
+    this.selectedCategories = const [],
   });
 
   @override
-  List<Object?> get props => [isFeatured, status, errorMessage, imageUrl, selectedCategories];
+  List<Object?> get props => [
+    isFeatured,
+    status,
+    errorMessage,
+    imageUrl,
+    selectedCategories,
+  ];
 
   CreateBrandState copyWith({
     CreateBrandStatus? status,

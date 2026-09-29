@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../../../../utils/constants/enums.dart';
 import '../../../../../../utils/constants/sizes.dart';
@@ -17,11 +16,9 @@ class ProductVisibilityWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Visibility Header
           Text('Visibility', style: Theme.of(context).textTheme.headlineSmall),
-          const SizedBox(height: TSizes.spaceBtwItems),
+          const SizedBox(height: Sizes.spaceBtwItems),
 
-          // Radio buttons for product visibility
           BlocBuilder<EditProductCubit, EditProductState>(
             builder: (context, state) {
               return Column(
@@ -44,10 +41,9 @@ class ProductVisibilityWidget extends StatelessWidget {
           ),
         ],
       ), // Column
-    ); // TRoundedContainer
+    ); // RoundedContainer
   }
 
-  // Helper method to build a radio button for product visibility
   Widget _buildVisibilityRadioButton(
       BuildContext context,
       ProductVisibility value,

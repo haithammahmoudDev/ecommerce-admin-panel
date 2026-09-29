@@ -67,7 +67,7 @@ class LoginForm extends StatelessWidget {
       child: Form(
         key: _loginFormKey,
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: TSizes.spaceBtwSections),
+          padding: EdgeInsets.symmetric(vertical: Sizes.spaceBtwSections),
           child: Column(
             children: [
               CustomFormfieldWidget.withdownEar(
@@ -87,7 +87,7 @@ class LoginForm extends StatelessWidget {
                   return null;
                 },
               ),
-              SizedBox(height: TSizes.spaceBtwInputFields),
+              SizedBox(height: Sizes.spaceBtwInputFields),
               CustomFormfieldWidget(
                 label: TTexts.tPassword,
                 controller: password,
@@ -103,7 +103,7 @@ class LoginForm extends StatelessWidget {
                 },
                 withdownEar: false,
               ),
-              SizedBox(height: TSizes.spaceBtwInputFields / 2),
+              SizedBox(height: Sizes.spaceBtwInputFields / 2),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -116,7 +116,7 @@ class LoginForm extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: TSizes.spaceBtwSections),
+              const SizedBox(height: Sizes.spaceBtwSections),
               BlocBuilder<EmailAuthBloc, EmailAuthState>(
                 builder: (context, state) {
                   return TPrimaryButton(

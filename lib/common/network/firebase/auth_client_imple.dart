@@ -1,5 +1,3 @@
-// core/network/firebase/auth_client_impl.dart
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'auth_client.dart';
 
@@ -8,27 +6,32 @@ class AuthClientImpl implements AuthClient {
   AuthClientImpl(this.client);
 
   @override
-  Future<UserCredential> signUp({required String email, required String password}) async =>
-      await client.createUserWithEmailAndPassword(
-          email: email,
-          password: password,
-      );
+  Future<UserCredential> signUp({
+    required String email,
+    required String password,
+  }) async => await client.createUserWithEmailAndPassword(
+    email: email,
+    password: password,
+  );
 
   @override
-  Future<UserCredential> signIn({required String email, required String password}) async =>
+  Future<UserCredential> signIn({
+    required String email,
+    required String password,
+  }) async =>
       await client.signInWithEmailAndPassword(email: email, password: password);
 
   @override
-  Future<UserCredential> signInWithCredential(AuthCredential credential) async =>
-      await client.signInWithCredential(credential);
+  Future<UserCredential> signInWithCredential(
+    AuthCredential credential,
+  ) async => await client.signInWithCredential(credential);
 
   @override
   Future<void> sendPasswordResetEmail({required String email}) async =>
       await client.sendPasswordResetEmail(email: email);
 
   @override
-  Future<void> deleteAccount() async =>
-      await client.currentUser!.delete();
+  Future<void> deleteAccount() async => await client.currentUser!.delete();
 
   @override
   Future<void> verifyPhoneNumber({
@@ -48,8 +51,9 @@ class AuthClientImpl implements AuthClient {
   }
 
   @override
-  Future<UserCredential> linkWithPhoneCredential({required PhoneAuthCredential credential}) async =>
-      await client.currentUser!.linkWithCredential(credential);
+  Future<UserCredential> linkWithPhoneCredential({
+    required PhoneAuthCredential credential,
+  }) async => await client.currentUser!.linkWithCredential(credential);
 
   @override
   Future<void> sendEmailVerification() async =>
@@ -63,17 +67,13 @@ class AuthClientImpl implements AuthClient {
     return client.currentUser?.emailVerified ?? false;
   }
 
-  // ← NEW: تحديث كلمة المرور (الـ user لازم يكون signed in حديثاً)
   @override
   Future<void> updatePassword({required String newPassword}) async =>
       await client.currentUser!.updatePassword(newPassword);
 
-  // ← NEW: تسجيل الخروج بعد إعادة تعيين كلمة المرور
   @override
-  Future<void> signOut() async =>
-      await client.signOut();
+  Future<void> signOut() async => await client.signOut();
 
-  // ← NEW: بناء الـ credential وإعادة التحقق بيه
   @override
   Future<void> reAuthenticateWithEmailAndPassword({
     required String email,
@@ -82,8 +82,10 @@ class AuthClientImpl implements AuthClient {
     final user = client.currentUser;
     if (user == null) throw FirebaseAuthException(code: 'user-not-found');
 
-    final credential =
-    EmailAuthProvider.credential(email: email, password: password);
+    final credential = EmailAuthProvider.credential(
+      email: email,
+      password: password,
+    );
     await user.reauthenticateWithCredential(credential);
   }
 }

@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../../../../utils/constants/sizes.dart';
-import '../../../../../customer/presentation/screens/customer_detail/widgets/customer_info.dart';
 import '../../../../domain/entities/order_entity.dart';
 import '../widgets/customer_info.dart';
 import '../widgets/order_info.dart';
@@ -17,7 +15,7 @@ class OrderDetailTabletScreen extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(TSizes.defaultSpace),
+          padding: const EdgeInsets.all(Sizes.defaultSpace),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -25,7 +23,7 @@ class OrderDetailTabletScreen extends StatelessWidget {
                 order.id,
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
-              const SizedBox(height: TSizes.spaceBtwSections / 2),
+              const SizedBox(height: Sizes.spaceBtwSections / 2),
 
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -34,28 +32,23 @@ class OrderDetailTabletScreen extends StatelessWidget {
                     flex: 2,
                     child: Column(
                       children: [
-                        // Order Info
                         OrderInfo(order: order),
-                        const SizedBox(height: TSizes.spaceBtwSections),
+                        const SizedBox(height: Sizes.spaceBtwSections),
 
-                        // Items
                         OrderItems(order: order),
-                        const SizedBox(height: TSizes.spaceBtwSections),
+                        const SizedBox(height: Sizes.spaceBtwSections),
 
-                        // Transactions
                         OrderTransactions(order: order),
                       ],
                     ),
                   ),
-                  const SizedBox(width: TSizes.spaceBtwSections),
+                  const SizedBox(width: Sizes.spaceBtwSections),
 
-                  // Right Side Order Orders
                   Expanded(
                     child: Column(
                       children: [
-                        // Customer Info
                         OrderCustomerInfo(order: order),
-                        const SizedBox(height: TSizes.spaceBtwSections),
+                        const SizedBox(height: Sizes.spaceBtwSections),
                       ],
                     ),
                   ),

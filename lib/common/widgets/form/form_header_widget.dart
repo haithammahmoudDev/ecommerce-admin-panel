@@ -13,8 +13,7 @@ class FormHeaderWidget extends StatelessWidget {
     this.crossAxisAlignment = CrossAxisAlignment.start,
   });
 
-  //Variables -- Declared in Constructor
-  final Color? imageColor;
+   final Color? imageColor;
   final double imageHeight;
   final double? heightBetween;
   final String image, title, subTitle;

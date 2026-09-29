@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce_admin_pannal/features/product/data/models/product_attribute_model.dart';
 import 'package:ecommerce_admin_pannal/features/product/data/models/product_variation_model.dart';
-
 import '../../../../utils/formatters/formatter.dart';
 import '../../../brand/data/models/brand_model.dart';
 import '../../domain/entities/product_entity.dart';
@@ -47,7 +46,6 @@ class ProductModel {
 
   String get formattedDate => TFormatter.formatDate(date);
 
-  /// Create Empty func for clean code
   static ProductModel empty() =>
       ProductModel(id: '',
           title: '',
@@ -56,7 +54,6 @@ class ProductModel {
           thumbnail: '',
           productType: '');
 
-  /// Json Format
   Map<String, dynamic> toJson() {
     return {
       'SKU': sku,
@@ -82,7 +79,6 @@ class ProductModel {
     };
   }
 
-  /// Map Json / Firebase Document Data to ProductModel
   factory ProductModel.fromFirebaseData(Map<String, dynamic>? data, String? docId) {
     if (data == null) return ProductModel.empty();
 
@@ -100,27 +96,22 @@ class ProductModel {
       categoryId: data['CategoryId'],
       description: data['Description'],
 
-      // handling DateTime / Timestamp
       date: data['Date'] != null
           ? (data['Date'] is Timestamp
           ? (data['Date'] as Timestamp).toDate()
           : DateTime.tryParse(data['Date'].toString()))
           : null,
 
-      // handling List of Strings for Images
       images: data['Images'] != null ? List<String>.from(data['Images']) : [],
 
-      // handling Nested Object: BrandModel
       brand: data['Brand'] != null ? BrandModel.fromJson(data['Brand']) : null,
 
-      // handling List of ProductAttributes
       productAttributes: data['ProductAttributes'] != null
           ? (data['ProductAttributes'] as List)
           .map((e) => ProductAttributeModel.fromJson(e))
           .toList()
           : [],
 
-      // handling List of ProductVariations
       productVariations: data['ProductVariations'] != null
           ? (data['ProductVariations'] as List)
           .map((e) => ProductVariationModel.fromJson(e))
@@ -129,7 +120,6 @@ class ProductModel {
     );
   }
 
-  /// Converts ProductModel to ProductEntity
   ProductEntity toEntity() {
     return ProductEntity(
       id: id,

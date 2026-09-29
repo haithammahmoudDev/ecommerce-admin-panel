@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
-
 import '../../../../common/errors/failure.dart';
 import '../../../../common/network/firebase/database_services.dart';
 import '../../domain/entities/order_entity.dart';
@@ -15,11 +14,9 @@ class UserRepoImpl implements UserRepo {
   final FirebaseFirestore _db;
   final DatabaseServices _databaseServices;
 
-  UserRepoImpl({FirebaseFirestore? db, required DatabaseServices databaseServices})
-      : _db = db ?? FirebaseFirestore.instance,
-        _databaseServices = databaseServices;
+  UserRepoImpl({FirebaseFirestore? db, required this._databaseServices})
+      : _db = db ?? FirebaseFirestore.instance;
 
-  /// Fetch all users ordered by fullName
   @override
   Future<Either<Failure, List<UserEntity>>> getAllUsers() async {
     try {
@@ -43,8 +40,7 @@ class UserRepoImpl implements UserRepo {
     }
   }
 
-  /// Fetch user details based on user ID
-  @override
+   @override
   Future<Either<Failure, UserEntity>> getUserDetail(String id) async {
     try {
       final documentSnapshot = await _db.collection("users").doc(id).get();
@@ -70,8 +66,7 @@ class UserRepoImpl implements UserRepo {
     }
   }
 
-  /// Create a new user entry
-  @override
+   @override
   Future<Either<Failure, void>> createUser({required UserEntity user}) async {
     try {
       final userModel = UserModel.fromEntity(user);
@@ -92,8 +87,7 @@ class UserRepoImpl implements UserRepo {
     }
   }
 
-  /// Update single field in current user profile
-  @override
+   @override
   Future<Either<Failure, void>> updateSingleField(
       {required Map<String, dynamic> json}) async {
     try {
@@ -115,8 +109,7 @@ class UserRepoImpl implements UserRepo {
     }
   }
 
-  /// Fetch all orders for a specific user ID
-  @override
+   @override
   Future<Either<Failure, List<OrderEntity>>> fetchUserOrders(
       String userId) async {
     try {
@@ -144,8 +137,7 @@ class UserRepoImpl implements UserRepo {
     }
   }
 
-  /// Delete a user by ID
-  @override
+   @override
   Future<Either<Failure, void>> deleteUser({required String id}) async {
     try {
       await _databaseServices.deleteData(
@@ -164,8 +156,7 @@ class UserRepoImpl implements UserRepo {
     }
   }
 
-  /// Fetch current logged-in admin details
-  @override
+   @override
   Future<Either<Failure, UserEntity>> fetchAdminDetails() async {
     try {
       final currentAdminId = FirebaseAuth.instance.currentUser?.uid ?? '';

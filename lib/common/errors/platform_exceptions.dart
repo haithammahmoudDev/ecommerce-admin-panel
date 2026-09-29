@@ -1,9 +1,7 @@
-// ⚠️ ضيف الملف ده في common/errors/platform_exceptions.dart بتاعك (لو مش موجود
-// عندك بالفعل) - ده الملف التاني والأخير المطلوب إضافته في common/errors/.
-class TPlatformException implements Exception {
+class PlatformException implements Exception {
   final String code;
 
-  TPlatformException(this.code);
+  PlatformException(this.code);
 
   String get message {
     switch (code) {

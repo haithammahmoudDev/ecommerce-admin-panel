@@ -42,7 +42,7 @@ class MediaContent extends StatelessWidget {
         }
       },
       child: RoundedContainer(
-        padding: const EdgeInsets.all(TSizes.defaultSpace),
+        padding: const EdgeInsets.all(Sizes.defaultSpace),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -55,7 +55,7 @@ class MediaContent extends StatelessWidget {
                       'Select Folder',
                       style: Theme.of(context).textTheme.headlineSmall,
                     ),
-                    const SizedBox(width: TSizes.spaceBtwItems),
+                    const SizedBox(width: Sizes.spaceBtwItems),
                     MediaFolderDropdown(
                       onChanged: (MediaCategory? newValue) {
                         if (newValue != null) {
@@ -71,7 +71,7 @@ class MediaContent extends StatelessWidget {
                 if (allowSelection) buildAddSelectedImagesButton(context),
               ],
             ),
-            const SizedBox(height: TSizes.spaceBtwSections),
+            const SizedBox(height: Sizes.spaceBtwSections),
 
             BlocBuilder<MediaCubit, MediaState>(
               builder: (context, state) {
@@ -112,8 +112,8 @@ class MediaContent extends StatelessWidget {
                   children: [
                     Wrap(
                       alignment: WrapAlignment.start,
-                      spacing: TSizes.spaceBtwItems / 2,
-                      runSpacing: TSizes.spaceBtwItems / 2,
+                      spacing: Sizes.spaceBtwItems / 2,
+                      runSpacing: Sizes.spaceBtwItems / 2,
                       children: images
                           .map(
                             (image) => GestureDetector(
@@ -135,7 +135,7 @@ class MediaContent extends StatelessWidget {
                                     Expanded(
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
-                                          horizontal: TSizes.sm,
+                                          horizontal: Sizes.sm,
                                         ),
                                         child: Text(
                                           image.filename,
@@ -154,13 +154,13 @@ class MediaContent extends StatelessWidget {
                     if (!state.isLoadingMore)
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                          vertical: TSizes.spaceBtwSections,
+                          vertical: Sizes.spaceBtwSections,
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             SizedBox(
-                              width: TSizes.buttonWidth,
+                              width: Sizes.buttonWidth,
                               child: ElevatedButton.icon(
                                 onPressed: () => context
                                     .read<MediaCubit>()
@@ -238,10 +238,10 @@ class MediaContent extends StatelessWidget {
     return TRoundedImage(
       width: 140,
       height: 140,
-      padding: TSizes.sm,
+      padding: Sizes.sm,
       image: image.getOptimizedUrl(width: 300),
       imageType: ImageType.network,
-      margin: TSizes.spaceBtwItems / 2,
+      margin: Sizes.spaceBtwItems / 2,
       backgroundColor: TColors.primaryBackground,
     );
   }
@@ -258,7 +258,7 @@ class MediaContent extends StatelessWidget {
             onPressed: () => context.pop(),
           ),
         ),
-        const SizedBox(width: TSizes.spaceBtwItems),
+        const SizedBox(width: Sizes.spaceBtwItems),
         SizedBox(
           width: 120,
           child: ElevatedButton.icon(
@@ -284,15 +284,15 @@ class MediaContent extends StatelessWidget {
         TRoundedImage(
           width: 140,
           height: 140,
-          padding: TSizes.sm,
+          padding: Sizes.sm,
           image: image.url,
           imageType: ImageType.network,
-          margin: TSizes.spaceBtwItems / 2,
+          margin: Sizes.spaceBtwItems / 2,
           backgroundColor: TColors.primaryBackground,
         ),
         Positioned(
-          top: TSizes.md,
-          right: TSizes.md,
+          top: Sizes.md,
+          right: Sizes.md,
           child: BlocBuilder<MediaCubit, MediaState>(
             builder: (context, state) {
               final isSelected = state.selectedImagesToUpload.any(

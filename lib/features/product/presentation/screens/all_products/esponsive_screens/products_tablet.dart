@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -34,7 +33,7 @@ class _ProductsTabletScreenState extends State<ProductsTabletScreen> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(TSizes.defaultSpace),
+          padding: const EdgeInsets.all(Sizes.defaultSpace),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -43,20 +42,17 @@ class _ProductsTabletScreenState extends State<ProductsTabletScreen> {
                 'Products',
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
-              const SizedBox(height: TSizes.spaceBtwSections / 2),
+              const SizedBox(height: Sizes.spaceBtwSections / 2),
 
-              // Table Body
               RoundedContainer(
                 child: Column(
                   children: [
-                    // Table Header
                     TableHeader(
                       buttonText: 'Add Product',
                       onPressed: () => context.push('/products/create-product'),
-                    ), // TTableHeading
-                    const SizedBox(height: TSizes.spaceBtwItems),
+                    ),
+                    const SizedBox(height: Sizes.spaceBtwItems),
 
-                    // Table
                     BlocBuilder<ProductCubit, BaseDataTableState<ProductEntity>>(
                       builder: (context, state) {
                         if (state.status == DataTableStatus.loading) {

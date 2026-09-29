@@ -12,7 +12,7 @@ class CustomerDetailState extends Equatable {
   final String? errorMessage;
 
   const CustomerDetailState({
-    this.customer = UserEntity.empty, // استخدام الثابت مباشرة
+    this.customer = UserEntity.empty,
     this.allCustomerOrders = const [],
     this.filteredCustomerOrders = const [],
     this.ordersLoading = true,

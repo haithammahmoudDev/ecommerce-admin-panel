@@ -14,7 +14,7 @@ class MediaDesktopScreen extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(TSizes.defaultSpace),
+          padding: const EdgeInsets.all(Sizes.defaultSpace),
           child: Builder(
             builder: (context) {
               return Column(
@@ -29,7 +29,7 @@ class MediaDesktopScreen extends StatelessWidget {
                         style: Theme.of(context).textTheme.headlineLarge,
                       ),
                       SizedBox(
-                        width: TSizes.buttonWidth * 1.5,
+                        width: Sizes.buttonWidth * 1.5,
                         child: ElevatedButton.icon(
                           onPressed: () => context
                               .read<MediaCubit>()
@@ -40,9 +40,9 @@ class MediaDesktopScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: TSizes.spaceBtwSections / 2),
+                  const SizedBox(height: Sizes.spaceBtwSections / 2),
                   MediaUploader(),
-                  const SizedBox(height: TSizes.spaceBtwSections),
+                  const SizedBox(height: Sizes.spaceBtwSections),
 
                   MediaContent(
                     allowSelection: false,

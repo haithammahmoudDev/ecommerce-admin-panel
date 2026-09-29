@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-
 import '../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
@@ -34,7 +33,7 @@ class TDashboardCard extends StatelessWidget {
 
     return RoundedContainer(
       onTap: onTap ?? () {},
-      padding: EdgeInsets.all(isSmallDesktop ? TSizes.md : TSizes.lg),
+      padding: EdgeInsets.all(isSmallDesktop ? Sizes.md : Sizes.lg),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -43,15 +42,15 @@ class TDashboardCard extends StatelessWidget {
             children: [
               if (headingIcon != null) ...[
                 RoundedContainer(
-                  padding: const EdgeInsets.all(TSizes.xs),
-                  backgroundColor: headingIconBgColor ?? TColors.primary.withOpacity(0.1),
+                  padding: const EdgeInsets.all(Sizes.xs),
+                  backgroundColor: headingIconBgColor ?? TColors.primary.withValues(alpha: 0.1),
                   child: Icon(
                     headingIcon,
                     color: headingIconColor ?? TColors.primary,
-                    size: TSizes.iconMd,
+                    size: Sizes.iconMd,
                   ),
                 ),
-                const SizedBox(width: TSizes.spaceBtwItems),
+                const SizedBox(width: Sizes.spaceBtwItems),
               ],
               Expanded(
                 child: Text(
@@ -63,7 +62,7 @@ class TDashboardCard extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: TSizes.spaceBtwItems),
+          const SizedBox(height: Sizes.spaceBtwItems),
 
           // Body Row (Subtitle + Stats)
           Row(
@@ -77,7 +76,7 @@ class TDashboardCard extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
-              const SizedBox(width: TSizes.xs),
+              const SizedBox(width: Sizes.xs),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -86,7 +85,7 @@ class TDashboardCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(icon, color: color, size: TSizes.iconSm),
+                        Icon(icon, color: color, size: Sizes.iconSm),
                         const SizedBox(width: 2),
                         Flexible(
                           child: Text(

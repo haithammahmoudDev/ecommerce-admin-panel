@@ -20,7 +20,7 @@ class TEComAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final dark = THelperFunctions.isDarkMode(context);
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: TSizes.md),
+      padding: const EdgeInsets.symmetric(horizontal: Sizes.md),
       child: AppBar(
         automaticallyImplyLeading: false,
         leading:

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../../../../common/widgets/images/t_rounded_image.dart';
 import '../../../../../../utils/constants/colors.dart';
@@ -20,11 +19,8 @@ class ProductThumbnailImage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Product Thumbnail Text
           Text('Product Thumbnail', style: Theme.of(context).textTheme.headlineSmall),
-          const SizedBox(height: TSizes.spaceBtwItems),
-
-          // Container for Product Thumbnail
+          const SizedBox(height: Sizes.spaceBtwItems),
           RoundedContainer(
             height: 300,
             backgroundColor: TColors.primaryBackground,
@@ -32,7 +28,6 @@ class ProductThumbnailImage extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // Thumbnail Image
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -53,9 +48,8 @@ class ProductThumbnailImage extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: TSizes.spaceBtwItems),
+                  const SizedBox(height: Sizes.spaceBtwItems),
 
-                  // Add Thumbnail Button
                   SizedBox(
                     width: 200,
                     child: OutlinedButton(

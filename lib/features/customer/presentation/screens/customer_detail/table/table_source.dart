@@ -1,6 +1,5 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:ecommerce_admin_pannal/features/customer/presentation/controller/customer_detail_controller/customer_detail_cubit.dart';
-import 'package:ecommerce_admin_pannal/features/product/presentation/controller/product_cubit.dart' show ProductCubit;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -8,7 +7,6 @@ import '../../../../../../common/widgets/custom_shapes/containers/rounded_contai
 import '../../../../../../utils/constants/colors.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../../../../../../utils/helpers/helper_functions.dart';
-import '../../../../../order/data/models/order_model.dart';
 
 class CustomerOrdersRows extends DataTableSource {
   final BuildContext context;
@@ -27,7 +25,6 @@ class CustomerOrdersRows extends DataTableSource {
 
     final order = orders[index];
 
-    // حساب إجمالي المبلغ للطلب (إذا كان يحتوي على قائمة items)
     final totalAmount = order.items.isNotEmpty
         ? order.items.fold<double>(
       0.0,
@@ -51,15 +48,13 @@ class CustomerOrdersRows extends DataTableSource {
         ),
         // Date
         DataCell(Text(order.formattedOrderDate)),
-        // Items Count
         DataCell(Text('${order.items.length} Items')),
-        // Status
         DataCell(
           RoundedContainer(
-            radius: TSizes.cardRadiusSm,
+            radius: Sizes.cardRadiusSm,
             padding: const EdgeInsets.symmetric(
-              vertical: TSizes.xs,
-              horizontal: TSizes.md,
+              vertical: Sizes.xs,
+              horizontal: Sizes.md,
             ),
             backgroundColor: THelperFunctions.getOrderStatusColor(order.status)
                 .withOpacity(0.1),

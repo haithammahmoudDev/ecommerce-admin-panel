@@ -13,34 +13,33 @@ class CustomerOrders extends StatefulWidget {
   @override
   State<CustomerOrders> createState() => _CustomerOrdersState();
 }
+
 class _CustomerOrdersState extends State<CustomerOrders> {
   @override
   void initState() {
     super.initState();
-     context.read<CustomerDetailCubit>().getCustomerOrders(context);
+    context.read<CustomerDetailCubit>().getCustomerOrders(context);
   }
 
   @override
   Widget build(BuildContext context) {
     return RoundedContainer(
-      padding: const EdgeInsets.all(TSizes.defaultSpace),
+      padding: const EdgeInsets.all(Sizes.defaultSpace),
       child: BlocBuilder<CustomerDetailCubit, CustomerDetailState>(
         builder: (context, state) {
-          // حالة التحميل
           if (state.ordersLoading) {
             return const Center(
               child: Padding(
-                padding: EdgeInsets.all(TSizes.defaultSpace),
+                padding: EdgeInsets.all(Sizes.defaultSpace),
                 child: CircularProgressIndicator(),
               ),
             );
           }
 
-          // حالة عدم وجود طلبات
           if (state.allCustomerOrders.isEmpty) {
             return Center(
               child: Padding(
-                padding: const EdgeInsets.all(TSizes.defaultSpace),
+                padding: const EdgeInsets.all(Sizes.defaultSpace),
                 child: Text(
                   'No Orders Found',
                   style: Theme.of(context).textTheme.bodyLarge,
@@ -49,16 +48,14 @@ class _CustomerOrdersState extends State<CustomerOrders> {
             );
           }
 
-          // حساب إجمالي المبلغ المنسوب للعميل
           final totalAmount = state.allCustomerOrders.fold<double>(
             0.0,
-                (previousValue, element) => previousValue + element.totalAmount,
+            (previousValue, element) => previousValue + element.totalAmount,
           );
 
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Header Row
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -72,10 +69,9 @@ class _CustomerOrdersState extends State<CustomerOrders> {
                         const TextSpan(text: 'Total Spent '),
                         TextSpan(
                           text: '\$${totalAmount.toStringAsFixed(2)}',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyLarge!
-                              .apply(color: TColors.primary),
+                          style: Theme.of(
+                            context,
+                          ).textTheme.bodyLarge!.apply(color: TColors.primary),
                         ),
                         TextSpan(
                           text: ' on ${state.allCustomerOrders.length} Orders',
@@ -86,9 +82,7 @@ class _CustomerOrdersState extends State<CustomerOrders> {
                   ),
                 ],
               ),
-              const SizedBox(height: TSizes.spaceBtwItems),
-
-              // Search Field
+              const SizedBox(height: Sizes.spaceBtwItems),
               TextFormField(
                 onChanged: (query) =>
                     context.read<CustomerDetailCubit>().searchQuery(query),
@@ -97,9 +91,7 @@ class _CustomerOrdersState extends State<CustomerOrders> {
                   prefixIcon: Icon(Iconsax.search_normal),
                 ),
               ),
-              const SizedBox(height: TSizes.spaceBtwSections),
-
-              // Table
+              const SizedBox(height: Sizes.spaceBtwSections),
               const CustomerOrderTable(),
             ],
           );

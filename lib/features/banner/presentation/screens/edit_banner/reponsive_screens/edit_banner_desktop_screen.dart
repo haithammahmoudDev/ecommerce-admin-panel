@@ -1,5 +1,3 @@
-import 'package:flutter/cupertino.dart';
- import '../../../../data/models/banner_model.dart';
 import 'package:flutter/material.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../../../../domain/entities/banner_entity.dart';
@@ -15,18 +13,15 @@ class EditBannerDesktopScreen extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(TSizes.defaultSpace),
+          padding: const EdgeInsets.all(Sizes.defaultSpace),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Breadcrumbs
               Text(
                 'Update Banner',
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
-              const SizedBox(height: TSizes.spaceBtwSections / 2),
-
-              // Form
+              const SizedBox(height: Sizes.spaceBtwSections / 2),
               EditBannerForm(banner: banner),
             ],
           ), // Column

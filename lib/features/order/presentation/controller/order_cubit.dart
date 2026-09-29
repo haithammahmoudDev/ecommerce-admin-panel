@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../../utils/constants/enums.dart';
-
 import '../../../../utils/popups/loaders.dart';
-import '../../data/models/order_model.dart';
 import '../../domain/entities/order_entity.dart';
 import '../../domain/repos/order_repo.dart';
 import 'order_state.dart';
@@ -13,7 +11,6 @@ class OrderCubit extends Cubit<OrderState> {
 
   OrderCubit(this._orderRepository) : super(const OrderState());
 
-  /// Fetch all orders
   Future<void> fetchItems() async {
     emit(state.copyWith(status: OrderStatusEnum.loading));
     final result = await _orderRepository.getAllOrders();
@@ -38,7 +35,6 @@ class OrderCubit extends Cubit<OrderState> {
       },
     );
   }
-
 
   Future<void> deleteOnConfirm(OrderEntity order, BuildContext context) async {
     emit(state.copyWith(status: OrderStatusEnum.loading));
@@ -86,7 +82,6 @@ class OrderCubit extends Cubit<OrderState> {
     );
   }
 
-  /// Change selected order status
   void selectOrderStatus(OrderStatus status) {
     emit(state.copyWith(selectedOrderStatus: status));
   }
@@ -183,42 +178,43 @@ class OrderCubit extends Cubit<OrderState> {
     );
   }
 
-  Future<void> updateOrderStatus(OrderEntity order, OrderStatus newStatus) async {
+  Future<void> updateOrderStatus(
+    OrderEntity order,
+    OrderStatus newStatus,
+  ) async {
     final updatedOrder = order.copyWith(status: newStatus);
 
     final result = await _orderRepository.updateOrderSpecificValue(order.id, {
-      'status' : newStatus.toString(),
+      'status': newStatus.toString(),
     });
 
     result.fold(
-          (failure) {
-        emit(state.copyWith(
-          errorMessage: failure.message,
-        ));
+      (failure) {
+        emit(state.copyWith(errorMessage: failure.message));
       },
-          (_) {
+      (_) {
         updateItemInLists(updatedOrder);
       },
     );
   }
 
+  void updateItemInLists(OrderEntity updatedItem) {
+    final updatedId = getItemId(updatedItem);
 
+    final updatedAll = state.allItems.map((item) {
+      return getItemId(item) == updatedId ? updatedItem : item;
+    }).toList();
 
-void updateItemInLists(OrderEntity updatedItem) {
-  final updatedId = getItemId(updatedItem);
+    final updatedFiltered = state.filteredItems.map((item) {
+      return getItemId(item) == updatedId ? updatedItem : item;
+    }).toList();
 
-  final updatedAll = state.allItems.map((item) {
-    return getItemId(item) == updatedId ? updatedItem : item;
-  }).toList();
-
-  final updatedFiltered = state.filteredItems.map((item) {
-    return getItemId(item) == updatedId ? updatedItem : item;
-  }).toList();
-
-  emit(state.copyWith(
-    allItems: updatedAll,
-    filteredItems: updatedFiltered,
-    status: OrderStatusEnum.success,
-  ));
-}
+    emit(
+      state.copyWith(
+        allItems: updatedAll,
+        filteredItems: updatedFiltered,
+        status: OrderStatusEnum.success,
+      ),
+    );
+  }
 }

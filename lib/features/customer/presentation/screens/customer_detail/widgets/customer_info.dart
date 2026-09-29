@@ -6,28 +6,24 @@ import '../../../../../../utils/constants/enums.dart';
 import '../../../../../../utils/constants/image_strings.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../../../../../auth/domain/entities/user_entity.dart';
-// قم باستيراد كلاس الـ UserEntity الخاص بك هنا، مثال:
-// import 'path_to_your_entity/user_entity.dart';
 
 class CustomerInfo extends StatelessWidget {
-  const CustomerInfo({
-    super.key,
-    required this.customer,
-  });
+  const CustomerInfo({super.key, required this.customer});
 
   final UserEntity customer;
 
   @override
   Widget build(BuildContext context) {
     return RoundedContainer(
-      padding: const EdgeInsets.all(TSizes.defaultSpace),
+      padding: const EdgeInsets.all(Sizes.defaultSpace),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Customer Information', style: Theme.of(context).textTheme.headlineMedium),
-          const SizedBox(height: TSizes.spaceBtwSections),
-
-          // Personal Info Card
+          Text(
+            'Customer Information',
+            style: Theme.of(context).textTheme.headlineMedium,
+          ),
+          const SizedBox(height: Sizes.spaceBtwSections),
           Row(
             children: [
               TRoundedImage(
@@ -36,7 +32,7 @@ class CustomerInfo extends StatelessWidget {
                 image: TImages.user,
                 imageType: ImageType.asset,
               ), // // TRoundedImage
-              const SizedBox(width: TSizes.spaceBtwItems),
+              const SizedBox(width: Sizes.spaceBtwItems),
               Expanded(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -58,42 +54,54 @@ class CustomerInfo extends StatelessWidget {
               ), // // Expanded
             ],
           ), // // Row
-          const SizedBox(height: TSizes.spaceBtwSections),
+          const SizedBox(height: Sizes.spaceBtwSections),
 
-          // Meta Data / Info Rows
           Row(
             children: [
-                SizedBox(width: 120, child: Text(customer.userName)),
+              SizedBox(width: 120, child: Text(customer.userName)),
               const Text(' : '),
-              const SizedBox(width: TSizes.spaceBtwItems / 2),
-              Expanded(child: Text(customer.userName, style: Theme.of(context).textTheme.titleMedium)),
+              const SizedBox(width: Sizes.spaceBtwItems / 2),
+              Expanded(
+                child: Text(
+                  customer.userName,
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              ),
             ],
           ), // Row
-          const SizedBox(height: TSizes.spaceBtwItems),
+          const SizedBox(height: Sizes.spaceBtwItems),
           Row(
             children: [
               const SizedBox(width: 120, child: Text('Country')),
               const Text(' : '),
-              const SizedBox(width: TSizes.spaceBtwItems / 2),
-              Expanded(child: Text('United Kingdom', style: Theme.of(context).textTheme.titleMedium)),
+              const SizedBox(width: Sizes.spaceBtwItems / 2),
+              Expanded(
+                child: Text(
+                  'United Kingdom',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              ),
             ],
           ), // Row
-          const SizedBox(height: TSizes.spaceBtwItems),
+          const SizedBox(height: Sizes.spaceBtwItems),
           Row(
             children: [
               const SizedBox(width: 120, child: Text('Phone Number')),
               const Text(' : '),
-              const SizedBox(width: TSizes.spaceBtwItems / 2),
-              Expanded(child: Text(customer.phoneNumber, style: Theme.of(context).textTheme.titleMedium)),
+              const SizedBox(width: Sizes.spaceBtwItems / 2),
+              Expanded(
+                child: Text(
+                  customer.phoneNumber,
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              ),
             ],
           ), // Row
-          const SizedBox(height: TSizes.spaceBtwItems),
+          const SizedBox(height: Sizes.spaceBtwItems),
 
-          // Divider
           const Divider(),
-          const SizedBox(height: TSizes.spaceBtwItems),
+          const SizedBox(height: Sizes.spaceBtwItems),
 
-          // Additional Details
           Row(
             children: [
               Expanded(
@@ -101,7 +109,10 @@ class CustomerInfo extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Last Order', style: Theme.of(context).textTheme.titleLarge),
+                    Text(
+                      'Last Order',
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
                     const Text('7 Days Ago, [#34d541]'),
                   ],
                 ), // Column
@@ -111,16 +122,18 @@ class CustomerInfo extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Average Order Value', style: Theme.of(context).textTheme.titleLarge),
+                    Text(
+                      'Average Order Value',
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
                     const Text('\$352'),
                   ],
                 ), // Column
               ), // Expanded
             ],
           ), // Row
-          const SizedBox(height: TSizes.spaceBtwItems),
+          const SizedBox(height: Sizes.spaceBtwItems),
 
-          // Additional Details Cont.
           Row(
             children: [
               Expanded(
@@ -128,7 +141,10 @@ class CustomerInfo extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Registered', style: Theme.of(context).textTheme.titleLarge),
+                    Text(
+                      'Registered',
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
                     // قمنا باستبدالها بـ تاريخ افتراضي لتجنب الخطأ في حال لم تكن دالة formattedDate مضافة في الكلاس الخاص بك
                     Text(customer.formattedDate),
                   ],
@@ -139,7 +155,10 @@ class CustomerInfo extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Email Marketing', style: Theme.of(context).textTheme.titleLarge),
+                    Text(
+                      'Email Marketing',
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
                     const Text('Subscribed'),
                   ],
                 ), // // Column

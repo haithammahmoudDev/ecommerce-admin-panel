@@ -1,6 +1,5 @@
-    import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../../common/di/injection_container.dart';
 import '../../../../../common/widgets/layouts/templates/site_layout.dart';
 import '../../../domain/entities/category_entity.dart';

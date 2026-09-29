@@ -16,19 +16,16 @@ class ProductCubit extends BaseDataTableCubit<ProductEntity> {
       : _productRepo = productRepo,
         super();
 
-  /// Fetch all products as Entities from the repository
   @override
   Future<Either<Failure, List<ProductEntity>>> fetchItems() async {
     return await _productRepo.fetchAllProducts();
   }
 
-  /// Unique identifier getter for BaseDataTableCubit
   @override
   String getItemId(ProductEntity item) {
     return item.id;
   }
 
-  /// Search filter logic for data table
   @override
   bool filterCondition(ProductEntity item, String query) {
     if (query.isEmpty) return true;
@@ -63,9 +60,6 @@ class ProductCubit extends BaseDataTableCubit<ProductEntity> {
       },
     );
   }
-  // ===========================================================================
-  // Sorting Methods
-  // ===========================================================================
 
   void sortByName(int sortColumnIndex, bool ascending) {
     sortByProperty(
@@ -99,14 +93,7 @@ class ProductCubit extends BaseDataTableCubit<ProductEntity> {
     );
   }
 
-  // ===========================================================================
-  // UI Helpers
-  // ===========================================================================
-
-  /// Calculate formatted price or price range for product variations
   String getProductPrice(ProductEntity product) {
-    // FIX: كانت تقارن بـ 'ProductType.single' فقط، فلا تطابق المنتجات
-    // المخزَّنة بصيغة .name ("single"). أضفنا الشكلين معاً بدون تغيير باقي المنطق.
     if (product.productType == 'ProductType.single' ||
         product.productType == 'single' ||
         product.productVariations == null ||
@@ -138,11 +125,6 @@ class ProductCubit extends BaseDataTableCubit<ProductEntity> {
     }
   }
 
-  // ===========================================================================
-  // Product Helper Methods
-  // ===========================================================================
-
-  /// Calculate Discount Percentage
   String? calculateSalePercentage(double originalPrice, double? salePrice) {
     if (salePrice == null || salePrice <= 0.0) return null;
     if (originalPrice <= 0) return null;
@@ -151,11 +133,7 @@ class ProductCubit extends BaseDataTableCubit<ProductEntity> {
     return percentage.toStringAsFixed(0);
   }
 
-  /// Calculate Product Stock
   String getProductStockTotal(ProductEntity product) {
-    // FIX: كانت تعمل force unwrap (productVariations!) بدون حماية null،
-    // وتقارن بصيغة .toString() فقط، فأي منتج Single مخزَّن بصيغة .name
-    // كان يتسبب في Crash فعلي (Null check operator used on a null value).
     if (product.productType == 'ProductType.single' ||
         product.productType == 'single' ||
         product.productVariations == null ||
@@ -167,9 +145,7 @@ class ProductCubit extends BaseDataTableCubit<ProductEntity> {
         .toString();
   }
 
-  /// Calculate Product Sold Quantity
   String getProductSoldQuantity(ProductEntity product) {
-    // FIX: نفس مشكلة getProductStockTotal بالضبط.
     if (product.productType == 'ProductType.single' ||
         product.productType == 'single' ||
         product.productVariations == null ||
@@ -181,7 +157,6 @@ class ProductCubit extends BaseDataTableCubit<ProductEntity> {
         .toString();
   }
 
-  /// Check Product Stock Status
   String getProductStockStatus(ProductEntity product) {
     return product.stock > 0 ? 'In Stock' : 'Out of Stock';
   }

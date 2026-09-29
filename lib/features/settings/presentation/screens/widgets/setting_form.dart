@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
-
 import '../../../../../../utils/constants/enums.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../../../../../../utils/validators/validation.dart';
@@ -24,7 +23,7 @@ class _SettingsFormState extends State<SettingsForm> {
     final cubit = context.read<SettingsCubit>();
 
     return RoundedContainer(
-      padding: const EdgeInsets.symmetric(vertical: TSizes.lg, horizontal: TSizes.md),
+      padding: const EdgeInsets.symmetric(vertical: Sizes.lg, horizontal: Sizes.md),
       child: BlocListener<SettingsCubit, SettingsState>(
         listener: (context, state) {
           if (state.status == SettingsStatus.success) {
@@ -42,18 +41,18 @@ class _SettingsFormState extends State<SettingsForm> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('App Settings', style: Theme.of(context).textTheme.headlineSmall),
-              const SizedBox(height: TSizes.spaceBtwSections),
+              const SizedBox(height: Sizes.spaceBtwSections),
               // App Name Input Field
               TextFormField(
                 controller: cubit.appNameController,
-                validator: (value) => TValidator.validateEmptyText('App Name', value),
+                validator: (value) => Validator.validateEmptyText('App Name', value),
                 decoration: const InputDecoration(
                   hintText: 'App Name',
                   label: Text('App Name'),
                   prefixIcon: Icon(Iconsax.user),
                 ),
               ),
-              const SizedBox(height: TSizes.spaceBtwInputFields),
+              const SizedBox(height: Sizes.spaceBtwInputFields),
 
               // Tax, Shipping, & Free Shipping Threshold Row
               Row(
@@ -63,7 +62,7 @@ class _SettingsFormState extends State<SettingsForm> {
                     child: TextFormField(
                       controller: cubit.taxController,
                       keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                      validator: (value) => TValidator.validateEmptyText('Tax Rate', value),
+                      validator: (value) => Validator.validateEmptyText('Tax Rate', value),
                       decoration: const InputDecoration(
                         hintText: 'Tax %',
                         label: Text('Tax Rate (%)'),
@@ -71,12 +70,12 @@ class _SettingsFormState extends State<SettingsForm> {
                       ),
                     ),
                   ),
-                  const SizedBox(width: TSizes.spaceBtwItems),
+                  const SizedBox(width: Sizes.spaceBtwItems),
                   Expanded(
                     child: TextFormField(
                       controller: cubit.shippingController,
                       keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                      validator: (value) => TValidator.validateEmptyText('Shipping Cost', value),
+                      validator: (value) => Validator.validateEmptyText('Shipping Cost', value),
                       decoration: const InputDecoration(
                         hintText: 'Shipping Cost',
                         label: Text('Shipping Cost (\$)'),
@@ -84,12 +83,12 @@ class _SettingsFormState extends State<SettingsForm> {
                       ),
                     ),
                   ),
-                  const SizedBox(width: TSizes.spaceBtwItems),
+                  const SizedBox(width: Sizes.spaceBtwItems),
                   Expanded(
                     child: TextFormField(
                       controller: cubit.freeShippingThresholdController,
                       keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                      validator: (value) => TValidator.validateEmptyText('Free Shipping Threshold', value),
+                      validator: (value) => Validator.validateEmptyText('Free Shipping Threshold', value),
                       decoration: const InputDecoration(
                         hintText: 'Free Shipping After (\$)',
                         label: Text('Free Shipping Threshold (\$)'),
@@ -99,7 +98,7 @@ class _SettingsFormState extends State<SettingsForm> {
                   ),
                 ],
               ),
-              const SizedBox(height: TSizes.spaceBtwInputFields * 2),
+              const SizedBox(height: Sizes.spaceBtwInputFields * 2),
 
               // ---------------------------------------------------------------
               // SELECTOR #2: Form Submit Button Loading State (Isolated Rebuild)

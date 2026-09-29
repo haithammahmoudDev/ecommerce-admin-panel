@@ -1,7 +1,6 @@
 import 'package:ecommerce_admin_pannal/features/product/presentation/controller/create_product/create_product_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../../common/di/injection_container.dart';
 import '../../../../../common/widgets/layouts/templates/site_layout.dart';
 import 'esponsive_screens/create_product_desktop.dart';

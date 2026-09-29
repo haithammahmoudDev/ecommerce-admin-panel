@@ -1,13 +1,10 @@
 import 'package:ecommerce_admin_pannal/common/widgets/layouts/templates/site_layout.dart';
-import 'package:ecommerce_admin_pannal/features/auth/presentation/cubit/user_cubit/user_cubit.dart';
- import 'package:ecommerce_admin_pannal/features/dashboard/presentation/screens/responsive_screens/dashboard_desktop.dart';
+import 'package:ecommerce_admin_pannal/features/dashboard/presentation/screens/responsive_screens/dashboard_desktop.dart';
 import 'package:ecommerce_admin_pannal/features/dashboard/presentation/screens/responsive_screens/dashboard_mobile.dart';
 import 'package:ecommerce_admin_pannal/features/dashboard/presentation/screens/responsive_screens/dashboard_tablet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../common/di/injection_container.dart';
-import '../../../media/presentation/controller/media_cubit/media_cubit.dart';
-import '../../../product/presentation/controller/product_image/product_image_cubit.dart';
 import '../controller/dashboard_cubit/dashboard_cubit.dart';
 
 class DashboardScreen extends StatelessWidget {
@@ -18,7 +15,7 @@ class DashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => sl<DashboardCubit>(), // Automatically triggers fetchData() in constructor
+      create: (_) => sl<DashboardCubit>(),
       child: const SiteTemplate(
         mobile: DashboardMobileScreen(),
         desktop: DashboardDesktopScreen(),

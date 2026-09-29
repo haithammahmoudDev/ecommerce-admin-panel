@@ -1,7 +1,6 @@
 import 'package:ecommerce_admin_pannal/features/product/domain/entities/product_attribute_entity.dart';
 import 'package:ecommerce_admin_pannal/features/product/domain/entities/product_variation_entity.dart';
 import 'package:intl/intl.dart';
-
 import '../../../brand/domain/entities/brand_entity.dart';
 
 class ProductEntity {

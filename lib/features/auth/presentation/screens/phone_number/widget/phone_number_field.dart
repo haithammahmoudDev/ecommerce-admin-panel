@@ -23,9 +23,9 @@ class TPhoneNumberField extends StatelessWidget {
       // key: controller.signInFormKey,
       child: TextFormField(
         cursorColor: TColors.primary,
-        cursorHeight: TSizes.lg,
+        cursorHeight: Sizes.lg,
         style: Theme.of(context).textTheme.bodySmall,
-        validator: (value) => TValidator.validatePhoneNumber(value),
+        validator: (value) => Validator.validatePhoneNumber(value),
         // controller: controller.phone,
         keyboardType: TextInputType.phone,
         decoration: InputDecoration(

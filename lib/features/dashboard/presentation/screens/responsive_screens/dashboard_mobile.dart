@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
-
 import '../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/sizes.dart';
@@ -19,19 +18,17 @@ class DashboardMobileScreen extends StatelessWidget {
     return BlocBuilder<DashboardCubit, DashboardState>(
       builder: (context, state) {
         return SingleChildScrollView(
-          padding: const EdgeInsets.all(TSizes.defaultSpace),
+          padding: const EdgeInsets.all(Sizes.defaultSpace),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Title
-              Text(
+               Text(
                 'Dashboard',
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
-              const SizedBox(height: TSizes.spaceBtwSections / 2),
+              const SizedBox(height: Sizes.spaceBtwSections / 2),
 
-              // KPI Cards (Stacked Vertically)
-              TDashboardCard(
+               TDashboardCard(
                 headingIcon: Iconsax.note,
                 headingIconColor: Colors.blue,
                 headingIconBgColor: Colors.blue.withOpacity(0.1),
@@ -41,7 +38,7 @@ class DashboardMobileScreen extends StatelessWidget {
                 icon: state.salesStats < 0 ? Iconsax.arrow_down : Iconsax.arrow_up,
                 color: state.salesStats < 0 ? TColors.error : TColors.success,
               ),
-              const SizedBox(height: TSizes.spaceBtwItems),
+              const SizedBox(height: Sizes.spaceBtwItems),
 
               TDashboardCard(
                 headingIcon: Iconsax.external_drive,
@@ -53,7 +50,7 @@ class DashboardMobileScreen extends StatelessWidget {
                 icon: state.avgOrderStats < 0 ? Iconsax.arrow_down : Iconsax.arrow_up,
                 color: state.avgOrderStats < 0 ? TColors.error : TColors.success,
               ),
-              const SizedBox(height: TSizes.spaceBtwItems),
+              const SizedBox(height: Sizes.spaceBtwItems),
 
               TDashboardCard(
                 headingIcon: Iconsax.box,
@@ -65,7 +62,7 @@ class DashboardMobileScreen extends StatelessWidget {
                 icon: state.ordersStats < 0 ? Iconsax.arrow_down : Iconsax.arrow_up,
                 color: state.ordersStats < 0 ? TColors.error : TColors.success,
               ),
-              const SizedBox(height: TSizes.spaceBtwItems),
+              const SizedBox(height: Sizes.spaceBtwItems),
 
               TDashboardCard(
                 headingIcon: Iconsax.user,
@@ -77,11 +74,10 @@ class DashboardMobileScreen extends StatelessWidget {
                 icon: state.customersStats < 0 ? Iconsax.arrow_down : Iconsax.arrow_up,
                 color: state.customersStats < 0 ? TColors.error : TColors.success,
               ),
-              const SizedBox(height: TSizes.spaceBtwSections),
+              const SizedBox(height: Sizes.spaceBtwSections),
 
-              // Weekly Sales Graph
-              const TWeeklySalesGraph(),
-              const SizedBox(height: TSizes.spaceBtwSections),
+               const TWeeklySalesGraph(),
+              const SizedBox(height: Sizes.spaceBtwSections),
 
               // Recent Orders Table
               RoundedContainer(
@@ -92,15 +88,14 @@ class DashboardMobileScreen extends StatelessWidget {
                       'Recent Orders',
                       style: Theme.of(context).textTheme.headlineSmall,
                     ),
-                    const SizedBox(height: TSizes.spaceBtwSections),
+                    const SizedBox(height: Sizes.spaceBtwSections),
                     const DashboardOrderTable(),
                   ],
                 ),
               ),
-              const SizedBox(height: TSizes.spaceBtwSections),
+              const SizedBox(height: Sizes.spaceBtwSections),
 
-              // Order Status Pie Chart
-              const OrderStatusPieChart(),
+               const OrderStatusPieChart(),
             ],
           ),
         );

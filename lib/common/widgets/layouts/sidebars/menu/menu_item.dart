@@ -31,7 +31,7 @@ class MenuItem extends StatelessWidget {
           final isHovering = state.isHovering(route);
 
           return Padding(
-            padding: const EdgeInsets.symmetric(vertical: TSizes.xs / 2),
+            padding: const EdgeInsets.symmetric(vertical: Sizes.xs / 2),
             child: Container(
               decoration: BoxDecoration(
                 color: isHovering || isActive
@@ -39,18 +39,17 @@ class MenuItem extends StatelessWidget {
                           ? TColors.primary
                           : Colors.red
                     : Colors.transparent,
-                borderRadius: BorderRadius.circular(TSizes.cardRadiusMd),
+                borderRadius: BorderRadius.circular(Sizes.cardRadiusMd),
               ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  // Icon
                   Padding(
                     padding: const EdgeInsets.only(
-                      left: TSizes.lg,
-                      top: TSizes.md,
-                      bottom: TSizes.md / 2,
-                      right: TSizes.md,
+                      left: Sizes.lg,
+                      top: Sizes.md,
+                      bottom: Sizes.md / 2,
+                      right: Sizes.md,
                     ),
                     child: isActive
                         ? Icon(icon, size: 22, color: TColors.white)
@@ -62,7 +61,6 @@ class MenuItem extends StatelessWidget {
                                 : TColors.darkGrey,
                           ),
                   ), // Padding
-                  // Text
                   if (isHovering || isActive)
                     Flexible(
                       child: Text(

@@ -12,7 +12,7 @@ class EditCategoriesTabletScreen extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(TSizes.defaultSpace),
+          padding: const EdgeInsets.all(Sizes.defaultSpace),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -20,9 +20,7 @@ class EditCategoriesTabletScreen extends StatelessWidget {
                 'Edit Category',
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
-              const SizedBox(height: TSizes.spaceBtwSections / 2),
-
-              // Form
+              const SizedBox(height: Sizes.spaceBtwSections / 2),
               EditCategoryForm(category: category),
             ],
           ), // Column

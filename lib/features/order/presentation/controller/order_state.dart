@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import '../../../../../../utils/constants/enums.dart';
-import '../../../../utils/constants/enums.dart';
 import '../../domain/entities/order_entity.dart';
 
 enum OrderStatusEnum { initial, loading, success, error }
@@ -9,7 +8,7 @@ class OrderState extends Equatable {
   final List<OrderEntity> allItems;
   final List<OrderEntity> filteredItems;
   final OrderStatusEnum status;
-  final OrderStatus selectedOrderStatus; // Made nullable
+  final OrderStatus selectedOrderStatus;
   final int sortColumnIndex;
   final bool sortAscending;
   final List<bool> selectedRows;
@@ -19,7 +18,7 @@ class OrderState extends Equatable {
     this.allItems = const [],
     this.filteredItems = const [],
     this.status = OrderStatusEnum.initial,
-    this.selectedOrderStatus = OrderStatus.delivered, // Defaults to null
+    this.selectedOrderStatus = OrderStatus.delivered,
     this.sortColumnIndex = 0,
     this.sortAscending = true,
     this.selectedRows = const [],
@@ -30,7 +29,7 @@ class OrderState extends Equatable {
     List<OrderEntity>? allItems,
     List<OrderEntity>? filteredItems,
     OrderStatusEnum? status,
-    OrderStatus? selectedOrderStatus, // ValueGetter allows passing null explicitly
+    OrderStatus? selectedOrderStatus,
     int? sortColumnIndex,
     bool? sortAscending,
     List<bool>? selectedRows,

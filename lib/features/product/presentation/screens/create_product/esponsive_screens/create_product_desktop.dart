@@ -1,5 +1,4 @@
 import 'package:ecommerce_admin_pannal/features/product/presentation/controller/product_image/product_image_cubit.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
@@ -23,11 +22,11 @@ class CreateProductDesktopScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     return Scaffold(
+    return Scaffold(
       bottomNavigationBar: const ProductBottomNavigationButtons(),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(TSizes.defaultSpace),
+          padding: const EdgeInsets.all(Sizes.defaultSpace),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -35,103 +34,97 @@ class CreateProductDesktopScreen extends StatelessWidget {
                 'Create Product',
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
-              const SizedBox(height: TSizes.spaceBtwSections / 2),
+              const SizedBox(height: Sizes.spaceBtwSections / 2),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Main Content Column
                   Expanded(
                     flex: TDeviceUtils.isTabletScreen(context) ? 2 : 3,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Basic Information
                         const ProductTitleAndDescription(),
-                        const SizedBox(height: TSizes.spaceBtwSections),
-
-                        // Stock & Pricing
+                        const SizedBox(height: Sizes.spaceBtwSections),
                         RoundedContainer(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              // Heading
-                              Text('Stock & Pricing', style: Theme.of(context).textTheme.headlineSmall),
-                              const SizedBox(height: TSizes.spaceBtwItems),
-
-                              // Product Type
+                              Text(
+                                'Stock & Pricing',
+                                style: Theme.of(
+                                  context,
+                                ).textTheme.headlineSmall,
+                              ),
+                              const SizedBox(height: Sizes.spaceBtwItems),
                               const ProductTypeWidget(),
-                              const SizedBox(height: TSizes.spaceBtwInputFields),
-
-                              // Stock
+                              const SizedBox(
+                                height: Sizes.spaceBtwInputFields,
+                              ),
                               const ProductStockAndPricing(),
-                              const SizedBox(height: TSizes.spaceBtwSections),
-
-                              // Attributes
+                              const SizedBox(height: Sizes.spaceBtwSections),
                               const ProductAttributes(),
-                              const SizedBox(height: TSizes.spaceBtwSections),
+                              const SizedBox(height: Sizes.spaceBtwSections),
                             ],
                           ), // Column
-                        ), // TRoundedContainer
-                        const SizedBox(height: TSizes.spaceBtwSections),
-
-                        // Variations
+                        ), // RoundedContainer
+                        const SizedBox(height: Sizes.spaceBtwSections),
                         const ProductVariations(),
                       ],
                     ), // Column
                   ), // Expanded
 
-                  const SizedBox(width: TSizes.defaultSpace),
+                  const SizedBox(width: Sizes.defaultSpace),
 
-                  // Sidebar
-        // Sidebar
-        Expanded(
-          child: Column(
-            children: [
-              // Product Thumbnail
-              const ProductThumbnailImage(),
-              const SizedBox(height: TSizes.spaceBtwSections),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        const ProductThumbnailImage(),
+                        const SizedBox(height: Sizes.spaceBtwSections),
+                        RoundedContainer(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'All Product Images',
+                                style: Theme.of(
+                                  context,
+                                ).textTheme.headlineSmall,
+                              ),
+                              const SizedBox(height: Sizes.spaceBtwItems),
+                              BlocBuilder<
+                                ProductImagesCubit,
+                                ProductImagesState
+                              >(
+                                builder: (context, state) {
+                                  return ProductAdditionalImages(
+                                    additionalProductImagesURLs:
+                                        state.additionalProductImagesUrls,
+                                    onTapToAddImages: () => context
+                                        .read<ProductImagesCubit>()
+                                        .selectMultipleProductImages(context),
+                                    onTapToRemoveImage: (index) => context
+                                        .read<ProductImagesCubit>()
+                                        .removeImage(index),
+                                  ); // ProductAdditionalImages
+                                },
+                              ), // ProductAdditionalImages
+                            ],
+                          ), // Column
+                        ), // RoundedContainer
+                        const SizedBox(height: Sizes.spaceBtwSections),
 
-              // Product Images
-              RoundedContainer(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('All Product Images', style: Theme.of(context).textTheme.headlineSmall),
-                    const SizedBox(height: TSizes.spaceBtwItems),
-                    BlocBuilder<ProductImagesCubit, ProductImagesState>(
-                      builder: (context, state) {
-                        return
-                              ProductAdditionalImages(
-                                additionalProductImagesURLs: state.additionalProductImagesUrls,
-                                onTapToAddImages: () =>
-                                    context.read<ProductImagesCubit>().selectMultipleProductImages(context),
-                                onTapToRemoveImage: (index) =>
-                                    context.read<ProductImagesCubit>().removeImage(index),
-                              );// ProductAdditionalImages
-                      },
-                    ),// ProductAdditionalImages
-                  ],
-                ), // Column
-              ), // TRoundedContainer
-              const SizedBox(height: TSizes.spaceBtwSections),
+                        const ProductBrand(),
+                        const SizedBox(height: Sizes.spaceBtwSections),
 
-              // Product Categories
-              // Product Brand
-              const ProductBrand(),
-              const SizedBox(height: TSizes.spaceBtwSections),
+                        const ProductCategories(),
+                        const SizedBox(height: Sizes.spaceBtwSections),
 
-              // Product Categories
-              const ProductCategories(),
-              const SizedBox(height: TSizes.spaceBtwSections),
-
-              // Product Visibility
-              const ProductVisibilityWidget(),
-              const SizedBox(height: TSizes.spaceBtwSections),
-            ],
-          ), // Column
-        ), // Expanded
-
-            ],
+                        const ProductVisibilityWidget(),
+                        const SizedBox(height: Sizes.spaceBtwSections),
+                      ],
+                    ), // Column
+                  ), // Expanded
+                ],
               ), // Row
             ],
           ),
@@ -140,5 +133,3 @@ class CreateProductDesktopScreen extends StatelessWidget {
     ); // Scaffold
   }
 }
-
-

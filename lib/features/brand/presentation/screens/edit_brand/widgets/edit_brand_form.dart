@@ -1,15 +1,9 @@
-import 'package:dartz/dartz.dart' as brand;
 import 'package:ecommerce_admin_pannal/common/abstraction/base_data_table/base_data_table_state.dart';
-import 'package:ecommerce_admin_pannal/common/widgets/images/t_rounded_image.dart';
-import 'package:ecommerce_admin_pannal/features/brand/data/models/brand_model.dart';
 import 'package:ecommerce_admin_pannal/features/brand/domain/entities/brand_entity.dart';
-import 'package:ecommerce_admin_pannal/features/brand/presentation/controller/brand_cubit.dart';
-import 'package:ecommerce_admin_pannal/features/brand/presentation/controller/create_brand/create_brand_cubit.dart';
 import 'package:ecommerce_admin_pannal/features/categories/presentation/controller/category/category_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
-
 import '../../../../../../common/widgets/chips/rounded_choice_chips.dart';
 import '../../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../../../../utils/constants/enums.dart';
@@ -47,55 +41,47 @@ class _EditBrandFormState extends State<EditBrandForm> {
   Widget build(BuildContext context) {
     return RoundedContainer(
       width: 500,
-      padding: const EdgeInsets.all(TSizes.defaultSpace),
+      padding: const EdgeInsets.all(Sizes.defaultSpace),
       child: Form(
         key: _formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Heading
-            const SizedBox(height: TSizes.sm),
+            const SizedBox(height: Sizes.sm),
             Text(
               'Edit Brand',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
-            const SizedBox(height: TSizes.spaceBtwSections),
+            const SizedBox(height: Sizes.spaceBtwSections),
 
-            // Name Text Field
             TextFormField(
               controller: nameController,
-              validator: (value) => TValidator.validateEmptyText('Name', value),
+              validator: (value) => Validator.validateEmptyText('Name', value),
               decoration: const InputDecoration(
                 labelText: 'Brand Name',
                 prefixIcon: Icon(Iconsax.box),
               ),
             ),
-            const SizedBox(height: TSizes.spaceBtwInputFields),
+            const SizedBox(height: Sizes.spaceBtwInputFields),
 
-            // Categories Selection
             Text(
               'Select Categories',
               style: Theme.of(context).textTheme.titleMedium,
             ),
-            const SizedBox(height: TSizes.spaceBtwInputFields / 2),
-
-            // FIX: nested BlocBuilder so this rebuilds both when the master
-            // category list arrives from CategoryCubit AND when the user
-            // toggles a selection in EditBrandCubit. A single
-            // `context.read<CategoryCubit>()` inside a BlocBuilder that only
-            // listens to EditBrandCubit does NOT rebuild when CategoryCubit
-            // emits later — that's why the chip list was rendering empty.
+            const SizedBox(height: Sizes.spaceBtwInputFields / 2),
             BlocBuilder<CategoryCubit, BaseDataTableState<CategoryEntity>>(
               builder: (context, categoryState) {
                 return BlocBuilder<EditBrandCubit, EditBrandState>(
                   builder: (context, state) {
                     return Wrap(
-                      spacing: TSizes.sm,
+                      spacing: Sizes.sm,
                       children: categoryState.allItems.map((element) {
-                        final bool isSelected = state.selectedCategories
-                            .any((c) => c.id == element.id); // id-based, safer than .contains
+                        final bool isSelected = state.selectedCategories.any(
+                          (c) => c.id == element.id,
+                        );
                         return Padding(
-                          padding: const EdgeInsets.only(bottom: TSizes.sm),
+                          padding: const EdgeInsets.only(bottom: Sizes.sm),
                           child: TChoiceChip(
                             text: element.name,
                             selected: isSelected,
@@ -110,9 +96,8 @@ class _EditBrandFormState extends State<EditBrandForm> {
                 );
               },
             ),
-            const SizedBox(height: TSizes.spaceBtwInputFields * 2),
+            const SizedBox(height: Sizes.spaceBtwInputFields * 2),
 
-            // Image Uploader
             BlocBuilder<EditBrandCubit, EditBrandState>(
               builder: (context, state) {
                 return TImageUploader(
@@ -127,9 +112,8 @@ class _EditBrandFormState extends State<EditBrandForm> {
                 );
               },
             ),
-            const SizedBox(height: TSizes.spaceBtwInputFields),
+            const SizedBox(height: Sizes.spaceBtwInputFields),
 
-            // Checkbox
             BlocBuilder<EditBrandCubit, EditBrandState>(
               builder: (context, state) {
                 return CheckboxMenuButton(
@@ -140,9 +124,8 @@ class _EditBrandFormState extends State<EditBrandForm> {
                 );
               },
             ),
-            const SizedBox(height: TSizes.spaceBtwInputFields * 2),
+            const SizedBox(height: Sizes.spaceBtwInputFields * 2),
 
-            // Button
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
@@ -159,7 +142,7 @@ class _EditBrandFormState extends State<EditBrandForm> {
                 child: const Text('Update'),
               ),
             ),
-            const SizedBox(height: TSizes.spaceBtwInputFields * 2),
+            const SizedBox(height: Sizes.spaceBtwInputFields * 2),
           ],
         ),
       ),

@@ -34,13 +34,13 @@ class CustomerRows extends DataTableSource {
               TRoundedImage(
                 width: 50,
                 height: 50,
-                padding: TSizes.sm,
+                padding: Sizes.sm,
                 image: customer.profilePicture,
                 imageType: ImageType.network,
-                borderRadius: TSizes.borderRadiusMd,
+                borderRadius: Sizes.borderRadiusMd,
                 backgroundColor: TColors.primaryBackground,
               ),
-              const SizedBox(width: TSizes.spaceBtwItems),
+              const SizedBox(width: Sizes.spaceBtwItems),
               Expanded(
                 child: Text(
                   customer.fullName,
@@ -108,10 +108,10 @@ void confirmAndDeleteCustomer({
             },
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(
-                vertical: TSizes.buttonHeight / 2,
+                vertical: Sizes.buttonHeight / 2,
               ),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(TSizes.buttonRadius * 5),
+                borderRadius: BorderRadius.circular(Sizes.buttonRadius * 5),
               ),
             ),
             child: const Text('Ok'),
@@ -125,10 +125,10 @@ void confirmAndDeleteCustomer({
             onPressed: () => dialogContext.pop(),
             style: OutlinedButton.styleFrom(
               padding: const EdgeInsets.symmetric(
-                vertical: TSizes.buttonHeight / 2,
+                vertical: Sizes.buttonHeight / 2,
               ),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(TSizes.buttonRadius * 5),
+                borderRadius: BorderRadius.circular(Sizes.buttonRadius * 5),
               ),
             ),
             child: const Text('Cancel'),

@@ -23,26 +23,26 @@ class ResetPasswordWidget extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: TSizes.spaceBtwItems),
+        const SizedBox(height: Sizes.spaceBtwItems),
 
         /// Image
         const Image(image: AssetImage(TImages.deliveredEmailIllustration), width: 300, height: 300),
-        const SizedBox(height: TSizes.spaceBtwItems),
+        const SizedBox(height: Sizes.spaceBtwItems),
 
         /// Title & SubTitle
         Text('Password Reset Email Sent', style: Theme.of(context).textTheme.headlineMedium, textAlign: TextAlign.center),
-        const SizedBox(height: TSizes.spaceBtwItems),
+        const SizedBox(height: Sizes.spaceBtwItems),
 
         // 3. عرض الإيميل المستقبل (السطر 32)
         Text(email, textAlign: TextAlign.center, style: Theme.of(context).textTheme.labelLarge),
-        const SizedBox(height: TSizes.spaceBtwItems),
+        const SizedBox(height: Sizes.spaceBtwItems),
 
         Text(
           'Your Account Security is Our Priority! We ve Sent You a Secure Link to Safely Change Your Password and Keep Your Account Protected.',
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.labelMedium,
         ), // Text
-        const SizedBox(height: TSizes.spaceBtwSections),
+        const SizedBox(height: Sizes.spaceBtwSections),
         /// Buttons
         SizedBox(
           width: double.infinity,
@@ -53,7 +53,7 @@ class ResetPasswordWidget extends StatelessWidget {
             child: const Text(TTexts.done),
           ),
         ), // SizedBox
-        const SizedBox(height: TSizes.spaceBtwItems),
+        const SizedBox(height: Sizes.spaceBtwItems),
 
         SizedBox(
           width: double.infinity,

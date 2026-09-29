@@ -1,10 +1,9 @@
 import 'dart:typed_data';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-
 import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
-import '../../../utils/constants/enums.dart'; // Ensure ImageType enum path is correct
+import '../../../utils/constants/enums.dart';
 import '../../../utils/helpers/helper_functions.dart';
 
 class TCircularImage extends StatelessWidget {
@@ -18,12 +17,12 @@ class TCircularImage extends StatelessWidget {
     this.memoryImage,
     required this.imageType,
     this.fit = BoxFit.fill,
-    this.padding = TSizes.sm,
+    this.padding = Sizes.sm,
   });
 
   final BoxFit? fit;
   final String? image;
-  final Uint8List? memoryImage; // Handle bytes for web/admin uploads
+  final Uint8List? memoryImage;
   final ImageType imageType;
   final Color? overlayColor;
   final Color? backgroundColor;
@@ -36,8 +35,11 @@ class TCircularImage extends StatelessWidget {
       height: height,
       padding: EdgeInsets.all(padding),
       decoration: BoxDecoration(
-        color: backgroundColor ??
-            (THelperFunctions.isDarkMode(context) ? TColors.black : TColors.white),
+        color:
+            backgroundColor ??
+            (THelperFunctions.isDarkMode(context)
+                ? TColors.black
+                : TColors.white),
         borderRadius: BorderRadius.circular(100),
       ),
       child: Center(
@@ -54,39 +56,31 @@ class TCircularImage extends StatelessWidget {
       case ImageType.network:
         return image != null && image!.isNotEmpty
             ? CachedNetworkImage(
-          imageUrl: image!,
-          width: width,
-          height: height,
-          fit: fit,
-          color: overlayColor,
-          placeholder: (context, url) => const SizedBox(
-            width: 24,
-            height: 24,
-            child: Padding(
-              padding: EdgeInsets.all(6.0),
-              child: CircularProgressIndicator(strokeWidth: 2),
-            ),
-          ),
-          errorWidget: (context, url, error) => const Icon(Icons.person),
-        )
+                imageUrl: image!,
+                width: width,
+                height: height,
+                fit: fit,
+                color: overlayColor,
+                placeholder: (context, url) => const SizedBox(
+                  width: 24,
+                  height: 24,
+                  child: Padding(
+                    padding: EdgeInsets.all(6.0),
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  ),
+                ),
+                errorWidget: (context, url, error) => const Icon(Icons.person),
+              )
             : const Icon(Icons.person);
 
       case ImageType.memory:
         return memoryImage != null
-            ? Image.memory(
-          memoryImage!,
-          fit: fit,
-          color: overlayColor,
-        )
+            ? Image.memory(memoryImage!, fit: fit, color: overlayColor)
             : const Icon(Icons.person);
 
       case ImageType.asset:
         return image != null && image!.isNotEmpty
-            ? Image.asset(
-          image!,
-          fit: fit,
-          color: overlayColor,
-        )
+            ? Image.asset(image!, fit: fit, color: overlayColor)
             : const Icon(Icons.person);
 
       default:

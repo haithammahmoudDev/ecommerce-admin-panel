@@ -32,8 +32,8 @@ class _ImageAndMetaState extends State<ImageAndMeta> {
   Widget build(BuildContext context) {
     return RoundedContainer(
       padding: const EdgeInsets.symmetric(
-        vertical: TSizes.lg,
-        horizontal: TSizes.md,
+        vertical: Sizes.lg,
+        horizontal: Sizes.md,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -67,7 +67,7 @@ class _ImageAndMetaState extends State<ImageAndMeta> {
                 },
               ),
 
-              const SizedBox(height: TSizes.spaceBtwItems),
+              const SizedBox(height: Sizes.spaceBtwItems),
 
                SizedBox(
                 width: 200,
@@ -104,7 +104,7 @@ class _ImageAndMetaState extends State<ImageAndMeta> {
                       },
                     ),
 
-                    const SizedBox(height: TSizes.spaceBtwItems / 2),
+                    const SizedBox(height: Sizes.spaceBtwItems / 2),
 
                     Text(
                       user?.email ?? 'yourEmail@gmail.com',
@@ -116,7 +116,7 @@ class _ImageAndMetaState extends State<ImageAndMeta> {
                   ],
                 ),
               ),
-              const SizedBox(height: TSizes.spaceBtwSections),
+              const SizedBox(height: Sizes.spaceBtwSections),
             ],
           ),
         ],

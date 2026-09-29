@@ -27,15 +27,15 @@ class PhoneNumberScreen extends StatelessWidget {
           body: SingleChildScrollView(
             child: Padding(
               padding:
-              const EdgeInsets.only(left: TSizes.defaultSpace, right: TSizes.defaultSpace, top: TSizes.defaultSpace * 3),
+              const EdgeInsets.only(left: Sizes.defaultSpace, right: Sizes.defaultSpace, top: Sizes.defaultSpace * 3),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   /// -- Display the OTP image
                   Lottie.asset(TImages.signInAnimation,
                       width: THelperFunctions.screenWidth() * 0.875, height: THelperFunctions.screenHeight() * 0.4),
-                  const SizedBox(height: TSizes.spaceBtwSections),
-                  const SizedBox(height: TSizes.spaceBtwItems),
+                  const SizedBox(height: Sizes.spaceBtwSections),
+                  const SizedBox(height: Sizes.spaceBtwItems),
 
                   /// -- Title
                   Center(
@@ -44,7 +44,7 @@ class PhoneNumberScreen extends StatelessWidget {
                       style: Theme.of(context).textTheme.headlineLarge,
                     ),
                   ),
-                  const SizedBox(height: TSizes.spaceBtwItems),
+                  const SizedBox(height: Sizes.spaceBtwItems),
 
                   /// -- Subtitle
                   Center(
@@ -55,12 +55,12 @@ class PhoneNumberScreen extends StatelessWidget {
                     ),
                   ),
 
-                  const SizedBox(height: TSizes.spaceBtwItems),
+                  const SizedBox(height: Sizes.spaceBtwItems),
 
                   /// -- Phone number Field
                   const TPhoneNumberField(),
 
-                  const SizedBox(height: TSizes.spaceBtwItems),
+                  const SizedBox(height: Sizes.spaceBtwItems),
 
                   /// -- Continue Button
                   SizedBox(

@@ -24,19 +24,19 @@ class OrderItems extends StatelessWidget {
             (previousValue, element) => previousValue + (element.price * element.quantity));
 
     return RoundedContainer(
-      padding: const EdgeInsets.all(TSizes.defaultSpace),
+      padding: const EdgeInsets.all(Sizes.defaultSpace),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text('Items', style: Theme.of(context).textTheme.headlineMedium),
-          const SizedBox(height: TSizes.spaceBtwSections),
+          const SizedBox(height: Sizes.spaceBtwSections),
 
           // 1. القائمة المخصصة لعرض المنتجات المطلوبة
           ListView.separated(
             shrinkWrap: true,
             itemCount: order.items.length,
             physics: const NeverScrollableScrollPhysics(),
-            separatorBuilder: (_, __) => const SizedBox(height: TSizes.spaceBtwItems),
+            separatorBuilder: (_, __) => const SizedBox(height: Sizes.spaceBtwItems),
             itemBuilder: (_, index) {
               final item = order.items[index];
               return Row(
@@ -49,7 +49,7 @@ class OrderItems extends StatelessWidget {
                           imageType: item.image != null ? ImageType.network : ImageType.asset,
                           image: item.image ??'assets/images/profile/logo.png',
                         ), // TRoundedImage
-                        const SizedBox(width: TSizes.spaceBtwItems),
+                        const SizedBox(width: Sizes.spaceBtwItems),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,28 +68,28 @@ class OrderItems extends StatelessWidget {
                       ],
                     ), // Row
                   ), // Expanded
-                  const SizedBox(width: TSizes.spaceBtwItems),
+                  const SizedBox(width: Sizes.spaceBtwItems),
                   SizedBox(
-                    width: TSizes.xl * 2,
+                    width: Sizes.xl * 2,
                     child: Text('\$${item.price.toStringAsFixed(1)}', style: Theme.of(context).textTheme.bodyLarge),
                   ), // SizedBox
                   SizedBox(
-                    width: TDeviceUtils.isMobileScreen(context) ? TSizes.xl * 1.4 : TSizes.xl * 2,
+                    width: TDeviceUtils.isMobileScreen(context) ? Sizes.xl * 1.4 : Sizes.xl * 2,
                     child: Text(item.quantity.toString(), style: Theme.of(context).textTheme.bodyLarge),
                   ), // SizedBox
                   SizedBox(
-                    width: TDeviceUtils.isMobileScreen(context) ? TSizes.xl * 1.4 : TSizes.xl * 2,
+                    width: TDeviceUtils.isMobileScreen(context) ? Sizes.xl * 1.4 : Sizes.xl * 2,
                     child: Text('\$${item.totalAmount}', style: Theme.of(context).textTheme.bodyLarge),
                   ), // SizedBox
                 ],
               ); // Row
             },
           ),
-          const SizedBox(height: TSizes.spaceBtwSections),
+          const SizedBox(height: Sizes.spaceBtwSections),
 
           // 2. حاوية ملخص الأسعار والفواتير (Subtotal, Discount, Shipping, Tax, Total)
           RoundedContainer(
-            padding: const EdgeInsets.all(TSizes.defaultSpace),
+            padding: const EdgeInsets.all(Sizes.defaultSpace),
             backgroundColor: TColors.primaryBackground,
             child: Column(
               children: [
@@ -101,7 +101,7 @@ class OrderItems extends StatelessWidget {
                     Text('\$$subTotal', style: Theme.of(context).textTheme.titleLarge),
                   ],
                 ), // Row
-                const SizedBox(height: TSizes.spaceBtwItems),
+                const SizedBox(height: Sizes.spaceBtwItems),
 
                 // Discount
                 Row(
@@ -111,7 +111,7 @@ class OrderItems extends StatelessWidget {
                     Text('\$0.00', style: Theme.of(context).textTheme.titleLarge),
                   ],
                 ), // Row
-                const SizedBox(height: TSizes.spaceBtwItems),
+                const SizedBox(height: Sizes.spaceBtwItems),
 
                 // Shipping
                 Row(
@@ -124,7 +124,7 @@ class OrderItems extends StatelessWidget {
                     ), // Text
                   ],
                 ), // Row
-                const SizedBox(height: TSizes.spaceBtwItems),
+                const SizedBox(height: Sizes.spaceBtwItems),
 
                 // Tax
                 Row(
@@ -137,10 +137,10 @@ class OrderItems extends StatelessWidget {
                     ), // Text
                   ],
                 ), // Row
-                const SizedBox(height: TSizes.spaceBtwItems),
+                const SizedBox(height: Sizes.spaceBtwItems),
 
                 const Divider(),
-                const SizedBox(height: TSizes.spaceBtwItems),
+                const SizedBox(height: Sizes.spaceBtwItems),
 
                 // Total Amount
                 Row(

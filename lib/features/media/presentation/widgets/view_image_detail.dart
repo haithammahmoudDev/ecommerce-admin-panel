@@ -23,13 +23,13 @@ class ImagePopup extends StatelessWidget {
     return SingleChildScrollView(
       child: Dialog(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(TSizes.borderRadiusSm),
+          borderRadius: BorderRadius.circular(Sizes.borderRadiusSm),
         ),
         child: RoundedContainer(
           width: TDeviceUtils.isDesktopScreen(context)
               ? MediaQuery.of(context).size.width * 0.4
               : MediaQuery.of(context).size.width,
-          padding: const EdgeInsets.all(TSizes.spaceBtwItems),
+          padding: const EdgeInsets.all(Sizes.spaceBtwItems),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,7 +68,7 @@ class ImagePopup extends StatelessWidget {
 
               const Divider(),
 
-              const SizedBox(height: TSizes.spaceBtwItems),
+              const SizedBox(height: Sizes.spaceBtwItems),
 
               Row(
                 children: [
@@ -88,7 +88,7 @@ class ImagePopup extends StatelessWidget {
                 ],
               ),
 
-              const SizedBox(height: TSizes.spaceBtwItems),
+              const SizedBox(height: Sizes.spaceBtwItems),
 
               Row(
                 children: [
@@ -129,7 +129,7 @@ class ImagePopup extends StatelessWidget {
                 ],
               ),
 
-              const SizedBox(height: TSizes.spaceBtwSections),
+              const SizedBox(height: Sizes.spaceBtwSections),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

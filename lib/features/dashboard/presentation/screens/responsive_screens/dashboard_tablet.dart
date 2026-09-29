@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
-
 import '../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/sizes.dart';
@@ -19,7 +18,7 @@ class DashboardTabletScreen extends StatelessWidget {
     return BlocBuilder<DashboardCubit, DashboardState>(
       builder: (context, state) {
         return SingleChildScrollView(
-          padding: const EdgeInsets.all(TSizes.defaultSpace),
+          padding: const EdgeInsets.all(Sizes.defaultSpace),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -27,9 +26,8 @@ class DashboardTabletScreen extends StatelessWidget {
                 'Dashboard',
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
-              const SizedBox(height: TSizes.spaceBtwSections / 2),
+              const SizedBox(height: Sizes.spaceBtwSections / 2),
 
-              // KPI Cards Grid (2x2)
               Row(
                 children: [
                   Expanded(
@@ -44,7 +42,7 @@ class DashboardTabletScreen extends StatelessWidget {
                       color: state.salesStats < 0 ? TColors.error : TColors.success,
                     ),
                   ),
-                  const SizedBox(width: TSizes.spaceBtwItems),
+                  const SizedBox(width: Sizes.spaceBtwItems),
                   Expanded(
                     child: TDashboardCard(
                       headingIcon: Iconsax.external_drive,
@@ -59,7 +57,7 @@ class DashboardTabletScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: TSizes.spaceBtwItems),
+              const SizedBox(height: Sizes.spaceBtwItems),
 
               Row(
                 children: [
@@ -75,7 +73,7 @@ class DashboardTabletScreen extends StatelessWidget {
                       color: state.ordersStats < 0 ? TColors.error : TColors.success,
                     ),
                   ),
-                  const SizedBox(width: TSizes.spaceBtwItems),
+                  const SizedBox(width: Sizes.spaceBtwItems),
                   Expanded(
                     child: TDashboardCard(
                       headingIcon: Iconsax.user,
@@ -90,13 +88,11 @@ class DashboardTabletScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: TSizes.spaceBtwSections),
+              const SizedBox(height: Sizes.spaceBtwSections),
 
-              // Weekly Sales Graph
               const TWeeklySalesGraph(),
-              const SizedBox(height: TSizes.spaceBtwSections),
+              const SizedBox(height: Sizes.spaceBtwSections),
 
-              // Recent Orders Table
               RoundedContainer(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -105,14 +101,13 @@ class DashboardTabletScreen extends StatelessWidget {
                       'Recent Orders',
                       style: Theme.of(context).textTheme.headlineSmall,
                     ),
-                    const SizedBox(height: TSizes.spaceBtwSections),
+                    const SizedBox(height: Sizes.spaceBtwSections),
                     const DashboardOrderTable(),
                   ],
                 ),
               ),
-              const SizedBox(height: TSizes.spaceBtwSections),
+              const SizedBox(height: Sizes.spaceBtwSections),
 
-              // Order Status Pie Chart
               const OrderStatusPieChart(),
             ],
           ),

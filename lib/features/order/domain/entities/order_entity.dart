@@ -83,8 +83,7 @@ class OrderEntity {
     );
   }
 
-  // Static function to create an empty user model.
-  static OrderEntity empty() => OrderEntity(
+   static OrderEntity empty() => OrderEntity(
     id: '',
     docId: '',
     userId: '',
@@ -98,8 +97,7 @@ class OrderEntity {
     billingAddressSameAsShipping: true,
   );
 
-  // Convert OrderEntity back into a Data OrderModel
-  OrderModel toModel() {
+   OrderModel toModel() {
     return OrderModel(
       id: id,
       docId: docId,
@@ -118,5 +116,4 @@ class OrderEntity {
     );
   }
 
-  // أضف هذا السطر داخل كلاس OrderModel
- }
+  }

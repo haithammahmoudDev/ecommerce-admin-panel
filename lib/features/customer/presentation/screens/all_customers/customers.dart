@@ -4,7 +4,6 @@ import 'package:ecommerce_admin_pannal/features/customer/presentation/screens/al
 import 'package:ecommerce_admin_pannal/features/customer/presentation/screens/all_customers/responsive_screens/customers_tablet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../../common/di/injection_container.dart';
 import '../../../../../common/widgets/layouts/templates/site_layout.dart';
 

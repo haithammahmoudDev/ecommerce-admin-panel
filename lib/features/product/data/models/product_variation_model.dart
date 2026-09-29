@@ -23,11 +23,9 @@ class ProductVariationModel {
     required this.attributeValues,
   });
 
-  /// Empty helper function
   static ProductVariationModel empty() =>
       ProductVariationModel(id: '', attributeValues: {});
 
-  /// Json Format
   Map<String, dynamic> toJson() {
     return {
       'Id': id,
@@ -61,7 +59,6 @@ class ProductVariationModel {
     );
   }
 
-  /// Convert Model to Entity
   ProductVariationEntity toEntity() {
     return ProductVariationEntity(
       id: id,
@@ -76,7 +73,6 @@ class ProductVariationModel {
     );
   }
 
-  /// Convert Entity to Model
   factory ProductVariationModel.fromEntity(ProductVariationEntity entity) {
     return ProductVariationModel(
       id: entity.id,

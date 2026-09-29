@@ -96,8 +96,8 @@ class TImageUploader extends StatelessWidget {
           bottom: bottom,
           child: loading
               ? const TCircularContainer(
-            width: TSizes.xl,
-            height: TSizes.xl,
+            width: Sizes.xl,
+            height: Sizes.xl,
             child: CircularProgressIndicator(
               strokeWidth: 2,
               backgroundColor: TColors.primary,
@@ -106,7 +106,7 @@ class TImageUploader extends StatelessWidget {
           ) // // TCircularContainer
               : TCircularIcon(
             icon: icon,
-            size: TSizes.md,
+            size: Sizes.md,
             color: Colors.white,
             onPressed: onIconButtonPressed,
             backgroundColor: TColors.primary.withOpacity(0.9),

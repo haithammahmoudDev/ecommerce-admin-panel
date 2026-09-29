@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -24,37 +23,38 @@ class _AllBrandsTabletScreenState extends State<AllBrandsTabletScreen> {
     searchController = TextEditingController();
     super.initState();
   }
+
   @override
   void dispose() {
     searchController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(TSizes.defaultSpace),
+          padding: const EdgeInsets.all(Sizes.defaultSpace),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
               Text('Brands', style: Theme.of(context).textTheme.headlineLarge),
-              const SizedBox(height: TSizes.spaceBtwSections / 2),
+              const SizedBox(height: Sizes.spaceBtwSections / 2),
 
               RoundedContainer(
                 child: Column(
                   children: [
-                    TableHeader(buttonText: 'Create New Brand',
+                    TableHeader(
+                      buttonText: 'Create New Brand',
                       onPressed: () => context.push('/brands/create-brand'),
                       searchController: searchController,
                       searchOnChanged: (query) {
                         context.read<BrandCubit>().searchQuery(query);
                       },
                     ),
-                    const SizedBox(height: TSizes.spaceBtwItems),
+                    const SizedBox(height: Sizes.spaceBtwItems),
 
-                    // Table
                     BlocBuilder<BrandCubit, BaseDataTableState<BrandEntity>>(
                       builder: (context, state) {
                         if (state.status == DataTableStatus.loading) {
@@ -77,4 +77,3 @@ class _AllBrandsTabletScreenState extends State<AllBrandsTabletScreen> {
     ); // Scaffold
   }
 }
-

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
-
 import '../../../../../../common/widgets/images/t_rounded_image.dart';
 import '../../../../../../features/categories/presentation/screens/all_categories/table/table_action_icon_button.dart';
 import '../../../../../../utils/constants/colors.dart';
@@ -32,20 +31,19 @@ class BrandRows extends DataTableSource {
           : false,
       onSelectChanged: (value) => controller.toggleRowSelection(index, value),
       cells: [
-        // 1. Brand Column
         DataCell(
           Row(
             children: [
               TRoundedImage(
                 width: 50,
                 height: 50,
-                padding: TSizes.sm,
+                padding: Sizes.sm,
                 image: brand.image,
                 imageType: ImageType.network,
-                borderRadius: TSizes.borderRadiusMd,
+                borderRadius: Sizes.borderRadiusMd,
                 backgroundColor: TColors.primaryBackground,
               ),
-              const SizedBox(width: TSizes.spaceBtwItems),
+              const SizedBox(width: Sizes.spaceBtwItems),
               Expanded(
                 child: Text(
                   brand.name,
@@ -60,39 +58,38 @@ class BrandRows extends DataTableSource {
           ),
         ),
 
-        // 2. Categories Column
         DataCell(
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: TSizes.xs),
+            padding: const EdgeInsets.symmetric(vertical: Sizes.xs),
             child: Wrap(
-              spacing: TSizes.xs,
-              runSpacing: TSizes.xs,
-              children: (brand.brandCategories != null && brand.brandCategories!.isNotEmpty)
+              spacing: Sizes.xs,
+              runSpacing: Sizes.xs,
+              children:
+                  (brand.brandCategories != null &&
+                      brand.brandCategories!.isNotEmpty)
                   ? brand.brandCategories!
-                  .map(
-                    (category) => Chip(
-                  label: Text(
-                    category.name,
-                    style: Theme.of(context).textTheme.bodySmall,
-                  ),
-                  padding: const EdgeInsets.all(TSizes.xs),
-                  visualDensity: VisualDensity.compact,
-                ),
-              )
-                  .toList()
+                        .map(
+                          (category) => Chip(
+                            label: Text(
+                              category.name,
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                            padding: const EdgeInsets.all(Sizes.xs),
+                            visualDensity: VisualDensity.compact,
+                          ),
+                        )
+                        .toList()
                   : [const Text('—')],
             ),
           ),
         ),
 
-        // 3. Featured Icon Column
         DataCell(
           brand.isFeatured
               ? const Icon(Iconsax.heart5, color: TColors.primary)
               : const Icon(Iconsax.heart),
         ),
 
-        // 4. Date Column
         DataCell(
           Text(
             brand.createdAt == null ? '' : brand.getFormattedDate,
@@ -101,13 +98,10 @@ class BrandRows extends DataTableSource {
           ),
         ),
 
-        // 5. Action Buttons Column
         DataCell(
           TTableActionButtons(
-            onEditPressed: () => context.push(
-              '/brands/edit-brand',
-              extra: brand,
-            ),
+            onEditPressed: () =>
+                context.push('/brands/edit-brand', extra: brand),
             onDeletePressed: () => confirmAndDeleteBrand(
               context: context,
               brand: brand,
@@ -140,37 +134,35 @@ void confirmAndDeleteBrand({
       title: const Text('Delete Brand'),
       content: const Text('Are you sure you want to delete this brand?'),
       actions: [
-        // === Confirm ===
         SizedBox(
           width: 60,
           child: ElevatedButton(
             onPressed: () {
               dialogContext.pop();
-               controller.deleteOnConfirm(brand, context);
+              controller.deleteOnConfirm(brand, context);
             },
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(
-                vertical: TSizes.buttonHeight / 2,
+                vertical: Sizes.buttonHeight / 2,
               ),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(TSizes.buttonRadius * 5),
+                borderRadius: BorderRadius.circular(Sizes.buttonRadius * 5),
               ),
             ),
             child: const Text('Ok'),
           ),
         ),
 
-        // === Cancel ===
         SizedBox(
           width: 60,
           child: OutlinedButton(
             onPressed: () => dialogContext.pop(),
             style: OutlinedButton.styleFrom(
               padding: const EdgeInsets.symmetric(
-                vertical: TSizes.buttonHeight / 2,
+                vertical: Sizes.buttonHeight / 2,
               ),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(TSizes.buttonRadius * 5),
+                borderRadius: BorderRadius.circular(Sizes.buttonRadius * 5),
               ),
             ),
             child: const Text('Cancel'),

@@ -16,7 +16,7 @@ class OrderDetailMobileScreen extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(TSizes.defaultSpace),
+          padding: const EdgeInsets.all(Sizes.defaultSpace),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -24,23 +24,19 @@ class OrderDetailMobileScreen extends StatelessWidget {
                 order.id,
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
-              const SizedBox(height: TSizes.spaceBtwSections / 2),
+              const SizedBox(height: Sizes.spaceBtwSections / 2),
 
               Column(
                 children: [
-                  // Order Info Card
                   OrderInfo(order: order),
-                  const SizedBox(height: TSizes.spaceBtwSections),
+                  const SizedBox(height: Sizes.spaceBtwSections),
 
-                  // Ordered Items List Card
                   OrderItems(order: order),
-                  const SizedBox(height: TSizes.spaceBtwSections),
+                  const SizedBox(height: Sizes.spaceBtwSections),
 
-                  // Financial Transactions Card
                   OrderTransactions(order: order),
-                  const SizedBox(height: TSizes.spaceBtwSections),
+                  const SizedBox(height: Sizes.spaceBtwSections),
 
-                  // Customer Contact & Addresses Card
                   OrderCustomerInfo(order: order),
                 ],
               ),

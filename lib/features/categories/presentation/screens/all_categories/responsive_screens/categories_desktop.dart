@@ -38,7 +38,7 @@ class _CategoriesDesktopScreenState extends State<CategoriesDesktopScreen> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(TSizes.defaultSpace),
+          padding: const EdgeInsets.all(Sizes.defaultSpace),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -46,7 +46,7 @@ class _CategoriesDesktopScreenState extends State<CategoriesDesktopScreen> {
                 'Categories',
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
-              const SizedBox(height: TSizes.spaceBtwSections / 2),
+              const SizedBox(height: Sizes.spaceBtwSections / 2),
 
               RoundedContainer(
                 child: Column(
@@ -60,7 +60,7 @@ class _CategoriesDesktopScreenState extends State<CategoriesDesktopScreen> {
                         controller.searchQuery(query);
                       },
                     ),
-                    const SizedBox(height: TSizes.spaceBtwItems),
+                    const SizedBox(height: Sizes.spaceBtwItems),
                     BlocBuilder<
                       CategoryCubit,
                       BaseDataTableState<CategoryEntity>

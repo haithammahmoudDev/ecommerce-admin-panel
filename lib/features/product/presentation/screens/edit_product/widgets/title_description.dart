@@ -14,31 +14,29 @@ class ProductTitleAndDescription extends StatelessWidget {
     final cubit = context.read<EditProductCubit>();
 
     return RoundedContainer(
-      padding: const EdgeInsets.all(TSizes.defaultSpace),
+      padding: const EdgeInsets.all(Sizes.defaultSpace),
       child: Form(
         key: cubit.titleDescriptionFormKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Section Title
-            Text(
+             Text(
               'Basic Information',
               style: Theme.of(context).textTheme.headlineSmall,
             ),
-            const SizedBox(height: TSizes.spaceBtwItems),
+            const SizedBox(height: Sizes.spaceBtwItems),
 
-            // Product Title Input Field
-            TextFormField(
+             TextFormField(
               controller: cubit.title,
               textInputAction: TextInputAction.next,
               validator: (value) =>
-                  TValidator.validateEmptyText('Product Title', value),
+                  Validator.validateEmptyText('Product Title', value),
               decoration: const InputDecoration(
                 labelText: 'Product Title',
                 hintText: 'e.g. Nike Air Max',
               ),
             ),
-            const SizedBox(height: TSizes.spaceBtwInputFields),
+            const SizedBox(height: Sizes.spaceBtwInputFields),
 
             // Product Description Input Field
             SizedBox(
@@ -52,7 +50,7 @@ class ProductTitleAndDescription extends StatelessWidget {
                 keyboardType: TextInputType.multiline,
                 textAlignVertical: TextAlignVertical.top,
                 validator: (value) =>
-                    TValidator.validateEmptyText('Product Description', value),
+                    Validator.validateEmptyText('Product Description', value),
                 decoration: const InputDecoration(
                   labelText: 'Product Description',
                   hintText: 'Add your Product Description here...',

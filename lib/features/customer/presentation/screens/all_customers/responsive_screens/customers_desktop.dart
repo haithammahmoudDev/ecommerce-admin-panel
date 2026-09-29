@@ -1,8 +1,6 @@
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../../../common/abstraction/base_data_table/base_data_table_state.dart';
  import '../../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../../../../utils/constants/sizes.dart';
@@ -35,7 +33,7 @@ class _CustomersDesktopScreenState extends State<CustomersDesktopScreen> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(TSizes.defaultSpace),
+          padding: const EdgeInsets.all(Sizes.defaultSpace),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -43,7 +41,7 @@ class _CustomersDesktopScreenState extends State<CustomersDesktopScreen> {
                 'Customers',
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
-              const SizedBox(height: TSizes.spaceBtwSections / 2),
+              const SizedBox(height: Sizes.spaceBtwSections / 2),
 
               RoundedContainer(
                 child: Column(
@@ -55,9 +53,8 @@ class _CustomersDesktopScreenState extends State<CustomersDesktopScreen> {
                         context.read<CustomerCubit>().searchQuery(query);
                       },
                     ),
-                    const SizedBox(height: TSizes.spaceBtwItems),
+                    const SizedBox(height: Sizes.spaceBtwItems),
 
-                    // Table
                     BlocBuilder<CustomerCubit, BaseDataTableState<UserEntity>>(
                       builder: (context, state) {
                         if (state.status == DataTableStatus.loading) {

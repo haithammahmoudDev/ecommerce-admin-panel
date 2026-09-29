@@ -13,8 +13,7 @@ class AddressRepositoryImpl implements AddressRepo {
   AddressRepositoryImpl({FirebaseFirestore? db})
       : _db = db ?? FirebaseFirestore.instance;
 
-  /// جلب عناوين المستخدم
-  @override
+   @override
   Future<Either<Failure, List<AddressEntity>>> fetchUserAddresses(
       String userId) async {
     try {
@@ -39,8 +38,7 @@ class AddressRepositoryImpl implements AddressRepo {
     }
   }
 
-  /// تحديث تحديد العنوان
-  @override
+   @override
   Future<Either<Failure, void>> updateSelectedField({
      required String addressId,
     required bool selected,

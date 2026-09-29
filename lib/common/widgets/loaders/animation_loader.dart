@@ -50,13 +50,13 @@ class TAnimationLoaderWidget extends StatelessWidget {
             width: width,
             // Image.asset natively animates .gif files.
           ),
-          const SizedBox(height: TSizes.defaultSpace),
+          const SizedBox(height: Sizes.defaultSpace),
           Text(
             text,
             style: style ?? Theme.of(context).textTheme.bodyMedium,
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: TSizes.defaultSpace),
+          const SizedBox(height: Sizes.defaultSpace),
           showAction
               ? SizedBox(
             width: 250,
