@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../../../common/widgets/breadcrumbs/breadcrumb.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../../../../data/models/brand_model.dart';
 import '../../../../domain/entities/brand_entity.dart';
@@ -21,12 +19,11 @@ class EditBrandMobileScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Breadcrumbs
-              const TBreadcrumbsWithHeading(
-                returnToPreviousScreen: true,
-                heading: 'Edit Brand',
-                breadcrumbItems: ['/categories', 'Create Category'],
-              ), // TBreadcrumbsWithHeading
-              const SizedBox(height: TSizes.spaceBtwSections),
+              Text(
+                'Edit Brand',
+                style: Theme.of(context).textTheme.headlineLarge,
+              ),
+              const SizedBox(height: TSizes.spaceBtwSections / 2),
 
               // Form
               EditBrandForm(brand: brand),

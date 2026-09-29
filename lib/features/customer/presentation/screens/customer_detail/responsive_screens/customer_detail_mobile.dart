@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../../../../common/widgets/breadcrumbs/breadcrumb.dart';
-import '../../../../../../routes/routes.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../../../../../auth/domain/entities/user_entity.dart';
 import '../widgets/customer_info.dart';
@@ -22,23 +20,18 @@ class CustomerDetailMobileScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Breadcrumbs
-              TBreadcrumbsWithHeading(
-                returnToPreviousScreen: true,
-                heading: customer.fullName,
-                breadcrumbItems: const ['/customers', 'Details'],
-              ), // // TBreadcrumbsWithHeading
-              const SizedBox(height: TSizes.spaceBtwSections),
+              Text(
+                customer.fullName,
+                style: Theme.of(context).textTheme.headlineLarge,
+              ),
+              const SizedBox(height: TSizes.spaceBtwSections / 2),
 
-              // Customer Info
               CustomerInfo(customer: customer),
               const SizedBox(height: TSizes.spaceBtwSections),
 
-              // Shipping Address
               const ShippingAddress(),
               const SizedBox(height: TSizes.spaceBtwSections),
 
-              // Left Side Customer Orders
               const CustomerOrders(),
             ],
           ), // // Column

@@ -39,8 +39,7 @@ class UserEntity {
   String get formattedUpdatedAtDate =>
       updatedAt != null ? TFormatter.formatDate(updatedAt!) : '';
 
-  /// Static constant for an empty UserEntity
-  static const empty = UserEntity(
+   static const empty = UserEntity(
     id: '',
     email: '',
   );

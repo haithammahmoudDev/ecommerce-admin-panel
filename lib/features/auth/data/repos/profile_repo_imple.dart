@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../../../common/errors/exceptions.dart';
@@ -26,6 +25,7 @@ class ProfileRepoImple implements ProfileRepo{
       return left((ServerFailure(e.toString())));
     }
   }
+  @override
   Future<Either<Failure, void>> updateUserData({required UserEntity user}) async{
     try{
       await profileDatasource.updateUser(
@@ -51,13 +51,14 @@ class ProfileRepoImple implements ProfileRepo{
     }
   }
 
+  @override
   Future<Either<Failure, String>> updateProfilePictureUrl({required String imageUrl}) async {
     try {
        await _databaseServices.updateData(
         path: 'users',
         docId: FirebaseAuth.instance.currentUser!.uid,
         data: {
-          'profilePicture': imageUrl,
+          'ProfilePicture': imageUrl,
           'updatedAt': DateTime.now().toIso8601String(),
         },
       );
@@ -77,6 +78,7 @@ class ProfileRepoImple implements ProfileRepo{
     }
   }
 
+  @override
   Future<Either<Failure, void>> deleteAccount() async{
     try{
       await profileDatasource.deleteAccount();
@@ -88,6 +90,7 @@ class ProfileRepoImple implements ProfileRepo{
     }
   }
 
+  @override
   Future<Either<Failure, void>> reAuthenticateEmailAndPassword({required String email,
     required String password}) async{
     try{

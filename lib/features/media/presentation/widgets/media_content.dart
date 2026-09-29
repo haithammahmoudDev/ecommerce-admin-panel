@@ -1,7 +1,6 @@
 import 'package:ecommerce_admin_pannal/features/media/presentation/controller/media_cubit/media_state.dart';
 import 'package:ecommerce_admin_pannal/features/media/presentation/widgets/view_image_detail.dart';
 import 'package:ecommerce_admin_pannal/utils/popups/exports.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -47,7 +46,6 @@ class MediaContent extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            /// عنوان أرشيف الصور السحابية
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -75,7 +73,6 @@ class MediaContent extends StatelessWidget {
             ),
             const SizedBox(height: TSizes.spaceBtwSections),
 
-            /// Show Media
             BlocBuilder<MediaCubit, MediaState>(
               builder: (context, state) {
                 List<ImageEntity> images = _getSelectedFolderImages(state);
@@ -268,13 +265,11 @@ class MediaContent extends StatelessWidget {
             label: const Text('Add'),
             icon: const Icon(Iconsax.image),
             onPressed: () {
-              // جلب الصور المختارة مباشرة من MediaCubit
               final selectedImagesFromCubit = context
                   .read<MediaCubit>()
                   .state
                   .selectedImagesToUpload;
 
-              // إرجاع القائمة عند إغلاق الـ Bottom Sheet
               context.pop(selectedImagesFromCubit);
             },
           ),

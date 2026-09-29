@@ -1,11 +1,8 @@
-import 'dart:typed_data';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../../../../common/widgets/loaders/circular_loader.dart';
 import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/enums.dart';
@@ -24,10 +21,7 @@ import 'media_state.dart';
 class MediaCubit extends Cubit<MediaState> {
   final MediaRepo _mediaRepository;
 
-  MediaCubit({
-    required MediaRepo mediaRepository,
-  })  : _mediaRepository = mediaRepository,
-        super(const MediaState());
+  MediaCubit({required this._mediaRepository}) : super(const MediaState());
 
   DropzoneViewController? dropzoneController;
 
@@ -39,15 +33,26 @@ class MediaCubit extends Cubit<MediaState> {
     );
   }
 
-  void toggleImageSelection(ImageEntity targetImage, {bool allowMultipleSelection = false}) {
-    final List<ImageEntity> currentSelected = List<ImageEntity>.from(state.selectedImagesToUpload);
+  void toggleImageSelection(
+    ImageEntity targetImage, {
+    bool allowMultipleSelection = false,
+  }) {
+    final List<ImageEntity> currentSelected = List<ImageEntity>.from(
+      state.selectedImagesToUpload,
+    );
 
-    final bool isAlreadySelected = currentSelected.any((img) => img.id == targetImage.id || img.url == targetImage.url);
+    final bool isAlreadySelected = currentSelected.any(
+      (img) => img.id == targetImage.id || img.url == targetImage.url,
+    );
 
     List<ImageEntity> updatedList = [];
 
     if (isAlreadySelected) {
-      updatedList = currentSelected.where((img) => img.id != targetImage.id && img.url != targetImage.url).toList();
+      updatedList = currentSelected
+          .where(
+            (img) => img.id != targetImage.id && img.url != targetImage.url,
+          )
+          .toList();
     } else {
       if (!allowMultipleSelection) {
         updatedList = [targetImage];
@@ -56,26 +61,18 @@ class MediaCubit extends Cubit<MediaState> {
       }
     }
 
-    emit(
-      state.copyWith(
-        selectedImagesToUpload: updatedList,
-      ),
-    );
+    emit(state.copyWith(selectedImagesToUpload: updatedList));
   }
 
   void updateSelectedPath(MediaCategory category) {
-    emit(
-      state.copyWith(
-        selectedPath: category,
-      ),
-    );
+    emit(state.copyWith(selectedPath: category));
   }
 
   void setDropzoneController(DropzoneViewController controller) {
     dropzoneController = controller;
   }
 
-  Future<void> selectLocalImages() async {
+  Future<void> selectLocalImages(BuildContext context) async {
     if (dropzoneController == null) return;
 
     try {
@@ -84,7 +81,7 @@ class MediaCubit extends Cubit<MediaState> {
         mime: ['image/jpeg', 'image/png', 'image/webp'],
       );
 
-      if (files != null && files.isNotEmpty) {
+      if (files.isNotEmpty) {
         final imageEntities = await Future.wait(
           files.map((file) async {
             final bytes = await dropzoneController!.getFileData(file);
@@ -106,14 +103,10 @@ class MediaCubit extends Cubit<MediaState> {
         final updatedList = List<ImageEntity>.from(state.selectedImagesToUpload)
           ..addAll(imageEntities);
 
-        emit(
-          state.copyWith(
-            selectedImagesToUpload: updatedList,
-          ),
-        );
+        emit(state.copyWith(selectedImagesToUpload: updatedList));
       }
     } catch (e) {
-      debugPrint('❌ Error picking files: $e');
+      TLoaders.errorSnackBar(title: 'error', context: context, message: '❌ Error picking files');
     }
   }
 
@@ -121,19 +114,11 @@ class MediaCubit extends Cubit<MediaState> {
     final updatedList = List<ImageEntity>.from(state.selectedImagesToUpload)
       ..add(image);
 
-    emit(
-      state.copyWith(
-        selectedImagesToUpload: updatedList,
-      ),
-    );
+    emit(state.copyWith(selectedImagesToUpload: updatedList));
   }
 
   void clearAllSelectedImages() {
-    emit(
-      state.copyWith(
-        selectedImagesToUpload: const [],
-      ),
-    );
+    emit(state.copyWith(selectedImagesToUpload: const []));
   }
 
   void uploadImagesConfirmation(BuildContext context) {
@@ -152,13 +137,11 @@ class MediaCubit extends Cubit<MediaState> {
       confirmText: 'Upload',
       onConfirm: () async => await uploadImages(context),
       content:
-      'Are you sure you want to upload all the Images in ${state.selectedPath.name.toUpperCase()} folder?',
+          'Are you sure you want to upload all the Images in ${state.selectedPath.name.toUpperCase()} folder?',
     );
   }
 
   Future<void> uploadImages(BuildContext context) async {
-    final stopwatch = Stopwatch()..start();
-
     context.pop();
     uploadImagesLoader(context);
 
@@ -186,35 +169,35 @@ class MediaCubit extends Cubit<MediaState> {
         return;
     }
 
-    final List<ImageEntity> selectedImagesToUpload =
-    List<ImageEntity>.from(state.selectedImagesToUpload);
+    final List<ImageEntity> selectedImagesToUpload = List<ImageEntity>.from(
+      state.selectedImagesToUpload,
+    );
 
     final List<ImageEntity?> uploadResults = await Future.wait(
       selectedImagesToUpload.map((selectedImage) async {
         final bytes = selectedImage.localImageToDisplay;
         if (bytes == null) return null;
-
-        // تحويل الـ Entity إلى Model عند التعامل مع مستودع البيانات إذا لزم الأمر
         final storageResult = await _mediaRepository.uploadImage(
           bytes: bytes,
           path: selectedCategory.name,
           filename: selectedImage.filename,
         );
 
-        return await storageResult.fold(
-              (failure) => null,
-              (uploadedImage) async {
-            final imageWithCategory = uploadedImage.copyWith(
-              mediaCategory: selectedCategory.name,
-            );
+        return await storageResult.fold((failure) => null, (
+          uploadedImage,
+        ) async {
+          final imageWithCategory = uploadedImage.copyWith(
+            mediaCategory: selectedCategory.name,
+          );
 
-            final dbResult = await _mediaRepository.saveImageRecord(imageWithCategory);
-            return dbResult.fold(
-                  (failure) => imageWithCategory,
-                  (id) => imageWithCategory.copyWith(id: id),
-            );
-          },
-        );
+          final dbResult = await _mediaRepository.saveImageRecord(
+            imageWithCategory,
+          );
+          return dbResult.fold(
+            (failure) => imageWithCategory,
+            (id) => imageWithCategory.copyWith(id: id),
+          );
+        });
       }),
     );
 
@@ -224,11 +207,21 @@ class MediaCubit extends Cubit<MediaState> {
 
     emit(
       state.copyWith(
-        allBannerImages: selectedCategory == MediaCategory.banners ? targetList : null,
-        allBrandImages: selectedCategory == MediaCategory.brands ? targetList : null,
-        allCategoryImages: selectedCategory == MediaCategory.categories ? targetList : null,
-        allProductImages: selectedCategory == MediaCategory.products ? targetList : null,
-        allUserImages: selectedCategory == MediaCategory.users ? targetList : null,
+        allBannerImages: selectedCategory == MediaCategory.banners
+            ? targetList
+            : null,
+        allBrandImages: selectedCategory == MediaCategory.brands
+            ? targetList
+            : null,
+        allCategoryImages: selectedCategory == MediaCategory.categories
+            ? targetList
+            : null,
+        allProductImages: selectedCategory == MediaCategory.products
+            ? targetList
+            : null,
+        allUserImages: selectedCategory == MediaCategory.users
+            ? targetList
+            : null,
         allImages: [...state.allImages, ...validUploadedImages],
         selectedImagesToUpload: const [],
       ),
@@ -237,8 +230,6 @@ class MediaCubit extends Cubit<MediaState> {
     if (context.mounted) {
       context.pop();
     }
-
-    debugPrint('⏱️ TOTAL TIME: ${stopwatch.elapsedMilliseconds}ms');
   }
 
   void uploadImagesLoader(BuildContext context) {
@@ -307,7 +298,7 @@ class MediaCubit extends Cubit<MediaState> {
     );
 
     failureOrImages.fold(
-          (failure) {
+      (failure) {
         emit(
           state.copyWith(
             uploadStatus: MediaUploadStatus.error,
@@ -315,7 +306,7 @@ class MediaCubit extends Cubit<MediaState> {
           ),
         );
       },
-          (images) {
+      (images) {
         switch (state.selectedPath) {
           case MediaCategory.banners:
             emit(
@@ -410,36 +401,67 @@ class MediaCubit extends Cubit<MediaState> {
     );
 
     failureOrImages.fold(
-          (failure) {
+      (failure) {
         emit(
-          state.copyWith(
-            isLoadingMore: false,
-            errorMessage: failure.message,
-          ),
+          state.copyWith(isLoadingMore: false, errorMessage: failure.message),
         );
       },
-          (newImages) {
-        final updatedList = List<ImageEntity>.from(targetList)..addAll(newImages);
-        final updatedAllImages = List<ImageEntity>.from(state.allImages)..addAll(newImages);
+      (newImages) {
+        final updatedList = List<ImageEntity>.from(targetList)
+          ..addAll(newImages);
+        final updatedAllImages = List<ImageEntity>.from(state.allImages)
+          ..addAll(newImages);
 
         switch (state.selectedPath) {
           case MediaCategory.banners:
-            emit(state.copyWith(allBannerImages: updatedList, allImages: updatedAllImages, isLoadingMore: false));
+            emit(
+              state.copyWith(
+                allBannerImages: updatedList,
+                allImages: updatedAllImages,
+                isLoadingMore: false,
+              ),
+            );
             break;
           case MediaCategory.brands:
-            emit(state.copyWith(allBrandImages: updatedList, allImages: updatedAllImages, isLoadingMore: false));
+            emit(
+              state.copyWith(
+                allBrandImages: updatedList,
+                allImages: updatedAllImages,
+                isLoadingMore: false,
+              ),
+            );
             break;
           case MediaCategory.categories:
-            emit(state.copyWith(allCategoryImages: updatedList, allImages: updatedAllImages, isLoadingMore: false));
+            emit(
+              state.copyWith(
+                allCategoryImages: updatedList,
+                allImages: updatedAllImages,
+                isLoadingMore: false,
+              ),
+            );
             break;
           case MediaCategory.products:
-            emit(state.copyWith(allProductImages: updatedList, allImages: updatedAllImages, isLoadingMore: false));
+            emit(
+              state.copyWith(
+                allProductImages: updatedList,
+                allImages: updatedAllImages,
+                isLoadingMore: false,
+              ),
+            );
             break;
           case MediaCategory.users:
-            emit(state.copyWith(allUserImages: updatedList, allImages: updatedAllImages, isLoadingMore: false));
+            emit(
+              state.copyWith(
+                allUserImages: updatedList,
+                allImages: updatedAllImages,
+                isLoadingMore: false,
+              ),
+            );
             break;
           default:
-            emit(state.copyWith(allImages: updatedAllImages, isLoadingMore: false));
+            emit(
+              state.copyWith(allImages: updatedAllImages, isLoadingMore: false),
+            );
         }
       },
     );
@@ -469,11 +491,7 @@ class MediaCubit extends Cubit<MediaState> {
       builder: (_) => const PopScope(
         canPop: false,
         child: Center(
-          child: SizedBox(
-            width: 70,
-            height: 70,
-            child: TCircularLoader(),
-          ),
+          child: SizedBox(width: 70, height: 70, child: TCircularLoader()),
         ),
       ),
     );
@@ -481,11 +499,11 @@ class MediaCubit extends Cubit<MediaState> {
     final result = await _mediaRepository.deleteImage(image);
 
     result.fold(
-          (failure) {
+      (failure) {
         if (navigator.mounted) navigator.pop();
         messenger.showSnackBar(SnackBar(content: Text(failure.message)));
       },
-          (_) {
+      (_) {
         List<ImageEntity> targetList;
 
         switch (state.selectedPath) {
@@ -510,23 +528,50 @@ class MediaCubit extends Cubit<MediaState> {
         }
 
         targetList.removeWhere((item) => item.id == image.id);
-        final updatedAllImages = state.allImages.where((item) => item.id != image.id).toList();
+        final updatedAllImages = state.allImages
+            .where((item) => item.id != image.id)
+            .toList();
 
         switch (state.selectedPath) {
           case MediaCategory.banners:
-            emit(state.copyWith(allBannerImages: targetList, allImages: updatedAllImages));
+            emit(
+              state.copyWith(
+                allBannerImages: targetList,
+                allImages: updatedAllImages,
+              ),
+            );
             break;
           case MediaCategory.brands:
-            emit(state.copyWith(allBrandImages: targetList, allImages: updatedAllImages));
+            emit(
+              state.copyWith(
+                allBrandImages: targetList,
+                allImages: updatedAllImages,
+              ),
+            );
             break;
           case MediaCategory.categories:
-            emit(state.copyWith(allCategoryImages: targetList, allImages: updatedAllImages));
+            emit(
+              state.copyWith(
+                allCategoryImages: targetList,
+                allImages: updatedAllImages,
+              ),
+            );
             break;
           case MediaCategory.products:
-            emit(state.copyWith(allProductImages: targetList, allImages: updatedAllImages));
+            emit(
+              state.copyWith(
+                allProductImages: targetList,
+                allImages: updatedAllImages,
+              ),
+            );
             break;
           case MediaCategory.users:
-            emit(state.copyWith(allUserImages: targetList, allImages: updatedAllImages));
+            emit(
+              state.copyWith(
+                allUserImages: targetList,
+                allImages: updatedAllImages,
+              ),
+            );
             break;
           default:
             break;
@@ -534,7 +579,9 @@ class MediaCubit extends Cubit<MediaState> {
 
         if (navigator.mounted) navigator.pop();
         messenger.showSnackBar(
-          const SnackBar(content: Text('Image successfully deleted from your cloud storage')),
+          const SnackBar(
+            content: Text('Image successfully deleted from your cloud storage'),
+          ),
         );
       },
     );
@@ -555,38 +602,38 @@ class MediaCubit extends Cubit<MediaState> {
     setShowImagesUploaderSection(true);
 
     final List<ImageEntity>? selectedImages =
-    await showModalBottomSheet<List<ImageEntity>>(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: TColors.primaryBackground,
-      builder: (BuildContext sheetContext) {
-        return BlocProvider.value(
-          value: this,
-          child: FractionallySizedBox(
-            heightFactor: 1.0,
-            child: Material(
-              color: TColors.primaryBackground,
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(TSizes.defaultSpace),
-                  child: Column(
-                    children: [
-                      MediaUploader(),
+        await showModalBottomSheet<List<ImageEntity>>(
+          context: context,
+          isScrollControlled: true,
+          backgroundColor: TColors.primaryBackground,
+          builder: (BuildContext sheetContext) {
+            return BlocProvider.value(
+              value: this,
+              child: FractionallySizedBox(
+                heightFactor: 1.0,
+                child: Material(
+                  color: TColors.primaryBackground,
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.all(TSizes.defaultSpace),
+                      child: Column(
+                        children: [
+                          MediaUploader(),
 
-                      MediaContent(
-                        allowSelection: allowSelection,
-                        alreadySelectedUrls: selectedUrls ?? [],
-                        allowMultipleSelection: allowMultipleSelection,
+                          MediaContent(
+                            allowSelection: allowSelection,
+                            alreadySelectedUrls: selectedUrls ?? [],
+                            allowMultipleSelection: allowMultipleSelection,
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          ),
+            );
+          },
         );
-      },
-    );
 
     return selectedImages;
   }

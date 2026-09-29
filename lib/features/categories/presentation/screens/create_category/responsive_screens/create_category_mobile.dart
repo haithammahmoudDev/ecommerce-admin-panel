@@ -1,8 +1,5 @@
 import 'package:ecommerce_admin_pannal/features/categories/presentation/screens/create_category/widgets/create_category_form.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../../../common/widgets/breadcrumbs/breadcrumb.dart';
 import '../../../../../../utils/constants/sizes.dart';
 
 class CreateCategoryMobileScreen extends StatelessWidget {
@@ -10,23 +7,21 @@ class CreateCategoryMobileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(TSizes.defaultSpace),
+          padding: const EdgeInsets.all(TSizes.defaultSpace),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Breadcrumbs
-              TBreadcrumbsWithHeading(
-                returnToPreviousScreen: true,
-                heading: 'Create Category',
-                breadcrumbItems: ['/categories', 'Create Category'],
-              ), // TBreadcrumbsWithHeading
-              SizedBox(height: TSizes.spaceBtwSections),
+              Text(
+                'Create Category',
+                style: Theme.of(context).textTheme.headlineLarge,
+              ),
+              const SizedBox(height: TSizes.spaceBtwSections / 2),
 
               // Form
-              CreateCategoryForm(),
+              const CreateCategoryForm(),
             ],
           ), // Column
         ), // Padding

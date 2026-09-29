@@ -1,10 +1,8 @@
-import 'package:ecommerce_admin_pannal/features/media/data/models/image_model.dart';
 import 'package:ecommerce_admin_pannal/features/media/presentation/controller/media_cubit/media_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
-
 import '../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../../common/widgets/images/t_rounded_image.dart';
 import '../../../../utils/constants/colors.dart';
@@ -18,20 +16,14 @@ class ImagePopup extends StatelessWidget {
   final ImageEntity image;
   final MediaCubit cubit;
 
-  const ImagePopup({
-    super.key,
-    required this.image,
-    required this.cubit,
-  });
+  const ImagePopup({super.key, required this.image, required this.cubit});
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Dialog(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(
-            TSizes.borderRadiusSm,
-          ),
+          borderRadius: BorderRadius.circular(TSizes.borderRadiusSm),
         ),
         child: RoundedContainer(
           width: TDeviceUtils.isDesktopScreen(context)
@@ -45,7 +37,6 @@ class ImagePopup extends StatelessWidget {
               Stack(
                 children: [
                   // داخل ملف image_popup.dart عند بناء المعاينة:
-
                   RoundedContainer(
                     backgroundColor: TColors.primaryBackground,
                     child: TRoundedImage(
@@ -77,9 +68,7 @@ class ImagePopup extends StatelessWidget {
 
               const Divider(),
 
-              const SizedBox(
-                height: TSizes.spaceBtwItems,
-              ),
+              const SizedBox(height: TSizes.spaceBtwItems),
 
               Row(
                 children: [
@@ -99,9 +88,7 @@ class ImagePopup extends StatelessWidget {
                 ],
               ),
 
-              const SizedBox(
-                height: TSizes.spaceBtwItems,
-              ),
+              const SizedBox(height: TSizes.spaceBtwItems),
 
               Row(
                 children: [
@@ -125,18 +112,16 @@ class ImagePopup extends StatelessWidget {
                   Expanded(
                     child: OutlinedButton(
                       onPressed: () {
-                        Clipboard.setData(
-                          ClipboardData(text: image.url),
-                        ).then(
-                              (_) {
-                            if (!context.mounted) return;
+                        Clipboard.setData(ClipboardData(text: image.url)).then((
+                          _,
+                        ) {
+                          if (!context.mounted) return;
 
-                            TLoaders.customToast(
-                              message: 'URL copied!',
-                              context: context,
-                            );
-                          },
-                        );
+                          TLoaders.customToast(
+                            message: 'URL copied!',
+                            context: context,
+                          );
+                        });
                       },
                       child: const Text('Copy URL'),
                     ),
@@ -144,9 +129,7 @@ class ImagePopup extends StatelessWidget {
                 ],
               ),
 
-              const SizedBox(
-                height: TSizes.spaceBtwSections,
-              ),
+              const SizedBox(height: TSizes.spaceBtwSections),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -155,16 +138,11 @@ class ImagePopup extends StatelessWidget {
                     width: 300,
                     child: TextButton(
                       onPressed: () {
-                        cubit.removeCloudImageConfirmation(
-                          context,
-                          image,
-                        );
+                        cubit.removeCloudImageConfirmation(context, image);
                       },
                       child: const Text(
                         'Delete Image',
-                        style: TextStyle(
-                          color: Colors.red,
-                        ),
+                        style: TextStyle(color: Colors.red),
                       ),
                     ),
                   ),

@@ -17,6 +17,7 @@ class MediaRepositoryImple implements MediaRepo {
     required this.databaseServices,
   });
 
+  @override
   Future<Either<Failure, ImageEntity>> uploadImage({
     required Uint8List bytes,
     required String path,
@@ -34,6 +35,7 @@ class MediaRepositoryImple implements MediaRepo {
     }
   }
 
+  @override
   Future<Either<Failure, String>> saveImageRecord(ImageEntity image) async {
     try {
       final id = await databaseServices.addDataAndGetId(
@@ -46,6 +48,7 @@ class MediaRepositoryImple implements MediaRepo {
     }
   }
 
+  @override
   Future<Either<Failure, List<ImageEntity>>> loadMoreImagesFromDatabase(
     MediaCategory mediaCategory,
     int loadCount,
@@ -70,6 +73,7 @@ class MediaRepositoryImple implements MediaRepo {
     }
   }
 
+  @override
   Future<Either<Failure, List<ImageEntity>>> fetchImagesFromDatabase(
     MediaCategory mediaCategory,
     int loadCount,
@@ -95,6 +99,7 @@ class MediaRepositoryImple implements MediaRepo {
     }
   }
 
+  @override
   Future<Either<Failure, void>> deleteImage(ImageEntity image) async {
     try {
       await storageService.deleteFile(

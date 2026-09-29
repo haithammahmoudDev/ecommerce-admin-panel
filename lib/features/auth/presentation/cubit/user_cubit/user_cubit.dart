@@ -105,8 +105,7 @@ class UserCubit extends Cubit<UserState> {
 
 
   Future<void> pickImage(BuildContext context) async {
-    // 1. فتح نظام الميديا الخاص بالتطبيق لاختيار الصورة
-    final MediaCubit mediaCubit = context.read<MediaCubit>();
+     final MediaCubit mediaCubit = context.read<MediaCubit>();
     List<ImageEntity>? selectedImages = await mediaCubit.selectImagesFromMedia(context: context);
 
     if (isClosed) return;

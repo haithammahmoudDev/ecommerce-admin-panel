@@ -2,12 +2,7 @@ import 'package:flutter_dropzone/flutter_dropzone.dart';
 import '../../../../../utils/constants/enums.dart';
 import '../../../domain/entities/image_entity.dart';
 
-enum MediaUploadStatus {
-  initial,
-  loading,
-  success,
-  error,
-}
+enum MediaUploadStatus { initial, loading, success, error }
 
 class MediaState {
   final DropzoneViewController? dropzoneController;
@@ -25,8 +20,6 @@ class MediaState {
   final List<ImageEntity> allBrandImages;
   final List<ImageEntity> allCategoryImages;
   final List<ImageEntity> allUserImages;
-
-  // IMAGE PROCESSING
   final bool isProcessingImages;
   final int processedImagesCount;
   final int totalImagesToProcess;
@@ -47,8 +40,6 @@ class MediaState {
     this.allBrandImages = const [],
     this.allCategoryImages = const [],
     this.allUserImages = const [],
-
-    // IMAGE PROCESSING
     this.isProcessingImages = false,
     this.processedImagesCount = 0,
     this.totalImagesToProcess = 0,
@@ -58,18 +49,18 @@ class MediaState {
     DropzoneViewController? dropzoneController,
     bool? showImagesUploaderSection,
     MediaCategory? selectedPath,
-    List<ImageEntity>? selectedImagesToUpload, // تم التصحيح إلى ImageEntity
+    List<ImageEntity>? selectedImagesToUpload,
     MediaUploadStatus? uploadStatus,
     bool? isLoadingMore,
     String? errorMessage,
     int? initialLoadCount,
     int? loadMoreCount,
-    List<ImageEntity>? allImages, // تم التصحيح إلى ImageEntity
-    List<ImageEntity>? allBannerImages, // تم التصحيح إلى ImageEntity
-    List<ImageEntity>? allProductImages, // تم التصحيح إلى ImageEntity
-    List<ImageEntity>? allBrandImages, // تم التصحيح إلى ImageEntity
-    List<ImageEntity>? allCategoryImages, // تم التصحيح إلى ImageEntity
-    List<ImageEntity>? allUserImages, // تم التصحيح إلى ImageEntity
+    List<ImageEntity>? allImages,
+    List<ImageEntity>? allBannerImages,
+    List<ImageEntity>? allProductImages,
+    List<ImageEntity>? allBrandImages,
+    List<ImageEntity>? allCategoryImages,
+    List<ImageEntity>? allUserImages,
     bool? isProcessingImages,
     int? processedImagesCount,
     int? totalImagesToProcess,
@@ -77,10 +68,10 @@ class MediaState {
     return MediaState(
       dropzoneController: dropzoneController ?? this.dropzoneController,
       showImagesUploaderSection:
-      showImagesUploaderSection ?? this.showImagesUploaderSection,
+          showImagesUploaderSection ?? this.showImagesUploaderSection,
       selectedPath: selectedPath ?? this.selectedPath,
       selectedImagesToUpload:
-      selectedImagesToUpload ?? this.selectedImagesToUpload,
+          selectedImagesToUpload ?? this.selectedImagesToUpload,
       uploadStatus: uploadStatus ?? this.uploadStatus,
       isLoadingMore: isLoadingMore ?? this.isLoadingMore,
       errorMessage: errorMessage,
@@ -92,8 +83,6 @@ class MediaState {
       allBrandImages: allBrandImages ?? this.allBrandImages,
       allCategoryImages: allCategoryImages ?? this.allCategoryImages,
       allUserImages: allUserImages ?? this.allUserImages,
-
-      // IMAGE PROCESSING
       isProcessingImages: isProcessingImages ?? this.isProcessingImages,
       processedImagesCount: processedImagesCount ?? this.processedImagesCount,
       totalImagesToProcess: totalImagesToProcess ?? this.totalImagesToProcess,

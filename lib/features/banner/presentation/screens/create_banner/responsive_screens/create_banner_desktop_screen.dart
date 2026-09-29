@@ -1,9 +1,5 @@
 import 'package:flutter/cupertino.dart';
-
 import 'package:flutter/material.dart';
-import '../../../../../../common/widgets/breadcrumbs/breadcrumb.dart';
-import '../../../../../../common/widgets/breadcrumbs/breadcrumb_with_heading.dart';
-import '../../../../../../routes/routes.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../widgets/create_banner_form.dart';
 
@@ -12,23 +8,20 @@ class CreateBannerDesktopScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(TSizes.defaultSpace),
+          padding: const EdgeInsets.all(TSizes.defaultSpace),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Breadcrumbs
-              TBreadcrumbsWithHeading(
-                returnToPreviousScreen: true,
-                heading: 'Create Banner',
-                breadcrumbItems: ['/banners', 'Create Banner'],
-              ), // TBreadcrumbsWithHeading
-              SizedBox(height: TSizes.spaceBtwSections),
+              Text(
+                'Create Banner',
+                style: Theme.of(context).textTheme.headlineLarge,
+              ),
+              const SizedBox(height: TSizes.spaceBtwSections / 2),
 
-              // Form
-              CreateBannerForm(),
+              const CreateBannerForm(),
             ],
           ), // Column
         ), // Padding

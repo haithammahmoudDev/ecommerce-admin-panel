@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 import 'package:ecommerce_admin_pannal/features/media/presentation/widgets/web_image_resizer.dart';
+import 'package:ecommerce_admin_pannal/utils/popups/exports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
@@ -42,9 +43,6 @@ class _MediaUploaderState extends State<MediaUploader> {
 
         return Column(
           children: [
-            // -----------------------------------------------------------------
-            // Dropzone
-            // -----------------------------------------------------------------
             Container(
               width: double.infinity,
               height: 250,
@@ -62,9 +60,6 @@ class _MediaUploaderState extends State<MediaUploader> {
                   return Stack(
                     alignment: Alignment.center,
                     children: [
-                      // -------------------------------------------------------
-                      // Dropzone
-                      // -------------------------------------------------------
                       Positioned.fill(
                         child: DropzoneView(
                           key: dynamicKey,
@@ -73,19 +68,14 @@ class _MediaUploaderState extends State<MediaUploader> {
                           operation: DragOperation.copy,
 
                           onCreated: (controller) {
-                            debugPrint('DROPZONE CREATED');
-
                             mediaCubit.setDropzoneController(controller);
                           },
 
                           onDropFile: (DropzoneFileInterface file) async {
-                            debugPrint('DROP FIRED');
-
                             try {
                               final controller = mediaCubit.dropzoneController;
 
                               if (controller == null) {
-                                debugPrint('❌ Dropzone controller is null');
                                 return;
                               }
 
@@ -97,7 +87,6 @@ class _MediaUploaderState extends State<MediaUploader> {
 
                               final rawBytes = Uint8List.fromList(bytes);
 
-                              // 🟢 ضغط الصورة المسحوبة فوراً عبر Canvas قبل إضافتها للـ State
                               final compressedBytes =
                                   await WebImageResizer.resizeImage(rawBytes);
 
@@ -112,15 +101,16 @@ class _MediaUploaderState extends State<MediaUploader> {
 
                               mediaCubit.addSelectedImageModel(image);
                             } catch (e) {
-                              debugPrint('❌ Error reading dropped file: $e');
+                              TLoaders.errorSnackBar(
+                                title: 'Error',
+                                context: context,
+                                message: '❌ Error reading dropped file',
+                              );
                             }
                           },
                         ),
                       ),
 
-                      // -------------------------------------------------------
-                      // Dropzone UI
-                      // -------------------------------------------------------
                       Column(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -138,7 +128,8 @@ class _MediaUploaderState extends State<MediaUploader> {
                           const SizedBox(height: TSizes.spaceBtwItems),
 
                           OutlinedButton(
-                            onPressed: mediaCubit.selectLocalImages,
+                            onPressed: () =>
+                                mediaCubit.selectLocalImages(context),
                             child: const Text('Select Images'),
                           ),
                         ],
@@ -151,9 +142,6 @@ class _MediaUploaderState extends State<MediaUploader> {
 
             const SizedBox(height: TSizes.spaceBtwItems),
 
-            // -----------------------------------------------------------------
-            // Selected Images
-            // -----------------------------------------------------------------
             if (state.selectedImagesToUpload.isNotEmpty)
               RoundedContainer(
                 width: double.infinity,
@@ -164,9 +152,6 @@ class _MediaUploaderState extends State<MediaUploader> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // ---------------------------------------------------------
-                    // Header
-                    // ---------------------------------------------------------
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -193,9 +178,6 @@ class _MediaUploaderState extends State<MediaUploader> {
                         Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            // -------------------------------------------------
-                            // Remove All
-                            // -------------------------------------------------
                             TextButton(
                               onPressed: mediaCubit.clearAllSelectedImages,
                               child: const Text('Remove All'),
@@ -203,9 +185,6 @@ class _MediaUploaderState extends State<MediaUploader> {
 
                             const SizedBox(width: TSizes.spaceBtwItems),
 
-                            // -------------------------------------------------
-                            // Desktop Upload
-                            // -------------------------------------------------
                             if (!TDeviceUtils.isMobileScreen(context))
                               SizedBox(
                                 width: TSizes.buttonWidth,
@@ -225,9 +204,6 @@ class _MediaUploaderState extends State<MediaUploader> {
 
                     const SizedBox(height: TSizes.spaceBtwSections),
 
-                    // ---------------------------------------------------------
-                    // Images Preview
-                    // ---------------------------------------------------------
                     Wrap(
                       alignment: WrapAlignment.start,
                       spacing: TSizes.spaceBtwItems / 2,
@@ -249,9 +225,6 @@ class _MediaUploaderState extends State<MediaUploader> {
 
                     const SizedBox(height: TSizes.spaceBtwSections),
 
-                    // ---------------------------------------------------------
-                    // Mobile Upload
-                    // ---------------------------------------------------------
                     if (TDeviceUtils.isMobileScreen(context))
                       SizedBox(
                         width: double.infinity,

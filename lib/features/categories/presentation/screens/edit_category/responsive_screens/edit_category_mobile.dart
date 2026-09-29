@@ -1,9 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../../../common/widgets/breadcrumbs/breadcrumb.dart';
 import '../../../../../../utils/constants/sizes.dart';
-import '../../../../data/models/category_model.dart';
 import '../../../../domain/entities/category_entity.dart';
 import '../widgets/edit_category_form.dart';
 
@@ -20,13 +16,11 @@ class EditCategoryMobileScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Breadcrumbs
-              const TBreadcrumbsWithHeading(
-                returnToPreviousScreen: true,
-                heading: 'Update Category',
-                breadcrumbItems: ['/categories', 'Update Category'],
-              ), // TBreadcrumbsWithHeading
-              const SizedBox(height: TSizes.spaceBtwSections),
+              Text(
+                'Edit Category',
+                style: Theme.of(context).textTheme.headlineLarge,
+              ),
+              const SizedBox(height: TSizes.spaceBtwSections / 2),
 
               // Form
               EditCategoryForm(category: category),

@@ -1,8 +1,5 @@
 import 'package:ecommerce_admin_pannal/features/categories/presentation/screens/create_category/widgets/create_category_form.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../../../common/widgets/breadcrumbs/breadcrumb.dart';
 import '../../../../../../utils/constants/sizes.dart';
 
 class CreateCategoriesTabletScreen extends StatelessWidget {
@@ -17,16 +14,14 @@ class CreateCategoriesTabletScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Breadcrumbs
-              TBreadcrumbsWithHeading(
-                returnToPreviousScreen: true,
-                heading: 'Create Category',
-                breadcrumbItems: const ['/categories', 'Create Category'],
-              ), // TBreadcrumbsWithHeading
-              const SizedBox(height: TSizes.spaceBtwSections),
+              Text(
+                'Create Category',
+                style: Theme.of(context).textTheme.headlineLarge,
+              ),
+              const SizedBox(height: TSizes.spaceBtwSections / 2),
 
               // Form
-              CreateCategoryForm(),
+             const CreateCategoryForm(),
             ],
           ), // Column
         ), // Padding

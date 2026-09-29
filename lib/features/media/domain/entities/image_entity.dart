@@ -11,8 +11,6 @@ class ImageEntity {
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final String? contentType;
-
-  // خصائص الواجهة المؤقتة لكي تتطابق مع الـ Cubit
   final dynamic file;
   final Uint8List? localImageToDisplay;
 
@@ -33,14 +31,9 @@ class ImageEntity {
 
   /// إنشاء كائن فارغ افتراضي
   factory ImageEntity.empty() {
-    return const ImageEntity(
-      url: '',
-      folder: '',
-      filename: '',
-    );
+    return const ImageEntity(url: '', folder: '', filename: '');
   }
 
-  /// تحويل من JSON إلى Entity
   factory ImageEntity.fromJson(Map<String, dynamic> json) {
     return ImageEntity(
       id: json['id'] ?? '',
@@ -50,13 +43,16 @@ class ImageEntity {
       mediaCategory: json['mediaCategory'] ?? '',
       filename: json['filename'] ?? '',
       fullPath: json['fullPath'],
-      createdAt: json['createdAt'] != null ? DateTime.parse(json['createdAt']) : null,
-      updatedAt: json['updatedAt'] != null ? DateTime.parse(json['updatedAt']) : null,
+      createdAt: json['createdAt'] != null
+          ? DateTime.parse(json['createdAt'])
+          : null,
+      updatedAt: json['updatedAt'] != null
+          ? DateTime.parse(json['updatedAt'])
+          : null,
       contentType: json['contentType'],
     );
   }
 
-  /// تحويل من Entity إلى JSON
   Map<String, dynamic> toJson() {
     return {
       'id': id,
@@ -72,7 +68,6 @@ class ImageEntity {
     };
   }
 
-  /// دالة النسخ مع التعديل
   ImageEntity copyWith({
     String? id,
     String? url,
@@ -103,7 +98,6 @@ class ImageEntity {
     );
   }
 
-  /// دالة للحصول على رابط الصورة المحسن
   String getOptimizedUrl({int width = 300, int quality = 75}) {
     if (url.isEmpty) return url;
     return '$url?width=$width&quality=$quality&format=webp';

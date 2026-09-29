@@ -19,12 +19,13 @@ class ImageAndMeta extends StatefulWidget {
 }
 
 class _ImageAndMetaState extends State<ImageAndMeta> {
-  late final UserEntity user;
+  late final UserEntity? user;
 
   @override
   void initState() {
     super.initState();
     user = LocalStorageService.userRepo.getData()!.toEntity();
+
   }
 
   @override
@@ -58,7 +59,7 @@ class _ImageAndMetaState extends State<ImageAndMeta> {
                     circular: true,
                     icon: Iconsax.camera,
                     loading: isImageLoading,
-                    image: hasImage ? profilePicture : TImages.user,
+                    image: hasImage ? profilePicture : user?.profilePicture ?? TImages.user ,
                     imageType: hasImage ? ImageType.network : ImageType.asset,
                     onIconButtonPressed: () =>
                         context.read<UserCubit>().pickImage(context),
@@ -68,8 +69,7 @@ class _ImageAndMetaState extends State<ImageAndMeta> {
 
               const SizedBox(height: TSizes.spaceBtwItems),
 
-              // تم تغليف العمود النصي بـ SizedBox بعرض 200 (نفس عرض الصورة) لمنع الخروج والـ Overflow
-              SizedBox(
+               SizedBox(
                 width: 200,
                 child: Column(
                   children: [
@@ -107,7 +107,7 @@ class _ImageAndMetaState extends State<ImageAndMeta> {
                     const SizedBox(height: TSizes.spaceBtwItems / 2),
 
                     Text(
-                      user.email,
+                      user?.email ?? 'yourEmail@gmail.com',
                       style: Theme.of(context).textTheme.bodyMedium,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,

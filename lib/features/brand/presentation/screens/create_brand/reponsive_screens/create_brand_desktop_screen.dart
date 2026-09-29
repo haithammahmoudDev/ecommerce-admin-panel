@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../../../../common/widgets/breadcrumbs/breadcrumb.dart';
-import '../../../../../../common/widgets/breadcrumbs/breadcrumb_with_heading.dart';
-import '../../../../../../routes/routes.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../widgets/create_brand_form.dart';
 
@@ -10,23 +7,20 @@ class CreateBrandDesktopScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(TSizes.defaultSpace),
+          padding: const EdgeInsets.all(TSizes.defaultSpace),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Breadcrumbs
-              TBreadcrumbsWithHeading(
-                returnToPreviousScreen: true,
-                heading: 'Create Brand',
-                breadcrumbItems: ['/categories', 'Create Brand'],
-              ), // TBreadcrumbsWithHeading
-              SizedBox(height: TSizes.spaceBtwSections),
-
+              Text(
+                'Create Brand',
+                style: Theme.of(context).textTheme.headlineLarge,
+              ),
+              const SizedBox(height: TSizes.spaceBtwSections / 2),
               // Form
-              CreateBrandForm(),
+              const CreateBrandForm(),
             ],
           ), // Column
         ), // Padding

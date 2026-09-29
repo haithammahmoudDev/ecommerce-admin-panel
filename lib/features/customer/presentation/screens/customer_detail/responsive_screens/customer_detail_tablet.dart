@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../../../common/widgets/breadcrumbs/breadcrumb.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../../../../../auth/domain/entities/user_entity.dart';
 import '../widgets/customer_info.dart';
@@ -21,35 +18,27 @@ class CustomerDetailTabletScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Breadcrumbs
-              TBreadcrumbsWithHeading(
-                returnToPreviousScreen: true,
-                heading: 'Taimoor Sikander',
-                breadcrumbItems: ['/customers', 'Details'],
-              ), // // TBreadcrumbsWithHeading
-              const SizedBox(height: TSizes.spaceBtwSections),
+              Text(
+                customer.fullName,
+                style: Theme.of(context).textTheme.headlineLarge,
+              ),
+              const SizedBox(height: TSizes.spaceBtwSections / 2),
 
-              // Body
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Left Side Customer Information
                   Expanded(
                     child: Column(
                       children: [
-                        // Customer Info
                         CustomerInfo(customer: customer),
                         const SizedBox(height: TSizes.spaceBtwSections),
-
-                        // Shipping Address
                         const ShippingAddress(),
                       ],
-                    ), // // Column
-                  ), // // Expanded
+                    ), // Column
+                  ), // Expanded
 
                   const SizedBox(width: TSizes.spaceBtwSections),
 
-                  // Right Side Customer Orders
                   const Expanded(
                     flex: 2,
                     child: CustomerOrders(),

@@ -1,11 +1,10 @@
 import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-
 import '../../domain/entities/image_entity.dart';
 
 class ImageModel {
-  String id;
+  final String id;
   final String url;
   final String folder;
   final int? sizeBytes;
@@ -148,8 +147,7 @@ class ImageModel {
     return '$url?width=$width&quality=$quality&format=webp';
   }
 
-  /// دالة لتحويل الـ Model إلى Domain Entity
-  ImageEntity toEntity() {
+   ImageEntity toEntity() {
     return ImageEntity(
       id: id,
       url: url,
@@ -164,8 +162,7 @@ class ImageModel {
     );
   }
 
-  /// فاكتوري لتحويل الـ Domain Entity إلى Model
-  factory ImageModel.fromEntity(ImageEntity entity) {
+   factory ImageModel.fromEntity(ImageEntity entity) {
     return ImageModel(
       id: entity.id,
       url: entity.url,

@@ -1,14 +1,9 @@
 import 'package:ecommerce_admin_pannal/features/product/domain/entities/product_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
-import 'package:http/http.dart';
-
-import '../../../../../../common/widgets/breadcrumbs/breadcrumb.dart';
 import '../../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../../../../../../utils/device/device_utility.dart';
-import '../../../../data/models/product_model.dart';
 import '../../../controller/product_image/product_image_cubit.dart';
 import '../../../controller/product_image/product_image_state.dart';
 import '../widgets/additional_images.dart';
@@ -44,13 +39,11 @@ class EditProductDesktopScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Breadcrumbs
-              const TBreadcrumbsWithHeading(
-                heading: 'Edit Product',
-                returnToPreviousScreen: true,
-                breadcrumbItems: ['/products', 'Edit Product'],
-              ), // TBreadcrumbsWithHeading
-              const SizedBox(height: TSizes.spaceBtwSections),
+              Text(
+                'Edit Product',
+                style: Theme.of(context).textTheme.headlineLarge,
+              ),
+              const SizedBox(height: TSizes.spaceBtwSections / 2),
 
               // Edit Product Form Layout
               Row(
@@ -71,43 +64,35 @@ class EditProductDesktopScreen extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              // Heading
                               Text('Stock & Pricing', style: Theme.of(context).textTheme.headlineSmall),
                               const SizedBox(height: TSizes.spaceBtwItems),
 
-                              // Product Type
                               const ProductTypeWidget(),
                               const SizedBox(height: TSizes.spaceBtwInputFields),
 
-                              // Stock
                               const ProductStockAndPricing(),
                               const SizedBox(height: TSizes.spaceBtwSections),
 
-                              // Attributes
-                              ProductAttributes(), // Add/Edit/Delete Attributes
+                              ProductAttributes(),
                               const SizedBox(height: TSizes.spaceBtwSections),
                             ],
                           ), // Column
-                        ), // TRoundedContainer
+                        ), // RoundedContainer
                         const SizedBox(height: TSizes.spaceBtwSections),
 
-                        // Variations Section
-                        const ProductVariations(), // Edit/Delete Variations
+                        const ProductVariations(),
                       ],
                     ), // Column
                   ), // Expanded
 
                   const SizedBox(width: TSizes.defaultSpace),
 
-                  // Sidebar Side (Flex 1)
                   Expanded(
                     child: Column(
                       children: [
-                        // Product Thumbnail
                         const ProductThumbnailImage(),
                         const SizedBox(height: TSizes.spaceBtwSections),
 
-                        // Product Images
                         RoundedContainer(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -130,15 +115,12 @@ class EditProductDesktopScreen extends StatelessWidget {
                         ), // TRoundedContainer
                         const SizedBox(height: TSizes.spaceBtwSections),
 
-                        // Product Brand Selection
                         const ProductBrand(),
                         const SizedBox(height: TSizes.spaceBtwSections),
 
-                        // Product Categories Selection
                         ProductCategories(),
                         const SizedBox(height: TSizes.spaceBtwSections),
 
-                        // Product Visibility Settings
                         const ProductVisibilityWidget(),
                       ],
                     ), // Column

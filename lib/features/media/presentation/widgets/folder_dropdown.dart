@@ -12,10 +12,11 @@ class MediaFolderDropdown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MediaCubit, MediaState>(
-      buildWhen: (previous, current) => previous.selectedPath != current.selectedPath,
+      buildWhen: (previous, current) =>
+          previous.selectedPath != current.selectedPath,
       builder: (context, state) {
         return SizedBox(
-          width: 160, // زيادة العرض قليلاً لضمان عدم قطع أسماء الفولدرات الطويلة
+          width: 160,
           child: DropdownButtonFormField<MediaCategory>(
             isExpanded: true,
             value: state.selectedPath,
@@ -24,14 +25,16 @@ class MediaFolderDropdown extends StatelessWidget {
               border: OutlineInputBorder(),
             ),
             items: MediaCategory.values
-                .map((category) => DropdownMenuItem<MediaCategory>(
-              value: category,
-              child: Text(
-                category.name.toUpperCase(),
-                style: Theme.of(context).textTheme.bodyMedium,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ))
+                .map(
+                  (category) => DropdownMenuItem<MediaCategory>(
+                    value: category,
+                    child: Text(
+                      category.name.toUpperCase(),
+                      style: Theme.of(context).textTheme.bodyMedium,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                )
                 .toList(),
             onChanged: onChanged,
           ),
