@@ -35,7 +35,7 @@ class OrderCustomerInfo extends StatelessWidget {
                   builder: (context, state) {
                     return Row(
                     children: [
-                      TRoundedImage(
+                      RoundedImage(
                         padding: 0,
                         backgroundColor: TColors.primaryBackground,
                         image: state.customer.profilePicture.isNotEmpty

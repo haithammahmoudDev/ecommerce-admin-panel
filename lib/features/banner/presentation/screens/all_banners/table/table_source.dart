@@ -36,7 +36,7 @@ class BannersRows extends DataTableSource {
       onSelectChanged: (value) => controller.toggleRowSelection(index, value),
       cells: [
         DataCell(
-          TRoundedImage(
+          RoundedImage(
             width: 180,
             height: 100,
             padding: Sizes.sm,

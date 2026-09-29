@@ -20,13 +20,11 @@ class MediaContent extends StatelessWidget {
     required this.allowSelection,
     required this.allowMultipleSelection,
     this.alreadySelectedUrls,
-    this.onImagesSelected,
   });
   final bool allowSelection;
   final bool allowMultipleSelection;
   final List<String>? alreadySelectedUrls;
   final List<ImageEntity> selectedImages = [];
-  final Function(List<ImageEntity>? selectedImages)? onImagesSelected;
   @override
   Widget build(BuildContext context) {
     bool loadedPreviousSelection = false;
@@ -36,9 +34,8 @@ class MediaContent extends StatelessWidget {
           TLoaders.errorSnackBar(
             title: 'error',
             context: context,
-            message: state.errorMessage ?? '',
+            message: state.errorMessage ?? 'exist unexpected error, try again please',
           );
-          print(state.errorMessage ?? '');
         }
       },
       child: RoundedContainer(
@@ -80,7 +77,6 @@ class MediaContent extends StatelessWidget {
                 if (!loadedPreviousSelection) {
                   if (alreadySelectedUrls != null &&
                       alreadySelectedUrls!.isNotEmpty) {
-                    // Convert alreadySelectedUrls to a Set for faster lookup
                     final selectedUrlsSet = Set<String>.from(
                       alreadySelectedUrls!,
                     );
@@ -90,7 +86,7 @@ class MediaContent extends StatelessWidget {
                         image.url,
                       );
                       if (isSelected) {
-                        selectedImages?.add(image);
+                        selectedImages.add(image);
                       }
                     }
                   }
@@ -104,7 +100,7 @@ class MediaContent extends StatelessWidget {
                 }
 
                 if (images.isEmpty) {
-                  return _buildEmptyAnimationWidget(context);
+                  return _buildEmptyWidget(context);
                 }
                 return Column(
                   mainAxisSize: MainAxisSize.min,
@@ -210,7 +206,7 @@ class MediaContent extends StatelessWidget {
     return images;
   }
 
-  Widget _buildEmptyAnimationWidget(BuildContext context) {
+  Widget _buildEmptyWidget(BuildContext context) {
     return const Padding(
       padding: EdgeInsets.symmetric(vertical: 48.0),
       child: Center(
@@ -235,7 +231,7 @@ class MediaContent extends StatelessWidget {
   }
 
   Widget _buildSimpleList(ImageEntity image) {
-    return TRoundedImage(
+    return RoundedImage(
       width: 140,
       height: 140,
       padding: Sizes.sm,
@@ -281,7 +277,7 @@ class MediaContent extends StatelessWidget {
   Widget _buildListWithCheckbox(ImageEntity image) {
     return Stack(
       children: [
-        TRoundedImage(
+        RoundedImage(
           width: 140,
           height: 140,
           padding: Sizes.sm,

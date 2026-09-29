@@ -41,7 +41,7 @@ class EditBannerForm extends StatelessWidget {
                 onTap: ()=> context.read<EditBannerCubit>().pickImage(context),
                 child:   BlocBuilder<EditBannerCubit, EditBannerState>(
                   builder: (context, state) {
-                    return TRoundedImage(
+                    return RoundedImage(
                       width: 400,
                       height: 200,
                       backgroundColor: TColors.primaryBackground,

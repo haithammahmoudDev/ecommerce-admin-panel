@@ -211,7 +211,7 @@ class _MediaUploaderState extends State<MediaUploader> {
                       children: state.selectedImagesToUpload
                           .where((image) => image.localImageToDisplay != null)
                           .map(
-                            (image) => TRoundedImage(
+                            (image) => RoundedImage(
                               width: 90,
                               height: 90,
                               padding: Sizes.sm,

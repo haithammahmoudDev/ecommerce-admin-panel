@@ -36,12 +36,11 @@ class ImagePopup extends StatelessWidget {
             children: [
               Stack(
                 children: [
-                  // داخل ملف image_popup.dart عند بناء المعاينة:
-                  RoundedContainer(
+                   RoundedContainer(
                     backgroundColor: TColors.primaryBackground,
-                    child: TRoundedImage(
-                      // 🟢 دقة متوسطة ومناسبة للعرض في النافذة المنبثقة بدون تحميل الحجم الأصلي الكامل
-                      image: image.getOptimizedUrl(width: 800),
+                    child: RoundedImage(
+                       image: image.getOptimizedUrl(width: 800),
+                      fit: BoxFit.fitHeight,
                       applyImageRadius: true,
                       height: MediaQuery.of(context).size.height * 0.4,
                       width: TDeviceUtils.isDesktopScreen(context)

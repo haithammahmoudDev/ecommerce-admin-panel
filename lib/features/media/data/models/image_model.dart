@@ -147,7 +147,7 @@ class ImageModel {
     return '$url?width=$width&quality=$quality&format=webp';
   }
 
-   ImageEntity toEntity() {
+  ImageEntity toEntity() {
     return ImageEntity(
       id: id,
       url: url,
@@ -159,10 +159,12 @@ class ImageModel {
       createdAt: createdAt,
       updatedAt: updatedAt,
       contentType: contentType,
+      file: file,
+      localImageToDisplay: localImageToDisplay,
     );
   }
 
-   factory ImageModel.fromEntity(ImageEntity entity) {
+  factory ImageModel.fromEntity(ImageEntity entity) {
     return ImageModel(
       id: entity.id,
       url: entity.url,
@@ -174,6 +176,8 @@ class ImageModel {
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
       contentType: entity.contentType,
+      file: entity.file,
+      localImageToDisplay: entity.localImageToDisplay,
     );
   }
 }

@@ -38,7 +38,7 @@ class CreateBannerForm extends StatelessWidget {
                   onTap: ()=> context.read<CreateBannerCubit>().pickImage(context),
                   child:   BlocBuilder<CreateBannerCubit, CreateBannerState>(
                   builder: (context, state) {
-                  return TRoundedImage(
+                  return RoundedImage(
                   width: 400,
                   height: 200,
                   backgroundColor: TColors.primaryBackground,

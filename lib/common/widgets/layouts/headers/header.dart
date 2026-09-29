@@ -88,7 +88,7 @@ class HeaderCustom extends StatelessWidget implements PreferredSizeWidget {
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        TRoundedImage(
+                        RoundedImage(
                           width: 40,
                           height: 40,
                           padding: 0,

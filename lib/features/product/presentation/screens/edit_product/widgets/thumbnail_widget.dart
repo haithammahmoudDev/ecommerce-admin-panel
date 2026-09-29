@@ -42,7 +42,7 @@ class ProductThumbnailImage extends StatelessWidget {
 
                           final image = state.selectedThumbnailImageUrl;
 
-                          return TRoundedImage(
+                          return RoundedImage(
                             width: 220,
                             height: 220,
                             image: image,

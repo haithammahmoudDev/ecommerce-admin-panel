@@ -26,7 +26,7 @@ class CustomerInfo extends StatelessWidget {
           const SizedBox(height: Sizes.spaceBtwSections),
           Row(
             children: [
-              TRoundedImage(
+              RoundedImage(
                 padding: 0,
                 backgroundColor: TColors.primaryBackground,
                 image: TImages.user,

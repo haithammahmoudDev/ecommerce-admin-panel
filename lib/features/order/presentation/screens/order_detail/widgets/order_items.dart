@@ -44,7 +44,7 @@ class OrderItems extends StatelessWidget {
                   Expanded(
                     child: Row(
                       children: [
-                        TRoundedImage(
+                        RoundedImage(
                           backgroundColor: TColors.primaryBackground,
                           imageType: item.image != null ? ImageType.network : ImageType.asset,
                           image: item.image ??'assets/images/profile/logo.png',

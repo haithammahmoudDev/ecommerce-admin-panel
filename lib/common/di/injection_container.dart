@@ -210,7 +210,6 @@ Future<void> initDependencies() async {
     () => CreateProductCubit(
       productRepo: sl(),
       productVariationsCubit: sl(),
-      productImagesCubit: sl(),
       productAttributesCubit: sl(),
       productCubit: sl(),
     ),

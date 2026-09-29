@@ -31,7 +31,7 @@ class CustomerRows extends DataTableSource {
         DataCell(
           Row(
             children: [
-              TRoundedImage(
+              RoundedImage(
                 width: 50,
                 height: 50,
                 padding: Sizes.sm,

@@ -72,7 +72,7 @@ class TImageUploader extends StatelessWidget {
       children: [
         // Display the image in either circular or rounded shape
         !circular
-            ? TRoundedImage(
+            ? RoundedImage(
           image: image,
           width: width,
           height: height,

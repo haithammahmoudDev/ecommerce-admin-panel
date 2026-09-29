@@ -30,7 +30,7 @@ class ProductsRows extends DataTableSource {
         DataCell(
           Row(
             children: [
-              TRoundedImage(
+              RoundedImage(
                 width: 50,
                 height: 50,
                 padding: Sizes.xs,
@@ -62,7 +62,7 @@ class ProductsRows extends DataTableSource {
         DataCell(
           Row(
             children: [
-              TRoundedImage(
+              RoundedImage(
                 width: 35,
                 height: 35,
                 padding: Sizes.xs,

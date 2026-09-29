@@ -37,7 +37,7 @@ class ProductThumbnailImage extends StatelessWidget {
                             final image = state.selectedThumbnailImageUrl;
                             final isNetwork = image != null && image.isNotEmpty;
 
-                            return TRoundedImage(
+                            return RoundedImage(
                               width: 220,
                               height: 220,
                               image: isNetwork ? image : 'assets/images/profile/logo.png',

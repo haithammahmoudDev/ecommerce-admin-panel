@@ -174,7 +174,7 @@ class ProductVariations extends StatelessWidget {
         const Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TRoundedImage(
+            RoundedImage(
               width: 200,
               height: 200,
               imageType: ImageType.network,

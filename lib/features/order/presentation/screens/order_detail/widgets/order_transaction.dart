@@ -33,7 +33,7 @@ class OrderTransactions extends StatelessWidget {
                 flex: TDeviceUtils.isMobileScreen(context) ? 2 : 1,
                 child: Row(
                   children: [
-                    TRoundedImage(imageType: ImageType.asset, image: TImages.paypal),
+                    RoundedImage(imageType: ImageType.asset, image: TImages.paypal),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
