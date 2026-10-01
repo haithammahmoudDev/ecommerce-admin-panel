@@ -25,6 +25,11 @@ class BannersRows extends DataTableSource {
 
     final BannerEntity banner = controller.state.filterdItems[index];
 
+     String targetDisplay = banner.targetType.name.toUpperCase();
+    if (banner.targetName != null && banner.targetName!.isNotEmpty) {
+      targetDisplay = '${banner.targetType.name}: ${banner.targetName}';
+    }
+
     return DataRow2(
       selected: index < controller.state.selectedRows.length
           ? controller.state.selectedRows[index]
@@ -46,11 +51,11 @@ class BannersRows extends DataTableSource {
             backgroundColor: TColors.primaryBackground,
           ),
         ),
-        DataCell(Text(controller.formatRoute(banner.targetScreen))),
+        DataCell(Text(targetDisplay)),
         DataCell(
           banner.active
               ? const Icon(Iconsax.eye, color: TColors.primary)
-              : const Icon(Iconsax.eye_slash),
+              : const Icon(Iconsax.eye_slash, color: Colors.grey),
         ),
         DataCell(
           TTableActionButtons(
@@ -58,7 +63,7 @@ class BannersRows extends DataTableSource {
               'banners/edit-banner',
               extra: banner,
             ),
-            onDeletePressed: () => confirmAndDeleteBrand(
+            onDeletePressed: () => confirmAndDeleteBanner(
               context: context,
               banner: banner,
               controller: controller,
@@ -79,7 +84,7 @@ class BannersRows extends DataTableSource {
   int get selectedRowCount => controller.state.selectedCount;
 }
 
-void confirmAndDeleteBrand({
+void confirmAndDeleteBanner({
   required BuildContext context,
   required BannerEntity banner,
   required BannerCubit controller,
@@ -87,10 +92,10 @@ void confirmAndDeleteBrand({
   showDialog(
     context: context,
     builder: (dialogContext) => AlertDialog(
-      title: const Text('Delete Brand'),
-      content: const Text('Are you sure you want to delete this brand?'),
+      title: const Text('Delete Banner'),
+      content: const Text('Are you sure you want to delete this banner?'),
       actions: [
-         SizedBox(
+        SizedBox(
           width: 60,
           child: ElevatedButton(
             onPressed: () {
@@ -108,7 +113,6 @@ void confirmAndDeleteBrand({
             child: const Text('Ok'),
           ),
         ),
-
         SizedBox(
           width: 60,
           child: OutlinedButton(

@@ -1,33 +1,37 @@
 import 'package:bloc/bloc.dart';
-import 'package:ecommerce_admin_pannal/features/banner/domain/repos/banner_repo.dart';
-import 'package:ecommerce_admin_pannal/features/banner/presentation/controller/banner_cubit.dart';
-import 'package:ecommerce_admin_pannal/features/media/domain/entities/image_entity.dart';
-import 'package:ecommerce_admin_pannal/features/media/presentation/controller/media_cubit/media_cubit.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:meta/meta.dart';
-
-import '../../../../../utils/constants/app_screens.dart';
-import '../../../../../utils/helpers/network_manager.dart';
-import '../../../../../utils/popups/full_screen_loader.dart';
-import '../../../../../utils/popups/loaders.dart';
-import '../../../../media/data/models/image_model.dart';
+import '../../../../../../utils/helpers/network_manager.dart';
+import '../../../../../../utils/popups/full_screen_loader.dart';
+import '../../../../../../utils/popups/loaders.dart';
+import '../../../../../utils/constants/enums.dart';
+import '../../../../media/domain/entities/image_entity.dart';
+import '../../../../media/presentation/controller/media_cubit/media_cubit.dart';
 import '../../../data/models/banner_model.dart';
-
+import '../../../domain/entities/banner_entity.dart';
+import '../../../domain/repos/banner_repo.dart';
+import '../banner_cubit.dart';
 part 'create_banner_state.dart';
 
 class CreateBannerCubit extends Cubit<CreateBannerState> {
   final BannerRepo _bannerRepo;
-  CreateBannerCubit({required this._bannerRepo}) : super(CreateBannerState());
+  CreateBannerCubit({required this._bannerRepo}) : super(const CreateBannerState());
 
   void toggleActive(bool? value) {
-    emit(state.copyWith(isActive: value ?? false));
+    emit(state.copyWith(isActive: value ?? true));
   }
 
-  void selectTargetScreen(String? value) {
-    emit(state.copyWith(targetScreen: value));
+  void selectTargetType(BannerTargetType? type) {
+    emit(state.copyWith(
+      targetType: type ?? BannerTargetType.none,
+      clearTarget: true,
+    ));
+  }
+
+  void setTargetDetails(String id, String name) {
+    emit(state.copyWith(targetId: id, targetName: name));
   }
 
   void pickImage(BuildContext context) async {
@@ -37,32 +41,40 @@ class CreateBannerCubit extends Cubit<CreateBannerState> {
     if (selectedImages != null && selectedImages.isNotEmpty) {
       ImageEntity selectedImage = selectedImages.first;
       emit(state.copyWith(imageUrl: selectedImage.url));
-     }
+    }
   }
 
-  Future<void> createBanner(BuildContext context) async{
-    TFullScreenLoader.popUpCircular(context);
+  Future<void> createBanner(BuildContext context) async {
+     final tempEntity = BannerEntity(
+      imageUrl: state.imageUrl,
+      active: state.isActive,
+      targetType: state.targetType,
+      targetId: state.targetId,
+      targetName: state.targetName,
+    );
 
-    // Check Internet Connectivity
-    final isConnected = await NetworkManager.instance.isConnected();
-    if (!isConnected) {
-      TFullScreenLoader.stopLoading(context);
+    final validationError = tempEntity.validate();
+    if (validationError != null) {
+      TLoaders.errorSnackBar(title: 'Validation Error', message: validationError, context: context);
       return;
     }
 
-    // Map Data
-    final newRecord = BannerModel(
-        id: '',
-        imageUrl: state.imageUrl,
-        active: state.isActive,
-        targetScreen: state.targetScreen,
-    );
+    TFullScreenLoader.popUpCircular(context);
+
+    final isConnected = await NetworkManager.instance.isConnected();
+    if (!isConnected) {
+      TFullScreenLoader.stopLoading(context);
+      TLoaders.errorSnackBar(title: 'Network Error', message: 'No internet connection.', context: context);
+      return;
+    }
+
+    final newRecord = BannerModel.fromEntity(tempEntity);
 
     final result = await _bannerRepo.createBanner(newRecord);
-    result.fold((error){
+    result.fold((error) {
       TFullScreenLoader.stopLoading(context);
       TLoaders.errorSnackBar(title: 'Oh Snap', message: error.message, context: context);
-    }, (bannerId){
+    }, (bannerId) {
       newRecord.id = bannerId;
       final bannerController = context.read<BannerCubit>();
       bannerController.addItemToLists(newRecord.toEntity());

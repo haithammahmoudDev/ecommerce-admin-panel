@@ -68,7 +68,7 @@ class _BannersMobileScreenState extends State<BannersMobileScreen> {
                     ),
                   ],
                 ), // Column
-              ), // TRoundedContainer
+              ), // RoundedContainer
             ],
           ), // Column
         ), // Padding

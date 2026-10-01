@@ -3,37 +3,45 @@ part of 'edit_banner_cubit.dart';
 enum EditBannerStatus { initial, loading, error, success }
 
 class EditBannerState extends Equatable {
-  final bool? isActive;
+  final bool isActive;
   final EditBannerStatus status;
   final String? errorMessage;
   final String imageUrl;
-  final String targetScreen;
+  final BannerTargetType targetType;
+  final String targetId;
+  final String targetName;
 
-   const EditBannerState({
+  const EditBannerState({
     this.errorMessage,
     this.status = EditBannerStatus.initial,
     this.imageUrl = '',
-    this.isActive = false,
-    this.targetScreen = AppScreens.onboarding,
+    this.isActive = true,
+    this.targetType = BannerTargetType.none,
+    this.targetId = '',
+    this.targetName = '',
   });
 
   @override
-  List<Object?> get props => [isActive, status, errorMessage, imageUrl, targetScreen];
+  List<Object?> get props => [isActive, status, errorMessage, imageUrl, targetType, targetId, targetName];
 
   EditBannerState copyWith({
     EditBannerStatus? status,
     String? errorMessage,
     String? imageUrl,
     bool? isActive,
-   String? targetScreen,
+    BannerTargetType? targetType,
+    String? targetId,
+    String? targetName,
+    bool clearTarget = false,
   }) {
     return EditBannerState(
       status: status ?? this.status,
       errorMessage: errorMessage ?? this.errorMessage,
       imageUrl: imageUrl ?? this.imageUrl,
       isActive: isActive ?? this.isActive,
-        targetScreen: targetScreen ?? this.targetScreen,
+      targetType: targetType ?? this.targetType,
+      targetId: clearTarget ? '' : (targetId ?? this.targetId),
+      targetName: clearTarget ? '' : (targetName ?? this.targetName),
     );
   }
 }
-

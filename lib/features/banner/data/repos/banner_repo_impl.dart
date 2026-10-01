@@ -42,8 +42,8 @@ class BannerRepoImpl implements BannerRepo {
       final List<BannerEntity> bannerList = querySnapshot.docs
           .map(
             (doc) =>
-                BannerModel.fromFirebaseData(doc.data(), doc.id).toEntity(),
-          )
+            BannerModel.fromFirebaseData(doc.data(), doc.id).toEntity(),
+      )
           .toList();
       return right(bannerList);
     } catch (e) {
