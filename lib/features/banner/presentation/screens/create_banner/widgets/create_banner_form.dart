@@ -47,7 +47,7 @@ class CreateBannerForm extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: TColors.primaryBackground,
                           borderRadius: BorderRadius.circular(Sizes.borderRadiusLg),
-                          border: Border.all(color: Colors.grey.withOpacity(0.3)),
+                          border: Border.all(color: Colors.grey.withValues(alpha: 0.3)),
                         ),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(Sizes.borderRadiusMd),
@@ -57,7 +57,7 @@ class CreateBannerForm extends StatelessWidget {
                             backgroundColor: Colors.transparent,
                             image: hasImage ? state.imageUrl : 'assets/logos/gallery.jpg',
                             imageType: hasImage ? ImageType.network : ImageType.asset,
-                            fit:BoxFit.fill , // تظهر الصورة بالكامل بدون قص للـ Asset
+                            fit: hasImage ? BoxFit.cover : BoxFit.fill,
                           ),
                         ),
                       ),
@@ -78,7 +78,7 @@ class CreateBannerForm extends StatelessWidget {
            Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey.withOpacity(0.3)),
+              border: Border.all(color: Colors.grey.withValues(alpha: 0.3)),
               borderRadius: BorderRadius.circular(Sizes.borderRadiusMd),
             ),
             child: Material(
@@ -104,7 +104,7 @@ class CreateBannerForm extends StatelessWidget {
             builder: (context, state) {
               final controller = context.read<CreateBannerCubit>();
               return DropdownButtonFormField<BannerTargetType>(
-                value: state.targetType,
+                initialValue: state.targetType,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   prefixIcon: Icon(Iconsax.category_2),
@@ -130,9 +130,9 @@ class CreateBannerForm extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        color: TColors.primary.withOpacity(0.05),
+                        color: TColors.primary.withValues(alpha: 0.05),
                         borderRadius: BorderRadius.circular(Sizes.borderRadiusMd),
-                        border: Border.all(color: TColors.primary.withOpacity(0.2)),
+                        border: Border.all(color: TColors.primary.withValues(alpha: 0.2)),
                       ),
                       child: Row(
                         children: [

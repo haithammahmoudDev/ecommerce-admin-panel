@@ -84,7 +84,7 @@ class DestinationPickerDialog extends StatelessWidget {
 
               return ListView.separated(
                 itemCount: state.filterdItems.length,
-                separatorBuilder: (_, __) => const Divider(height: 1),
+                separatorBuilder: (_, _) => const Divider(height: 1),
                 itemBuilder: (context, index) {
                   final product = state.filterdItems[index];
                   return ListTile(
@@ -98,7 +98,7 @@ class DestinationPickerDialog extends StatelessWidget {
                               width: 40,
                               height: 40,
                               fit: BoxFit.cover,
-                              errorBuilder: (_, __, ___) =>
+                              errorBuilder: (_, _, _) =>
                                   const Icon(Iconsax.image),
                             ),
                           )
@@ -169,7 +169,7 @@ class DestinationPickerDialog extends StatelessWidget {
 
               return ListView.separated(
                 itemCount: filteredSubCategories.length,
-                separatorBuilder: (_, __) => const Divider(height: 1),
+                separatorBuilder: (_, _) => const Divider(height: 1),
                 itemBuilder: (context, index) {
                   final category = filteredSubCategories[index];
 
@@ -184,7 +184,7 @@ class DestinationPickerDialog extends StatelessWidget {
                               width: 40,
                               height: 40,
                               fit: BoxFit.cover,
-                              errorBuilder: (_, __, ___) =>
+                              errorBuilder: (_, _, _) =>
                                   const Icon(Iconsax.image),
                             ),
                           )

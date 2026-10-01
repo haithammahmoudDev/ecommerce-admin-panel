@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
-
 import '../../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../../../../common/widgets/images/t_rounded_image.dart';
 import '../../../../../../utils/constants/colors.dart';
@@ -51,7 +50,7 @@ class EditBannerForm extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: TColors.primaryBackground,
                           borderRadius: BorderRadius.circular(Sizes.borderRadiusLg),
-                          border: Border.all(color: Colors.grey.withOpacity(0.3)),
+                          border: Border.all(color: Colors.grey.withValues(alpha: 0.3)),
                         ),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(Sizes.borderRadiusMd),
@@ -61,7 +60,7 @@ class EditBannerForm extends StatelessWidget {
                             backgroundColor: Colors.transparent,
                             image: hasImage ? state.imageUrl : 'assets/logos/gallery.jpg',
                             imageType: hasImage ? ImageType.network : ImageType.asset,
-                            fit: BoxFit.fill, // تظهر الصورة الافتراضية كاملة بدون قص
+                            fit: hasImage ? BoxFit.cover : BoxFit.fill,
                           ),
                         ),
                       ),
@@ -79,11 +78,10 @@ class EditBannerForm extends StatelessWidget {
           ),
           const SizedBox(height: Sizes.spaceBtwInputFields),
 
-          // Active Switch Container
-          Container(
+           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey.withOpacity(0.3)),
+              border: Border.all(color: Colors.grey.withValues(alpha: 0.3)),
               borderRadius: BorderRadius.circular(Sizes.borderRadiusMd),
             ),
             child: Material(
@@ -94,7 +92,7 @@ class EditBannerForm extends StatelessWidget {
                     title: const Text('Active Status'),
                     subtitle: const Text('Toggle banner visibility'),
                     value: state.isActive,
-                    activeColor: TColors.primary,
+                    activeThumbColor: TColors.primary,
                     onChanged: (value) => context.read<EditBannerCubit>().toggleActive(value),
                   );
                 },
@@ -110,7 +108,7 @@ class EditBannerForm extends StatelessWidget {
             builder: (context, state) {
               final controller = context.read<EditBannerCubit>();
               return DropdownButtonFormField<BannerTargetType>(
-                value: state.targetType,
+                initialValue: state.targetType,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   prefixIcon: Icon(Iconsax.category_2),
@@ -127,8 +125,7 @@ class EditBannerForm extends StatelessWidget {
           ),
           const SizedBox(height: Sizes.spaceBtwInputFields),
 
-          // Dynamic Section based on TargetType
-          BlocBuilder<EditBannerCubit, EditBannerState>(
+           BlocBuilder<EditBannerCubit, EditBannerState>(
             builder: (context, state) {
               if (state.targetType.requiresTarget) {
                 return Column(
@@ -137,9 +134,9 @@ class EditBannerForm extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        color: TColors.primary.withOpacity(0.05),
+                        color: TColors.primary.withValues(alpha: 0.05),
                         borderRadius: BorderRadius.circular(Sizes.borderRadiusMd),
-                        border: Border.all(color: TColors.primary.withOpacity(0.2)),
+                        border: Border.all(color: TColors.primary.withValues(alpha: 0.2)),
                       ),
                       child: Row(
                         children: [
@@ -204,8 +201,7 @@ class EditBannerForm extends StatelessWidget {
             },
           ),
 
-          // Update Button
-          SizedBox(
+           SizedBox(
             width: double.infinity,
             child: ElevatedButton.icon(
               onPressed: () => context.read<EditBannerCubit>().editBanner(context: context, id: banner.id),
