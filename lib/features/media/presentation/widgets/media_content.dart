@@ -1,6 +1,5 @@
 import 'package:ecommerce_admin_pannal/features/media/presentation/controller/media_cubit/media_state.dart';
 import 'package:ecommerce_admin_pannal/features/media/presentation/widgets/view_image_detail.dart';
-import 'package:ecommerce_admin_pannal/utils/popups/exports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -11,6 +10,7 @@ import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/enums.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/device/device_utility.dart';
+import '../../../../utils/popups/loaders.dart';
 import '../../domain/entities/image_entity.dart';
 import '../controller/media_cubit/media_cubit.dart';
 import 'folder_dropdown.dart';
@@ -47,8 +47,7 @@ class MediaContent extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Responsive Header Section
-            !TDeviceUtils.isMobileScreen(context)
+             !TDeviceUtils.isMobileScreen(context)
                 ? Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

@@ -4,11 +4,12 @@ import 'package:ecommerce_admin_pannal/features/categories/domain/repos/category
 import 'package:ecommerce_admin_pannal/features/categories/presentation/controller/category/category_cubit.dart';
 import 'package:ecommerce_admin_pannal/features/media/domain/entities/image_entity.dart';
 import 'package:ecommerce_admin_pannal/features/media/presentation/controller/media_cubit/media_cubit.dart';
-import 'package:ecommerce_admin_pannal/utils/popups/exports.dart';
-import 'package:flutter/cupertino.dart';
+ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../../utils/helpers/network_manager.dart';
+import '../../../../../utils/popups/full_screen_loader.dart';
+import '../../../../../utils/popups/loaders.dart';
 import '../../../data/models/category_model.dart';
 import 'create_category_state.dart';
 

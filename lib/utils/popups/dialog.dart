@@ -11,8 +11,7 @@ class TDialogs {
     Function()? onCancel,
     Function()? onConfirm,
   }) {
-    // Show a confirmation dialog
-    showDialog(
+     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(

@@ -1,22 +1,17 @@
 import 'package:bloc/bloc.dart';
-import 'package:ecommerce_admin_pannal/features/product/domain/entities/product_attribute_entity.dart';
-import 'package:ecommerce_admin_pannal/features/product/domain/entities/product_variation_entity.dart';
 import 'package:ecommerce_admin_pannal/features/product/presentation/controller/product_attributes/product_attributes_cubit.dart';
 import 'package:ecommerce_admin_pannal/features/product/presentation/controller/product_cubit.dart';
 import 'package:ecommerce_admin_pannal/features/product/presentation/controller/product_image/product_image_cubit.dart';
 import 'package:ecommerce_admin_pannal/features/product/presentation/controller/product_variations/prduct_cariations_cubit.dart';
 import 'package:ecommerce_admin_pannal/utils/constants/enums.dart';
-import 'package:ecommerce_admin_pannal/utils/popups/exports.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:meta/meta.dart';
-
-import '../../../../../utils/constants/image_strings.dart';
 import '../../../../../utils/constants/sizes.dart';
 import '../../../../../utils/helpers/network_manager.dart';
+import '../../../../../utils/popups/full_screen_loader.dart';
 import '../../../../../utils/popups/loaders.dart';
 import '../../../../brand/data/models/brand_model.dart';
 import '../../../../brand/domain/entities/brand_entity.dart';
