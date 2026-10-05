@@ -100,7 +100,7 @@ class ProductAdditionalImages extends StatelessWidget {
           const SizedBox(width: Sizes.spaceBtwItems / 2),
       itemBuilder: (context, index) {
         final image = additionalProductImagesURLs[index];
-        return TImageUploader(
+        return ImageUploader(
           top: 0,
           right: 0,
           width: 80,

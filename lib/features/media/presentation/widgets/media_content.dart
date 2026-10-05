@@ -10,6 +10,7 @@ import '../../../../common/widgets/images/t_rounded_image.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/enums.dart';
 import '../../../../utils/constants/sizes.dart';
+import '../../../../utils/device/device_utility.dart';
 import '../../domain/entities/image_entity.dart';
 import '../controller/media_cubit/media_cubit.dart';
 import 'folder_dropdown.dart';
@@ -21,13 +22,16 @@ class MediaContent extends StatelessWidget {
     required this.allowMultipleSelection,
     this.alreadySelectedUrls,
   });
+
   final bool allowSelection;
   final bool allowMultipleSelection;
   final List<String>? alreadySelectedUrls;
   final List<ImageEntity> selectedImages = [];
+
   @override
   Widget build(BuildContext context) {
     bool loadedPreviousSelection = false;
+
     return BlocListener<MediaCubit, MediaState>(
       listener: (context, state) {
         if (state.uploadStatus == MediaUploadStatus.error) {
@@ -43,7 +47,9 @@ class MediaContent extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
+            // Responsive Header Section
+            !TDeviceUtils.isMobileScreen(context)
+                ? Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
@@ -66,6 +72,35 @@ class MediaContent extends StatelessWidget {
                   ],
                 ),
                 if (allowSelection) buildAddSelectedImagesButton(context),
+              ],
+            )
+                : Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      'Select Folder',
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    ),
+                    const SizedBox(width: Sizes.spaceBtwItems),
+                    MediaFolderDropdown(
+                      onChanged: (MediaCategory? newValue) {
+                        if (newValue != null) {
+                          context.read<MediaCubit>().updateSelectedPath(
+                            newValue,
+                          );
+                          context.read<MediaCubit>().getMediaImages();
+                        }
+                      },
+                    ),
+                  ],
+                ),
+                if (allowSelection) ...[
+                  const SizedBox(height: Sizes.spaceBtwItems),
+                  buildAddSelectedImagesButtonWithMobile(context),
+                ],
               ],
             ),
             const SizedBox(height: Sizes.spaceBtwSections),
@@ -92,16 +127,18 @@ class MediaContent extends StatelessWidget {
                   }
                   loadedPreviousSelection = true;
                 }
+
                 if (state.uploadStatus == MediaUploadStatus.loading &&
                     images.isEmpty) {
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(color: Colors.blue),
                   );
                 }
 
                 if (images.isEmpty) {
-                  return _buildEmptyWidget(context);
+                  return _buildEmptyAnimationWidget(context);
                 }
+
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -113,38 +150,38 @@ class MediaContent extends StatelessWidget {
                       children: images
                           .map(
                             (image) => GestureDetector(
-                              onTap: () => showDialog(
-                                context: context,
-                                builder: (_) => ImagePopup(
-                                  image: image,
-                                  cubit: context.read<MediaCubit>(),
-                                ),
-                              ),
-                              child: SizedBox(
-                                width: 140,
-                                height: 180,
-                                child: Column(
-                                  children: [
-                                    allowSelection
-                                        ? _buildListWithCheckbox(image)
-                                        : _buildSimpleList(image),
-                                    Expanded(
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: Sizes.sm,
-                                        ),
-                                        child: Text(
-                                          image.filename,
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ), // Padding
-                                    ), // Expanded
-                                  ],
-                                ), // Column
-                              ), // SizedBox
+                          onTap: () => showDialog(
+                            context: context,
+                            builder: (_) => ImagePopup(
+                              image: image,
+                              cubit: context.read<MediaCubit>(),
                             ),
-                          ) // GestureDetector
+                          ),
+                          child: SizedBox(
+                            width: 140,
+                            height: 180,
+                            child: Column(
+                              children: [
+                                allowSelection
+                                    ? _buildListWithCheckbox(image)
+                                    : _buildSimpleList(image),
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: Sizes.sm,
+                                    ),
+                                    child: Text(
+                                      image.filename,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      )
                           .toList(),
                     ),
                     if (!state.isLoadingMore)
@@ -163,15 +200,15 @@ class MediaContent extends StatelessWidget {
                                     .loadMoreMediaImages(),
                                 label: const Text('Load More'),
                                 icon: const Icon(Iconsax.arrow_down),
-                              ), // ElevatedButton.icon
-                            ), // SizedBox
+                              ),
+                            ),
                           ],
-                        ), // Row
-                      ), // Padding
+                        ),
+                      ),
                   ],
                 );
               },
-            ), // Wrap
+            ),
           ],
         ),
       ),
@@ -206,7 +243,7 @@ class MediaContent extends StatelessWidget {
     return images;
   }
 
-  Widget _buildEmptyWidget(BuildContext context) {
+  Widget _buildEmptyAnimationWidget(BuildContext context) {
     return const Padding(
       padding: EdgeInsets.symmetric(vertical: 48.0),
       child: Center(
@@ -274,6 +311,36 @@ class MediaContent extends StatelessWidget {
     );
   }
 
+  Widget buildAddSelectedImagesButtonWithMobile(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          flex: 2,
+          child: OutlinedButton.icon(
+            label: const Text('Close'),
+            icon: const Icon(Iconsax.close_circle),
+            onPressed: () => context.pop(),
+          ),
+        ),
+        const SizedBox(width: Sizes.spaceBtwItems * 2),
+        Expanded(
+          child: ElevatedButton.icon(
+            label: const Text('Add'),
+            icon: const Icon(Iconsax.image),
+            onPressed: () {
+              final selectedImagesFromCubit = context
+                  .read<MediaCubit>()
+                  .state
+                  .selectedImagesToUpload;
+
+              context.pop(selectedImagesFromCubit);
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget _buildListWithCheckbox(ImageEntity image) {
     return Stack(
       children: [
@@ -292,8 +359,8 @@ class MediaContent extends StatelessWidget {
           child: BlocBuilder<MediaCubit, MediaState>(
             builder: (context, state) {
               final isSelected = state.selectedImagesToUpload.any(
-                (img) =>
-                    (img.id.isNotEmpty && img.id == image.id) ||
+                    (img) =>
+                (img.id.isNotEmpty && img.id == image.id) ||
                     (img.url.isNotEmpty && img.url == image.url),
               );
 

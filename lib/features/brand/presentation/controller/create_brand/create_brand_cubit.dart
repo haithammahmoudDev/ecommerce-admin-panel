@@ -82,8 +82,7 @@ class CreateBrandCubit extends Cubit<CreateBrandState> {
         newRecord.id = brandId;
 
         if (newRecord.id.isEmpty) {
-          // Defensive guard: repo returned success but no usable id.
-          TFullScreenLoader.stopLoading(context);
+           TFullScreenLoader.stopLoading(context);
           TLoaders.errorSnackBar(
             title: 'Oh Snap',
             message: 'Error storing relational data, try again',

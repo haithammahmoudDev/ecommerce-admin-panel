@@ -1,4 +1,3 @@
-import 'package:ecommerce_admin_pannal/common/widgets/images/t_rounded_image.dart';
 import 'package:ecommerce_admin_pannal/common/widgets/shimmers/shimmer.dart';
 import 'package:ecommerce_admin_pannal/features/categories/presentation/controller/category/category_cubit.dart';
 import 'package:ecommerce_admin_pannal/features/categories/presentation/controller/create_category/create_category_cubit.dart';
@@ -6,11 +5,9 @@ import 'package:ecommerce_admin_pannal/features/categories/presentation/controll
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
-
 import '../../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../../../../utils/constants/enums.dart';
 import '../../../../../../utils/constants/sizes.dart';
-import '../../../../../../utils/validators/validation.dart';
 import '../../../../domain/entities/category_entity.dart';
 import 'image_uploader.dart';
 
@@ -100,7 +97,7 @@ class _CreateCategoryFormState extends State<CreateCategoryForm> {
 
             BlocBuilder<CreateCategoryCubit, CreateCategoryState>(
               builder: (context, state) {
-                return TImageUploader(
+                return ImageUploader(
                   width: 80,
                   height: 80,
                   image: state.imageUrl.isNotEmpty ? state.imageUrl : 'assets/images/profile/logo.png',
@@ -112,8 +109,7 @@ class _CreateCategoryFormState extends State<CreateCategoryForm> {
 
             const SizedBox(height: Sizes.spaceBtwInputFields),
 
-            // CheckboxMenuButton
-            BlocBuilder<CreateCategoryCubit, CreateCategoryState>(
+             BlocBuilder<CreateCategoryCubit, CreateCategoryState>(
               builder: (context, state) {
                 return CheckboxMenuButton(
                   value: state.isFeatured,
@@ -125,8 +121,7 @@ class _CreateCategoryFormState extends State<CreateCategoryForm> {
 
             const SizedBox(height: Sizes.spaceBtwInputFields * 2),
 
-            // Create Button
-            SizedBox(
+             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {

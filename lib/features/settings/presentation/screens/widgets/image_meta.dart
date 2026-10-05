@@ -25,7 +25,7 @@ class ImageAndMeta extends StatelessWidget {
                 isLogoLoading: state.isLogoLoading,
                 ),
                 builder: (context, logoData) {
-                   return TImageUploader(
+                   return ImageUploader(
                     right: 10,
                     bottom: 20,
                     left: null,

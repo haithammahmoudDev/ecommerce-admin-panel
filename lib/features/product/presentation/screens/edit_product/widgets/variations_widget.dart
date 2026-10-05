@@ -96,7 +96,7 @@ class ProductVariations extends StatelessWidget {
       title: Text(titleText.isEmpty ? 'Variation ${index + 1}' : titleText),
       children: [
         // Upload Variation Image
-        TImageUploader(
+        ImageUploader(
           right: 0,
           left: null,
           imageType: (variation.image != null && variation.image!.isNotEmpty)

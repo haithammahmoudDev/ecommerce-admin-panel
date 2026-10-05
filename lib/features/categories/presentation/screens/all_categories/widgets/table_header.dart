@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import '../../../../../../utils/device/device_utility.dart'; // تأكد من صحة هذا المسار في مشروعك
+import '../../../../../../utils/device/device_utility.dart';
 
 class TableHeader extends StatelessWidget {
   const TableHeader({
     super.key,
     this.onPressed,
-    this.buttonText = 'Add', // القيمة الافتراضية كما بالفيديو
+    this.buttonText = 'Add',
     this.searchController,
     this.searchOnChanged,
-    this.showLeftWidget = true, // مضافة للتحكم في إظهار الزر
+    this.showLeftWidget = true,
   });
 
   final String buttonText;
@@ -20,25 +20,22 @@ class TableHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return !TDeviceUtils.isMobileScreen(context) ? Row(
       children: [
         Expanded(
           flex: TDeviceUtils.isDesktopScreen(context) ? 3 : 1,
           child: showLeftWidget
-              ? Row(
-            children: [
+              ?
               SizedBox(
                 width: 200,
                 child: ElevatedButton(
                   onPressed: onPressed,
                   child: Text(buttonText),
                 ),
-              ),
-            ],
-          )
-              : const SizedBox.shrink(), // يخفي الزر إذا كانت القيمة false
+              )
+              : const SizedBox.shrink(),
         ),
-
+        !TDeviceUtils.isMobileScreen(context) ? SizedBox(width: 20,) : const SizedBox.shrink(),
         Expanded(
           flex: TDeviceUtils.isDesktopScreen(context) ? 2 : 1,
           child: TextFormField(
@@ -50,6 +47,28 @@ class TableHeader extends StatelessWidget {
             ),
           ),
         ),
+      ],
+    ) : Column(
+      children: [
+        TextFormField(
+          controller: searchController,
+          onChanged: searchOnChanged,
+          decoration: const InputDecoration(
+            hintText: 'Search here...',
+            prefixIcon: Icon(Iconsax.search_normal),
+          ),
+        ),
+        const SizedBox(height: 12,),
+        showLeftWidget
+            ?
+        SizedBox(
+          width: double.infinity,
+          child: ElevatedButton(
+            onPressed: onPressed,
+            child: Text(buttonText),
+          ),
+        )
+            : const SizedBox.shrink(),
       ],
     );
   }

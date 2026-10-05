@@ -1,11 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
-
 import 'package:ecommerce_admin_pannal/common/errors/failure.dart';
 import 'package:ecommerce_admin_pannal/features/categories/data/models/category_model.dart';
-
 import 'package:ecommerce_admin_pannal/features/categories/domain/entities/category_entity.dart';
-
 import '../../../../common/network/firebase/database_services.dart';
 import '../../domain/repos/category_repo.dart';
 
@@ -29,25 +26,14 @@ class CategoryRepoImpl implements CategoryRepo {
     }
   }
 
-  /// FIX: كانت بتمسح الفئة نفسها بس، وتسيب وراها بيانات يتيمة (orphaned):
-  /// - الفئات الفرعية (subcategories) تحتها تفضل موجودة بـ parentId
-  ///   بيشاور على فئة ممسوحة.
-  /// - روابط ProductCategory / BrandCategory المرتبطة بيها تفضل موجودة
-  ///   كـ dead links.
-  ///
-  /// دلوقتي بنستخدم WriteBatch من Firestore مباشرة (مش عن طريق
-  /// DatabaseServices، لأنها مش بتدعم batch عبر أكتر من collection) عشان
-  /// نمسح كل الحاجات المرتبطة مع بعض بشكل آمن (atomic).
   @override
   Future<Either<Failure, void>> deleteCategory(String categoryId) async {
     try {
       final batch = _db.batch();
 
-      // 1. حذف الفئة نفسها
-      batch.delete(_db.collection('categories').doc(categoryId));
+       batch.delete(_db.collection('categories').doc(categoryId));
 
-      // 2. حذف أي فئات فرعية مرتبطة بيها مباشرة (subcategories)
-      final subCategoriesSnapshot = await _db
+       final subCategoriesSnapshot = await _db
           .collection('categories')
           .where('parentId', isEqualTo: categoryId)
           .get();
@@ -55,8 +41,7 @@ class CategoryRepoImpl implements CategoryRepo {
         batch.delete(doc.reference);
       }
 
-      // 3. حذف روابط ProductCategory المرتبطة بالفئة
-      final productLinksSnapshot = await _db
+       final productLinksSnapshot = await _db
           .collection('ProductCategory')
           .where('categoryId', isEqualTo: categoryId)
           .get();
@@ -64,8 +49,7 @@ class CategoryRepoImpl implements CategoryRepo {
         batch.delete(doc.reference);
       }
 
-      // 4. حذف روابط BrandCategory المرتبطة بالفئة
-      final brandLinksSnapshot = await _db
+       final brandLinksSnapshot = await _db
           .collection('BrandCategory')
           .where('CategoryId', isEqualTo: categoryId)
           .get();

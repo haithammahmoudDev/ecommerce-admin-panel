@@ -69,7 +69,7 @@ class _AllBrandsTabletScreenState extends State<AllBrandsTabletScreen> {
                     ),
                   ],
                 ), // Column
-              ), // TRoundedContainer
+              ),
             ],
           ), // Column
         ), // Padding

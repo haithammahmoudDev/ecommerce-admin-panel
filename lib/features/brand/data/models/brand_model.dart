@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import '../../../categories/domain/entities/category_entity.dart';
 import '../../domain/entities/brand_entity.dart';
 
@@ -48,8 +47,7 @@ class BrandModel {
     brandCategories: const [],
   );
 
-  /// Create a Data Model from a Clean Architecture Entity
-  factory BrandModel.fromEntity(BrandEntity? entity) {
+   factory BrandModel.fromEntity(BrandEntity? entity) {
     if (entity == null) return BrandModel.empty();
     return BrandModel(
       id: entity.id,

@@ -11,7 +11,6 @@ class BrandCategoryEntity extends Equatable {
     required this.categoryId,
   });
 
-  /// Empty Helper Function
   static BrandCategoryEntity empty() => const BrandCategoryEntity(
     id: '',
     brandId: '',

@@ -28,6 +28,7 @@ class _CreateBrandFormState extends State<CreateBrandForm> {
     nameController = TextEditingController();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<CreateBrandCubit>();
@@ -39,10 +40,12 @@ class _CreateBrandFormState extends State<CreateBrandForm> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
             // Heading
             const SizedBox(height: Sizes.sm),
-            Text('Create New Brand', style: Theme.of(context).textTheme.headlineMedium),
+            Text(
+              'Create New Brand',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
             const SizedBox(height: Sizes.spaceBtwSections),
 
             // Name Text Field
@@ -57,13 +60,19 @@ class _CreateBrandFormState extends State<CreateBrandForm> {
                 }
                 return null;
               },
-              decoration: const InputDecoration(labelText: 'Brand Name', prefixIcon: Icon(Iconsax.box)),
+              decoration: const InputDecoration(
+                labelText: 'Brand Name',
+                prefixIcon: Icon(Iconsax.box),
+              ),
             ), // TextFormField
             const SizedBox(height: Sizes.spaceBtwInputFields),
 
             // Categories Selection
             // Categories Selection
-            Text('Select Categories', style: Theme.of(context).textTheme.titleMedium),
+            Text(
+              'Select Categories',
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
             const SizedBox(height: Sizes.spaceBtwInputFields / 2),
 
             BlocBuilder<CategoryCubit, BaseDataTableState<CategoryEntity>>(
@@ -75,7 +84,8 @@ class _CreateBrandFormState extends State<CreateBrandForm> {
                       spacing: Sizes.sm,
                       children: categoryState.allItems.map((category) {
                         // 2. التحقق مما إذا كانت الفئة الحالية موجودة في القائمة المحددة
-                        final isSelected = brandState.selectedCategories.contains(category);
+                        final isSelected = brandState.selectedCategories
+                            .contains(category);
 
                         return Padding(
                           padding: const EdgeInsets.only(bottom: Sizes.sm),
@@ -97,36 +107,44 @@ class _CreateBrandFormState extends State<CreateBrandForm> {
 
             // // Image Uploader
             BlocBuilder<CreateBrandCubit, CreateBrandState>(
-             builder: (context, state) {
-              return TImageUploader(
-              height: 80,
-              width: 80,
-              image:state.imageUrl.isNotEmpty ? state.imageUrl :  'assets/images/profile/logo.png',
-                imageType: state.imageUrl.isNotEmpty ? ImageType.network : ImageType.asset,
-              onIconButtonPressed: ()=> context.read<CreateBrandCubit>().pickImage(context),
-            );
-  },
-), // TImageUploader
+              builder: (context, state) {
+                return ImageUploader(
+                  height: 80,
+                  width: 80,
+                  image: state.imageUrl.isNotEmpty
+                      ? state.imageUrl
+                      : 'assets/images/profile/logo.png',
+                  imageType: state.imageUrl.isNotEmpty
+                      ? ImageType.network
+                      : ImageType.asset,
+                  onIconButtonPressed: () =>
+                      context.read<CreateBrandCubit>().pickImage(context),
+                );
+              },
+            ), // TImageUploader
             const SizedBox(height: Sizes.spaceBtwInputFields),
 
             // //Checkbox
             BlocBuilder<CreateBrandCubit, CreateBrandState>(
-  builder: (context, state) {
-    return CheckboxMenuButton(
-              value: state.isFeatured,
-              onChanged: (value)=> context.read<CreateBrandCubit>().toggleFeatured(value),
-              child: const Text('Featured'),
-            );
-  },
-), // CheckboxMenuButton
+              builder: (context, state) {
+                return CheckboxMenuButton(
+                  value: state.isFeatured,
+                  onChanged: (value) =>
+                      context.read<CreateBrandCubit>().toggleFeatured(value),
+                  child: const Text('Featured'),
+                );
+              },
+            ), // CheckboxMenuButton
             const SizedBox(height: Sizes.spaceBtwInputFields * 2),
 
-            // //Button
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                    cubit.createBrand(nameController: nameController, context: context);
+                  cubit.createBrand(
+                    nameController: nameController,
+                    context: context,
+                  );
                 },
                 child: const Text('Create'),
               ),
@@ -135,6 +153,6 @@ class _CreateBrandFormState extends State<CreateBrandForm> {
           ],
         ), // Column
       ), // Form
-    ); // TRoundedContainer
+    );
   }
 }

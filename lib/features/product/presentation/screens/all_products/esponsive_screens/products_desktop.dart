@@ -53,7 +53,7 @@ class _ProductsDesktopScreenState extends State<ProductsDesktopScreen> {
                       searchOnChanged: (query) {
                         context.read<ProductCubit>().searchQuery(query);
                       },
-                    ), // TTableHeading
+                    ), // TableHeading
                     const SizedBox(height: Sizes.spaceBtwItems),
                     BlocBuilder<ProductCubit, BaseDataTableState<ProductEntity>>(
                       builder: (context, state) {

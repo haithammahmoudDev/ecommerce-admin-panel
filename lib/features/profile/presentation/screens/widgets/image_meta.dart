@@ -50,7 +50,7 @@ class _ImageAndMetaState extends State<ImageAndMeta> {
                       state.userDataStatus == UserDataStatus.loading;
                   final bool hasImage = profilePicture.isNotEmpty;
 
-                  return TImageUploader(
+                  return ImageUploader(
                     right: 10,
                     bottom: 20,
                     left: null,

@@ -23,8 +23,7 @@ class ProductAttributesCubit extends Cubit<ProductAttributesState> {
       return;
     }
 
-    // Prepare values from text field input
-    final name = attributeName.text.trim();
+     final name = attributeName.text.trim();
     final valuesList = attributes.text
         .trim()
         .split('|')
@@ -32,26 +31,22 @@ class ProductAttributesCubit extends Cubit<ProductAttributesState> {
         .where((e) => e.isNotEmpty)
         .toList();
 
-    // Create new attribute entity
-    final newAttribute = ProductAttributeEntity(
+     final newAttribute = ProductAttributeEntity(
       name: name,
       values: valuesList,
     );
 
-    // Add Attribute to the List
-    final updatedList =
+     final updatedList =
     List<ProductAttributeEntity>.from(state.productAttributes)
       ..add(newAttribute);
 
     emit(state.copyWith(productAttributes: updatedList));
 
-    // Clear text fields after adding
-    attributeName.clear();
+     attributeName.clear();
     attributes.clear();
   }
 
-  /// Remove attribute with a confirmation dialog
-  void removeAttribute(int index, BuildContext context) {
+   void removeAttribute(int index, BuildContext context) {
     TDialogs.defaultDialog(
       context: context,
       onConfirm: () {
@@ -66,8 +61,7 @@ class ProductAttributesCubit extends Cubit<ProductAttributesState> {
     );
   }
 
-  /// Reset product attributes
-  void resetProductAttributes(List<ProductAttributeEntity> list) {
+   void resetProductAttributes(List<ProductAttributeEntity> list) {
     emit(state.copyWith(productAttributes: list));
   }
 

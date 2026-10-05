@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
-
 import '../../../../../../common/widgets/images/t_rounded_image.dart';
 import '../../../../../../utils/constants/colors.dart';
 import '../../../../../../utils/constants/enums.dart';
@@ -113,7 +112,6 @@ void confirmAndDeleteItem({
       title: const Text('Delete Item'),
       content: const Text('Are you sure you want to delete this item?'),
       actions: [
-        // === Confirm ===
         SizedBox(
           width: 60,
           child: ElevatedButton(
@@ -133,7 +131,6 @@ void confirmAndDeleteItem({
           ),
         ),
 
-        // === Cancel ===
         SizedBox(
           width: 60,
           child: OutlinedButton(

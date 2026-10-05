@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../../../../../common/abstraction/base_data_table/base_data_table_state.dart';
- import '../../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
+import '../../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../../../../utils/constants/sizes.dart';
 import '../../../../domain/entities/category_entity.dart';
 import '../../../controller/category/category_cubit.dart';
@@ -24,11 +23,13 @@ class _CategoriesTabletScreenState extends State<CategoriesTabletScreen> {
     searchController = TextEditingController();
     super.initState();
   }
+
   @override
   void dispose() {
     searchController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     final controller = context.read<CategoryCubit>();
@@ -49,24 +50,27 @@ class _CategoriesTabletScreenState extends State<CategoriesTabletScreen> {
               RoundedContainer(
                 child: Column(
                   children: [
-                    // Table Header
                     TableHeader(
                       buttonText: 'Create New Category',
-                      onPressed: () => context.push('/categories/create-category'),
+                      onPressed: () =>
+                          context.push('/categories/create-category'),
                       searchController: searchController,
-                      searchOnChanged: (query){
+                      searchOnChanged: (query) {
                         controller.searchQuery(query);
                       },
                     ),
                     const SizedBox(height: Sizes.spaceBtwItems),
-
-                    // Table
-                    BlocBuilder<CategoryCubit, BaseDataTableState<CategoryEntity>>(
+                    BlocBuilder<
+                      CategoryCubit,
+                      BaseDataTableState<CategoryEntity>
+                    >(
                       builder: (context, state) {
-                        if(state.status == DataTableStatus.loading) {
-                          return const Center(child: CircularProgressIndicator(
-                            color: Colors.blue,
-                          ));
+                        if (state.status == DataTableStatus.loading) {
+                          return const Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.blue,
+                            ),
+                          );
                         }
                         return const CategoryTable();
                       },
@@ -81,4 +85,3 @@ class _CategoriesTabletScreenState extends State<CategoriesTabletScreen> {
     ); // Scaffold
   }
 }
-

@@ -23,10 +23,10 @@ class SettingsMobileScreen extends StatelessWidget {
 
               const Column(
                 children: [
-                 const ImageAndMeta(),
-                const  SizedBox(height: Sizes.spaceBtwSections),
+                   ImageAndMeta(),
+                   SizedBox(height: Sizes.spaceBtwSections),
 
-                 const SettingsForm(),
+                   SettingsForm(),
                 ],
               ),
             ],

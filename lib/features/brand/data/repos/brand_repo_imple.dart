@@ -4,7 +4,6 @@ import 'package:ecommerce_admin_pannal/common/errors/failure.dart';
 import 'package:ecommerce_admin_pannal/common/network/firebase/database_services.dart';
 import 'package:ecommerce_admin_pannal/features/brand/data/models/brand_model.dart';
 import 'package:ecommerce_admin_pannal/features/brand/domain/entities/brand_entity.dart';
-
 import '../../domain/entities/brand_category_entity.dart';
 import '../../domain/repos/brand_repo.dart';
 import '../models/brand_category.dart';
@@ -37,10 +36,7 @@ class BrandRepoImpl implements BrandRepo {
     }
   }
 
-  /// FIX: كانت بتستعلم بـ 'brandId' (حروف صغيرة)، لكن أسماء الحقول الفعلية في
-  /// Firestore (والتي يعتمد عليها تطبيق الموبايل أيضاً) هي 'BrandId' بحرف كبير.
-  /// كان هذا يجعل الدالة ترجع قائمة فارغة دائماً لأي براند قديم، ما يتسبب في
-  /// إعادة إنشاء روابط مكررة بأسماء حقول مختلفة كل مرة يتم فيها تعديل البراند.
+
   @override
   Future<Either<Failure, List<BrandCategoryEntity>>> getCategoriesOfSpecificBrand(String brandId) async {
     try {

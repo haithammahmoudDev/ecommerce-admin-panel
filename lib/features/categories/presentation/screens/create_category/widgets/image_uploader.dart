@@ -9,8 +9,8 @@ import '../../../../../../utils/constants/colors.dart';
 import '../../../../../../utils/constants/sizes.dart';
 
 /// Widget for uploading images with optional editing functionality
-class TImageUploader extends StatelessWidget {
-  const TImageUploader({
+class ImageUploader extends StatelessWidget {
+  const ImageUploader({
     super.key,
     this.image,
     this.onIconButtonPressed,
@@ -27,50 +27,37 @@ class TImageUploader extends StatelessWidget {
     this.loading = false,
   });
 
-  /// Whether to display the loading instead of icon
   final bool loading;
 
-  /// Whether to display the image in a circular shape
   final bool circular;
 
-  /// URL or path of the image to display
   final String? image;
 
-  /// Memory image data bytes (e.g., Uint8List)
   final dynamic memoryImage;
 
   /// Width of the image uploader widget
   final double width;
 
-  /// Height of the image uploader widget
   final double height;
 
-  /// Type of image (Network, Asset, File, etc.)
   final ImageType imageType;
 
-  /// Icon data for the edit button
   final IconData icon;
 
-  /// Offset from the top edge of the widget
   final double? top;
 
-  /// Offset from the bottom edge of the widget
   final double? bottom;
 
-  /// Offset from the right edge of the widget
   final double? right;
 
-  /// Offset from the left edge of the widget
   final double? left;
 
-  /// Callback function for when the icon button is pressed
   final void Function()? onIconButtonPressed;
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        // Display the image in either circular or rounded shape
         !circular
             ? RoundedImage(
           image: image,
@@ -79,16 +66,15 @@ class TImageUploader extends StatelessWidget {
           imageType: imageType,
           memoryImage: memoryImage,
           backgroundColor: TColors.primaryBackground,
-        ) // // TRoundedImage
+        )
             : TCircularImage(
           image: image,
           width: width,
           height: height,
           imageType: imageType ,
           backgroundColor: TColors.primaryBackground,
-        ), // // TCircularImage
+        ),
 
-        // Display the edit icon button on top of the image
         Positioned(
           top: top,
           left: left,
@@ -103,15 +89,15 @@ class TImageUploader extends StatelessWidget {
               backgroundColor: TColors.primary,
               color: Colors.blue,
             ),
-          ) // // TCircularContainer
+          )
               : TCircularIcon(
             icon: icon,
             size: Sizes.md,
             color: Colors.white,
             onPressed: onIconButtonPressed,
             backgroundColor: TColors.primary.withOpacity(0.9),
-          ), // // TCircularIcon
-        ), // // Positioned
+          ),
+        ),
       ],
     );
   }

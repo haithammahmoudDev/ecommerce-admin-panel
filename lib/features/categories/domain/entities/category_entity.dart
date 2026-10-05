@@ -4,13 +4,12 @@ class CategoryEntity {
   final String id;
   final String name;
   final String image;
-  final bool isFeatured; // 1. تم تحويلها إلى final لتصبح القيمة ثابتة
+  final bool isFeatured;
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final String parentId;
 
-  // 2. تم إضافة كلمة const هنا قبل اسم دالة البناء
-  const CategoryEntity({
+   const CategoryEntity({
     required this.name,
     required this.image,
     this.isFeatured = false,
@@ -40,8 +39,7 @@ class CategoryEntity {
     );
   }
 
-  // 3. الآن ستعمل هذه النسخة الثابتة بدون أي مشاكل أو أخطاء
-  static const CategoryEntity empty = CategoryEntity(
+   static const CategoryEntity empty = CategoryEntity(
     id: '',
     name: '',
     image: '',

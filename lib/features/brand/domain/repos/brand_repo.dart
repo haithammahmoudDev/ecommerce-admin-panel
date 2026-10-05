@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-
 import '../../../../common/errors/failure.dart';
 import '../../data/models/brand_category.dart';
 import '../../data/models/brand_model.dart';

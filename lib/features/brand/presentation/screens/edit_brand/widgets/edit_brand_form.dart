@@ -100,7 +100,7 @@ class _EditBrandFormState extends State<EditBrandForm> {
 
             BlocBuilder<EditBrandCubit, EditBrandState>(
               builder: (context, state) {
-                return TImageUploader(
+                return ImageUploader(
                   height: 80,
                   width: 80,
                   image: state.imageUrl.isEmpty

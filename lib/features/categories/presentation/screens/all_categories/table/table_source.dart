@@ -17,7 +17,6 @@ class CategoryTable extends StatelessWidget {
         final cubit = context.read<CategoryCubit>();
 
         return CustomPaginatedTable(
-          // Set index to 0 for Category column by default if not set
           sortColumnIndex: state.sortColumnIndex,
           sortAscending: state.sortAscending,
           minWidth: 700,

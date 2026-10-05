@@ -121,7 +121,7 @@ class _EditCategoryFormState extends State<EditCategoryForm> {
             const SizedBox(height: Sizes.spaceBtwInputFields * 2),
             BlocBuilder<EditCategoryCubit, EditCategoryState>(
               builder: (context, state) {
-                return TImageUploader(
+                return ImageUploader(
                   width: 80,
                   height: 80,
                   image: state.imageUrl.isNotEmpty
@@ -132,7 +132,7 @@ class _EditCategoryFormState extends State<EditCategoryForm> {
                       context.read<EditCategoryCubit>().pickImage(context),
                 );
               },
-            ), // TImageUploader
+            ),
             const SizedBox(height: Sizes.spaceBtwInputFields),
 
             BlocBuilder<EditCategoryCubit, EditCategoryState>(

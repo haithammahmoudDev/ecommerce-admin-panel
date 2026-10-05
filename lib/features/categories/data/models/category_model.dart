@@ -42,10 +42,6 @@ class CategoryModel {
     };
   }
 
-  // FIX: parentId و isFeatured كانوا بدون fallback (?? '' / ?? false)،
-  // فلو جاءت القيمة null من الـ json كان بيرمي Exception وقت التشغيل
-  // (type 'Null' is not a subtype of type 'String'/'bool'). دلوقتي
-  // متسقة مع fromFirebaseJson تحتها.
   factory CategoryModel.fromJson(Map<String, dynamic> json) {
     return CategoryModel(
       id: json['id'] ?? '',

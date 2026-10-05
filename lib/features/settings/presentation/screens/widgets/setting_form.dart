@@ -6,7 +6,6 @@ import '../../../../../../utils/constants/sizes.dart';
 import '../../../../../../utils/validators/validation.dart';
 import '../../../../../common/widgets/custom_shapes/containers/rounded_container.dart';
 import '../../../../../utils/popups/loaders.dart';
-import '../../../../categories/presentation/screens/create_category/widgets/image_uploader.dart';
 import '../../controller/settings_cubit/settings_cubit.dart';
 
 class SettingsForm extends StatefulWidget {
@@ -23,7 +22,7 @@ class _SettingsFormState extends State<SettingsForm> {
     final cubit = context.read<SettingsCubit>();
 
     return RoundedContainer(
-      padding: const EdgeInsets.symmetric(vertical: Sizes.lg, horizontal: Sizes.md),
+      padding: const EdgeInsets.symmetric(vertical: Sizes.lg / 2, horizontal: Sizes.md / 2),
       child: BlocListener<SettingsCubit, SettingsState>(
         listener: (context, state) {
           if (state.status == SettingsStatus.success) {
@@ -54,8 +53,7 @@ class _SettingsFormState extends State<SettingsForm> {
               ),
               const SizedBox(height: Sizes.spaceBtwInputFields),
 
-              // Tax, Shipping, & Free Shipping Threshold Row
-              Row(
+               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
@@ -70,7 +68,7 @@ class _SettingsFormState extends State<SettingsForm> {
                       ),
                     ),
                   ),
-                  const SizedBox(width: Sizes.spaceBtwItems),
+                  const SizedBox(width: Sizes.spaceBtwItems + 5),
                   Expanded(
                     child: TextFormField(
                       controller: cubit.shippingController,
@@ -83,26 +81,20 @@ class _SettingsFormState extends State<SettingsForm> {
                       ),
                     ),
                   ),
-                  const SizedBox(width: Sizes.spaceBtwItems),
-                  Expanded(
-                    child: TextFormField(
-                      controller: cubit.freeShippingThresholdController,
-                      keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                      validator: (value) => Validator.validateEmptyText('Free Shipping Threshold', value),
-                      decoration: const InputDecoration(
-                        hintText: 'Free Shipping After (\$)',
-                        label: Text('Free Shipping Threshold (\$)'),
-                        prefixIcon: Icon(Iconsax.ship),
-                      ),
+                  ]
+              ),
+              const SizedBox(height: Sizes.spaceBtwItems + 5),
+                  TextFormField(
+                    controller: cubit.freeShippingThresholdController,
+                    keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                    validator: (value) => Validator.validateEmptyText('Free Shipping Threshold', value),
+                    decoration: const InputDecoration(
+                      hintText: 'Free Shipping After (\$)',
+                      label: Text('Free Shipping Threshold (\$)'),
+                      prefixIcon: Icon(Iconsax.ship),
                     ),
                   ),
-                ],
-              ),
               const SizedBox(height: Sizes.spaceBtwInputFields * 2),
-
-              // ---------------------------------------------------------------
-              // SELECTOR #2: Form Submit Button Loading State (Isolated Rebuild)
-              // ---------------------------------------------------------------
               BlocSelector<SettingsCubit, SettingsState, bool>(
                 selector: (state) => state.isFormLoading,
                 builder: (context, isFormLoading) {

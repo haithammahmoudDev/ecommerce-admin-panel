@@ -21,6 +21,7 @@ class Sidebar extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
+              const SizedBox(width: 10),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [

@@ -70,7 +70,7 @@ class _AllBrandsDesktopScreenState extends State<AllBrandsDesktopScreen> {
                     ),
                   ],
                 ), // Column
-              ), // TRoundedContainer
+              ),
             ],
           ), // Column
         ), // Padding

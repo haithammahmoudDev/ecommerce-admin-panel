@@ -70,8 +70,7 @@ class ProductImagesCubit extends Cubit<ProductImagesState> {
     emit(state.copyWith(additionalProductImagesUrls: urls));
   }
 
-  /// Function to remove Product image
-  Future<void> removeImage(int index) async {
+   Future<void> removeImage(int index) async {
     final updatedList = List<String>.from(state.additionalProductImagesUrls)
       ..removeAt(index);
 

@@ -10,7 +10,6 @@ class BrandEntity {
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
-  // 1. أعدنا كلمة final هنا لحماية البيانات
   List<CategoryEntity>? brandCategories;
 
   BrandEntity({
@@ -24,7 +23,6 @@ class BrandEntity {
     this.brandCategories,
   });
 
-  // 2. دالة الـ copyWith الخاصة بالـ Entity
   BrandEntity copyWith({
     String? id,
     String? name,

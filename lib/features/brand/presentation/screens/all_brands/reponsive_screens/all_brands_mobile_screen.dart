@@ -69,7 +69,7 @@ class _AllBrandsMobileScreenState extends State<AllBrandsMobileScreen> {
                     ),
                   ],
                 ), // Column
-              ), // TRoundedContainer
+              ),
             ],
           ), // Column
         ), // Padding

@@ -67,7 +67,7 @@ class _ProductsTabletScreenState extends State<ProductsTabletScreen> {
                     ),
                   ],
                 ), // Column
-              ), // TRoundedContainer
+              ), // RoundedContainer
             ],
           ), // Column
         ), // Padding
